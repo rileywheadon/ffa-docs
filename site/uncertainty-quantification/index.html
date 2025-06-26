@@ -59,6 +59,8 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../eda/">Exploratory Data Analysis</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../distributions/">Probability Distributions</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../model-selection/">Model Selection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../parameter-estimation/">Parameter Estimation</a>
@@ -68,10 +70,6 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Uncertainty Quantification</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#sample-bootstrap">Sample Bootstrap</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#handling-non-stationarity">Handling Non-Stationarity</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#regula-falsi-profile-likelihood-rfpl">Regula-Falsi Profile Likelihood (RFPL)</a>
         <ul>
@@ -79,15 +77,11 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#iteration-algorithm">Iteration Algorithm</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#handling-non-stationarity_1">Handling Non-Stationarity</a>
-    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#regula-falsi-generalized-profile-likelihood-rfgpl">Regula-Falsi Generalized Profile Likelihood (RFGPL)</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#handling-non-stationarity_2">Handling Non-Stationarity</a>
     </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#handling-non-stationarity">Handling Non-Stationarity</a>
     </li>
     </ul>
                   </li>
@@ -135,8 +129,8 @@
 <p>The FFA framework implements three methods for uncertainty quantification: </p>
 <ol>
 <li>Sample bootstrap</li>
-<li>Regula-Falsi profile likelihood (RFPL)</li>
-<li>Regula-Falsi generalized profile likelihood (RFGPL)</li>
+<li>Regula-falsi profile likelihood (RFPL)</li>
+<li>Regula-falsi generalized profile likelihood (RFGPL)</li>
 </ol>
 <h2 id="sample-bootstrap">Sample Bootstrap</h2>
 <p>The sample bootstrap is a flexible method for uncertainty quantification that works with all probability models and parameter estimation methods. Let <span class="arithmatex">\(n\)</span> be the size of the original dataset.</p>
@@ -144,13 +138,8 @@
 <li>Draw <span class="arithmatex">\(N_{\text{sim}}\)</span> bootstrap samples of size <span class="arithmatex">\(n\)</span> from the selected probability distribution.</li>
 <li>Fit a probability distribution to each bootstrap sample using the same <a href="../model-selection/">model selection method</a> and <a href="../parameter-estimation/">parameter estimation method</a> that was used to generate the original distribution.</li>
 <li>Compute the quantiles for each of the bootstrapped distributions. </li>
-<li>Generate confidence intervals using the mean and variance of the bootstrapped quantiles .</li>
+<li>Generate confidence intervals using the mean and variance of the bootstrapped quantiles.</li>
 </ol>
-<h3 id="handling-non-stationarity">Handling Non-Stationarity</h3>
-<p>If the selected probability distribution is non-stationary, the quantiles for the bootstrapped distributions change in time.
-Therefore, the confidence intervals vary with time as well.
-Luckily, it is computationally inexpensive to determine the set of confidence intervals from the bootstrap distributions.
-Therefore, the FFA framework will report the confidence intervals for <em>all years</em> in the dataset by default when using the sample bootstrap quantification method.</p>
 <h2 id="regula-falsi-profile-likelihood-rfpl">Regula-Falsi Profile Likelihood (RFPL)</h2>
 <p>Consider a statistical model with parameters <span class="arithmatex">\((\theta, \psi_{1}, \dots, \psi_{n})\)</span>.
 The <strong>Profile Likelihood</strong> for the scalar parameter <span class="arithmatex">\(\theta\)</span> and vector of nuisance parameters <span class="arithmatex">\(\psi\)</span> is defined as:</p>
@@ -197,15 +186,16 @@ c_{i} = \frac{a_{i-1}f(b_{i-1}) - b_{i-1}f(a_{i-1})}{f(b_{i-1}) - f(a_{i-1})}
 <p>Evaluate <span class="arithmatex">\(\ell_{p}(c_{i})\)</span> by maximizing over the nuisance parameters <span class="arithmatex">\(\psi\)</span>, then find <span class="arithmatex">\(f(c_{i})\)</span>.</p>
 <p>If <span class="arithmatex">\(|f(c_{i})| &lt; \epsilon\)</span> (where <span class="arithmatex">\(\epsilon\)</span> is small), then stop. <span class="arithmatex">\(c_{i}\)</span> is the confidence interval bound.</p>
 <p>Otherwise, assign <span class="arithmatex">\(a_{i} = c_{i}\)</span> if <span class="arithmatex">\(f(c_{i}) &lt; 0\)</span> and <span class="arithmatex">\(b_{i} = c_{i}\)</span> if <span class="arithmatex">\(f(c_{i}) &gt; 0\)</span> and continue to iteration <span class="arithmatex">\(i + 1\)</span>.</p>
-<h3 id="handling-non-stationarity_1">Handling Non-Stationarity</h3>
-<p>Under non-stationarity, the quantiles <span class="arithmatex">\(y(t)\)</span> vary with time. 
-Therefore, we must execute the RFPL algorithm individually for each timestamp of interest.
-This can be quite computationally expensive, so the FFA framework defaults to running the RFPL algorithm on the <em>last year</em> in the dataset.</p>
 <h2 id="regula-falsi-generalized-profile-likelihood-rfgpl">Regula-Falsi Generalized Profile Likelihood (RFGPL)</h2>
 <p>The regula-falsi generalized profile likelihood (RFGPL) method performs the regula-falsi algorithm shown above on the GEV distributions with a <span class="arithmatex">\(\text{Beta}(p, q)\)</span> prior for the shape parameter <span class="arithmatex">\(\kappa\)</span>.
 For more information about generalized parameter estimation, see <a href="../parameter-estimation/#generalized-maximum-likelihood-gmle">here</a>.</p>
-<h3 id="handling-non-stationarity_2">Handling Non-Stationarity</h3>
-<p>See the section for the RFPL method.</p>
+<h2 id="handling-non-stationarity">Handling Non-Stationarity</h2>
+<p>If the selected probability distribution is non-stationary, the quantiles (and hence confidence intervals) for the bootstrapped distributions change in time.
+See <a href="../frequency-analysis/#handling-non-stationarity">here</a> for a more detailed discussion of this idea.
+By default, the FFA framework anchors uncertainty analysis at the <em>last</em> year of the dataset. 
+However, <a href="../model-assessment/">model assessment</a> requires confidence intervals for <em>every</em> year in the dataset.</p>
+<p><strong>Note</strong>: The sample bootstrap algorithm is the fastest algorithm for computing confidence intervals on all years in a dataset because the probabilities used to generate the bootstrapped samples can be reused.
+The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.</p>
               
             </div>
           </div><footer>

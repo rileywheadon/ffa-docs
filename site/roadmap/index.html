@@ -59,6 +59,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../eda/">Exploratory Data Analysis</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../distributions/">Probability Distributions</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../model-selection/">Model Selection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../parameter-estimation/">Parameter Estimation</a>
@@ -78,13 +80,7 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#cran-package">CRAN Package</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#api">API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#internal-helper-functions">Internal Helper Functions</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#todo">Todo</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-of-functions">List of Functions</a>
+    <li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a>
     </li>
         </ul>
     </li>
@@ -130,115 +126,359 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="roadmap">Roadmap</h1>
-<h2 id="cran-package">CRAN Package</h2>
-<h3 id="api">API</h3>
-<p><code>llv</code> (i.e. <code>llvgum</code> or <code>llvgev110</code>): Computes the log-likelihood value. </p>
-<ul>
-<li>If the distribution is stationary, takes <code>(data, params)</code>.</li>
-<li>If the distribution is non-stationary, takes <code>(data, params, years)</code>.</li>
-<li>Makes call to <code>llvxxx</code> helper.</li>
-</ul>
-<p><code>gll</code> (i.e. <code>gllgev100</code>): Computes the generalized log-likelihood given <code>(data, params, prior)</code>.</p>
-<ul>
-<li>If the distribution is stationary, takes <code>(data, params, prior)</code>.</li>
-<li>If the distribution is non-stationary, takes <code>(data, params, prior, years)</code>.</li>
-<li>Makes call to <code>gllxxx</code> helper.</li>
-</ul>
-<p><code>qnt</code> (i.e. <code>qntpe3</code> or <code>qntlno11</code>): Computes the quantile from an exceedance probability.</p>
-<ul>
-<li>If the distribution is stationary, takes <code>(pe, params)</code></li>
-<li>If the distribution is non-stationary, takes <code>(pe, params, year)</code></li>
-</ul>
-<p><code>lmr</code> (i.e. <code>lmrwei</code> or <code>lmrgno</code>): Computes the first four L-moments given <code>(params)</code>.</p>
-<p><code>pel</code> (i.e. <code>pellp3</code> or <code>pelnor</code>): Computes the parameters given <code>(lmom)</code></p>
-<h3 id="internal-helper-functions">Internal Helper Functions</h3>
-<p><code>qntxxx</code>: <code>(model, pe, params, years)</code>. Computes the quantile. </p>
-<p><code>llvxxx</code>: <code>(model, data, params)</code>. All of the log-likelihood logic is here.</p>
-<p><code>gllxxx</code>: <code>(model, data, params, prior)</code>. Call <code>llvxxx</code>, add additional term for the prior.</p>
-<p><code>lmrxxx</code>: Implementations of <code>lmom</code> library.</p>
-<p><code>pelxxx</code>: Implementations of <code>lmom</code> library.</p>
-<h3 id="todo">Todo</h3>
-<p><strong>Priority #1</strong>: Make slides.</p>
-<p>Then, go through each function:</p>
-<ul>
-<li>Carefully write/edit/read documentation.</li>
-<li>Update the website with the contents of the file.</li>
-<li>Add additional tests to cover edge cases.</li>
-<li>Ensure all tests are passing.</li>
-</ul>
 <p>Preparing for CRAN:</p>
 <ul>
-<li>Ensure all tests are passing.</li>
-<li>Carefully edit documentation.</li>
 <li>Ensure CRAN check is passing.</li>
-<li>Update the list of functions below.</li>
-<li>Remove <code>Rcpp</code> dependency.</li>
-<li>Make the <code>xxx</code> functions fast, do argument validation in the distribution functions.</li>
+<li>Regenerate PDF documentation, add to website.</li>
+<li>Commit package and documentation to Github.</li>
+</ul>
+<p>Package Installation:</p>
+<ul>
+<li>Run a test install of the package, write documentation.</li>
+<li>Write CLI configuration documentation.</li>
+<li>Test and build the rest of the CLI.</li>
+</ul>
+<h2 id="cran-package">CRAN Package</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Roxygen2</th>
+<th>Website</th>
+<th>Tested</th>
+<th>Validated</th>
+<th>Covered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ams-decomposition.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>assessment-plot.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>bbmk-plot.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>bbmk-test.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>gll-functions.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+</tr>
+<tr>
+<td>kpss-test.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ld-selection.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>lk-selection.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>llv-functions.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+</tr>
+<tr>
+<td>lmom-plot.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>lmom-sample.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>lmr-functions.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>mks-plot.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>mks-test.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>mk-test.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>mle-estimation.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>model-assessment.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>mw-variance.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>pel-functions.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>pelkap.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>pettitt-plot.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>pettitt-test.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>pp-test.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>qnt-functions.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>rfpl-uncertainty.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>runs-plot.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>runs-test.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sb-uncertainty.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sens-plot.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sens-trend.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>spearman-plot.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>spearman-test.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>uncertainty-plot.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>white-test.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>z-selection.R</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Features:</p>
+<ul>
 <li>Add support for custom plot labels using an optional argument.</li>
+<li>Implement models with variance-only trends.</li>
+<li>Use 2-parameter Weibull for <code>rfpl-uncertainty</code>, reparamaterized on <span class="arithmatex">\(\sigma\)</span>.</li>
 </ul>
-<p>There is an issue in <code>rfpl-uncertainty</code> for the Weibull distribution:</p>
+<p>Touch-ups:</p>
 <ul>
-<li>When finding the upper confidence interval we iteratively adjust <code>yp</code> up until <code>f &lt; 0</code>.</li>
-<li>This iterative process drives <code>u</code> upwards through the reparameterization.</li>
-<li>Sometimes the <code>yp</code> value required to get <code>f &lt; 0</code> causes <code>data &gt; u</code> for a point.</li>
-<li>Then, the Weibull distribution has no support and it blows up.</li>
+<li>Replace <code>nlminb</code> with <code>optim</code>, update documentation.</li>
+<li>Ensure that all references are to Hosking, 1997 (not 1996).</li>
+<li>Add parameter validation to <em>every</em> function.</li>
+<li>Achieve 100% code coverage using the <code>covr</code> library.</li>
 </ul>
-<h3 id="list-of-functions">List of Functions</h3>
-<p>Helper functions:</p>
+<h3 id="notes">Notes</h3>
+<p>Local Installation:</p>
 <ul>
-<li><code>mw.variance</code></li>
-<li><code>get.distributions</code></li>
-<li><code>get.covariates</code></li>
+<li><code>devtools::install("~/Code/ffa-package/")</code></li>
 </ul>
-<p>EDA:</p>
+<p>Package checking:</p>
 <ul>
-<li><code>pettitt.test</code></li>
-<li><code>mks.test</code></li>
-<li><code>mk.test</code></li>
-<li><code>spearman.test</code></li>
-<li><code>bbmk.test</code></li>
-<li><code>pp.test</code></li>
-<li><code>kpss.test</code></li>
-<li><code>runs.test</code></li>
-<li><code>white.test</code></li>
-<li><code>sens.trend</code></li>
+<li><code>devtools::check()</code></li>
+<li><code>devtools::check(cran = TRUE)</code></li>
 </ul>
-<p>Likelihood Functions:</p>
+<p>Documentation:</p>
 <ul>
-<li><code>likelihood</code></li>
-<li><code>generalized.likelihood</code></li>
-<li><code>fixed.likelihood</code></li>
-<li><code>reparameterized.likelihood</code></li>
+<li><code>devtools::document()</code>: generate docmentation</li>
+<li><code>devtools::build_manual(path = "~/Code/ffa-package")</code>: generate manual</li>
 </ul>
-<p>FFA:</p>
+<p>Unit testing:</p>
 <ul>
-<li><code>ld.selection</code></li>
-<li><code>lk.selection</code></li>
-<li><code>z.selection</code></li>
-<li><code>lmom.estimation</code></li>
-<li><code>mle.estimation</code></li>
-<li><code>gmle.estimation</code></li>
-<li><code>sb.uncertainty</code></li>
-<li><code>rfpl.uncertainty</code></li>
-<li><code>rfgpl.uncertainty</code></li>
-<li><code>model.assessment</code></li>
+<li><code>devtools::test()</code>: run all unit tests</li>
+<li><code>devtools::test_file("tests/testthat/...")</code>: run a specific unit test</li>
 </ul>
-<p>Plotting:</p>
-<ul>
-<li><code>mks.plot</code></li>
-<li><code>bbmk.plot</code></li>
-<li><code>pettitt.plot</code></li>
-<li><code>runs.plot</code></li>
-<li><code>spearman.plot</code></li>
-<li><code>lmom.plot</code></li>
-<li><code>uncertainty.plot</code></li>
-<li><code>assessment.plot</code></li>
-</ul>
+<p>Generating a coverage report:</p>
+<pre><code>cov &lt;- covr::package_coverage()
+covr::report(cov, file = &quot;coverage.html&quot;)
+</code></pre>
 <h2 id="command-line-interface">Command Line Interface</h2>
 <p><strong>Exploratory Data Analysis</strong>: Complete.</p>
 <p><strong>Flood Frequency Analysis</strong>: In progress.</p>
 <h2 id="api-development">API Development</h2>
-<p>Link: <a href="https://www.youtube.com/watch?v=t-Is-8Qfym0">Building APIs with R</a></p>
+<p>Talk to Kasra about cloud hosting for API.</p>
+<ul>
+<li>Finish CRAN/CLI/GeoMet by July 10th
+  Link: <a href="https://www.youtube.com/watch?v=t-Is-8Qfym0">Building APIs with R</a></li>
+</ul>
 <p>Need to learn:</p>
 <ul>
 <li>OpenAPI</li>
@@ -264,7 +504,7 @@
 </ul>
 <p>Get a list of stations with (<code>hydrometric-stations/items</code>)</p>
 <h2 id="web-app">Web App</h2>
-<p>Use Flaks/HTML/CSS with leaflet.js</p>
+<p>Use Flask/HTML/CSS with leaflet.js</p>
 <h2 id="further-research">Further Research</h2>
 <p>Read through papers on different NS metrics and possibly implement them:</p>
 <ul>
@@ -274,6 +514,12 @@
 <li>R: Read &amp; Vogel, 2015; Salas &amp; Obeysekera, 2014; Serinaldi &amp; Kilsby, 2015</li>
 <li>DLL: Rootzen &amp; Katz, 2013</li>
 <li>ADLL: Yan et al. 2017</li>
+</ul>
+<p>Outreach:</p>
+<ul>
+<li>Run workshops in August/September</li>
+<li>Write 10-page report by end of summer</li>
+<li>Develop training material</li>
 </ul>
               
             </div>

@@ -59,11 +59,15 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../eda/">Exploratory Data Analysis</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../distributions/">Probability Distributions</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Model Selection</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#an-introduction-to-l-moments">An Introduction to L-Moments</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example-plot">Example Plot</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#list-of-candidate-distributions">List of Candidate Distributions</a>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#selection-metrics">Selection Metrics</a>
         <ul>
@@ -135,8 +139,7 @@
               
                 <h1 id="model-selection">Model Selection</h1>
 <p>Our framework uses the method of L-moment ratios to choose a suitable probability model for frequency analysis.
-This technique involves comparing the L-moments of the data with the known L-moments of various probability distributions.
-The CRAN package <a href="https://cran.r-project.org/web/packages/lmom/index.html">lmom</a> is used extensively in this portion of the framework.</p>
+This technique involves comparing the L-moments of the data with the known L-moments of various probability distributions.</p>
 <h2 id="an-introduction-to-l-moments">An Introduction to L-Moments</h2>
 <p><strong>Definition</strong>: The <strong><span class="arithmatex">\(k\)</span>-th Order Statistic</strong> of a statistical sample is its <span class="arithmatex">\(k\)</span>-th smallest value.</p>
 <p><strong>Definition</strong>: The <strong><span class="arithmatex">\(r\)</span>-th Population L-moment</strong> <span class="arithmatex">\(\lambda_{r}\)</span> is a linear combination of the expectation of the order statistics. Let <span class="arithmatex">\(X_{k:n}\)</span> be the <span class="arithmatex">\(k\)</span>-th order statistic from a sample of size <span class="arithmatex">\(n\)</span>. Then,</p>
@@ -168,63 +171,23 @@ t_{3} &amp;= l_{3} / l_{2} \\
 t_{4} &amp;= l_{4} / l_{2}
 \end{aligned}
 \]</div>
-<p>Then, we compare these statistics to their theoretical values to select a distribution.</p>
-<h2 id="list-of-candidate-distributions">List of Candidate Distributions</h2>
-<table>
-<thead>
-<tr>
-<th>Distribution</th>
-<th>Abbreviation</th>
-<th>Number of Parameters</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Generalized Extreme Value</td>
-<td>GEV</td>
-<td>3</td>
-</tr>
-<tr>
-<td>Gumbel<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></td>
-<td>GUM</td>
-<td>2</td>
-</tr>
-<tr>
-<td>(Log) Normal</td>
-<td>NOR/LNO</td>
-<td>2</td>
-</tr>
-<tr>
-<td>Generalized Logistic</td>
-<td>GLO</td>
-<td>3</td>
-</tr>
-<tr>
-<td>(Log) Pearson Type III</td>
-<td>PE3/LP3</td>
-<td>3</td>
-</tr>
-<tr>
-<td>Generalized Normal</td>
-<td>GNO</td>
-<td>3</td>
-</tr>
-<tr>
-<td>Weibull</td>
-<td>WEI</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-<p>The four-parameter kappa distribution (K4D), generalizes all ten of the distributions above.</p>
-<p><strong>Note</strong>: Probability distributions with less than three parameters have constant L-skewness <span class="arithmatex">\(\tau_{3}\)</span> and L-kurtosis <span class="arithmatex">\(\tau_{4}\)</span> regardless of their parameters. The L-skewness and L-kurtosis of probability distributions with three parameters is a function of the shape parameter <span class="arithmatex">\(\kappa\)</span>.</p>
+<p>Then, we compare these statistics, specifically the L-skewness and L-kurtosis to their theoretical values (given <a href="../distributions/">here</a>) using one of three different metrics to select a distribution.</p>
+<p><strong>Note</strong>: Probability distributions with less than three parameters have constant L-skewness <span class="arithmatex">\(\tau_{3}\)</span> and L-kurtosis <span class="arithmatex">\(\tau_{4}\)</span> regardless of their parameters.
+The L-skewness and L-kurtosis of probability distributions with three parameters is a function of the shape parameter <span class="arithmatex">\(\kappa\)</span>.
+The notation <span class="arithmatex">\(\tau_{3}(\kappa)\)</span> and <span class="arithmatex">\(\tau_{4}(\kappa)\)</span> refers to the L-skewness and L-kurtosis <em>curves</em> for the three parameter distributions.</p>
+<h3 id="example-plot">Example Plot</h3>
+<p>Shown below are the L-moment curves of the <code>GEV</code>,<code>GLO</code>,<code>GNO</code>,<code>PE3</code>/<code>LP3</code>, and <code>WEI</code> distributions.
+The L-moment ratios of the two parameter distributions <code>GUM</code> and <code>NOR</code>/<code>LNO</code>.
+This example uses the "L-distance" selection metric.
+The zoomed-in region shows that the GEV distribution is most similar to the sample L-moments.</p>
+<p><img alt="" src="../img/plot-lmom.png" /></p>
 <h2 id="selection-metrics">Selection Metrics</h2>
 <h3 id="l-distance">L-Distance</h3>
 <p>Compare the euclidean distance between the sample L-skewness and sample L-kurtosis <span class="arithmatex">\((t_{3}, t_{4})\)</span> and the known L-moment ratios <span class="arithmatex">\((\tau_{3}, \tau_{4})\)</span> for each candidate distribution.
 For probability distributions with three parameters, we use the <em>minimum distance</em> between the L-moment ratio curve <span class="arithmatex">\((\tau _{3}(\kappa ), \tau _{4}(\kappa ))\)</span>and the L-moment ratios of the sample <span class="arithmatex">\((t_{3}, t_{4})\)</span>.</p>
 <h3 id="l-kurtosis">L-Kurtosis</h3>
-<p>The L-kurtosis method is only used for three parameter probability distributions. 
-First, identify the shape parameter <span class="arithmatex">\(\kappa^{*}\)</span> such that <span class="arithmatex">\(t_{3} = \tau _{3}(\kappa ^{*})\)</span>.
+<p>For two-parameter probability distributions, simply compare the difference between the sample L-kurtosis and the theoretical L-kurtosis using the metric <span class="arithmatex">\(|\tau_{4} - t_{4} |\)</span>.
+For three-parameter distributions, we first identify the shape parameter <span class="arithmatex">\(\kappa^{*}\)</span> such that <span class="arithmatex">\(t_{3} = \tau _{3}(\kappa ^{*})\)</span>.
 Then, compare the difference between the sample L-kurtosis and the theoretical L-kurtosis using the metric <span class="arithmatex">\(|\tau_{4}(\kappa ^{*}) - t_{4} |\)</span>.</p>
 <h3 id="z-statistic">Z-statistic</h3>
 <p>The Z-statistic selection metric is calculated as follows (for three parameter distributions):</p>
@@ -257,9 +220,9 @@ z = \frac{\tau_{4} (\kappa ^{*}) - t_{4} + B_{4} }{ \sigma _{4}}
 <h2 id="handling-non-stationarity">Handling Non-Stationarity</h2>
 <p>There are three non-stationary scenarios that can be identified during EDA:</p>
 <ol>
-<li>Significant trend in the mean only.</li>
-<li>Significant trend in the STD only.</li>
-<li>Significant trend in both the mean and STD.</li>
+<li><code>10</code>/<code>100</code>: Significant trend in the mean only.</li>
+<li><code>01</code>/<code>010</code>: Significant trend in the variance only.</li>
+<li><code>11</code>/<code>110</code>: Significant trend in both the mean and variance.</li>
 </ol>
 <p>To determine the best probability distribution for non-stationary data, we <em>decompose</em> the data into stationary and non-stationary components and then use one of the methods described above.</p>
 <h3 id="decomposition-scenario-1">Decomposition (Scenario 1)</h3>
@@ -289,19 +252,11 @@ g_{t} = \frac{(c_{1} \cdot  \text{Covariate} ) + c_{0}}{c_{0}}
 <li>Divide the detrended data by the time-varying scale factor <span class="arithmatex">\(g_{t}\)</span> (as in Scenario 2).</li>
 <li>Shift to preserve the series mean and ensure positivity.</li>
 </ol>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>The Gumbel distribution is equivalent to the GEV distribution with <span class="arithmatex">\(\xi = 0\)</span>.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../eda/" class="btn btn-neutral float-left" title="Exploratory Data Analysis"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../distributions/" class="btn btn-neutral float-left" title="Probability Distributions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../parameter-estimation/" class="btn btn-neutral float-right" title="Parameter Estimation">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -325,7 +280,7 @@ g_{t} = \frac{(c_{1} \cdot  \text{Covariate} ) + c_{0}}{c_{0}}
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../eda/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../distributions/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../parameter-estimation/" style="color: #fcfcfc">Next &raquo;</a></span>

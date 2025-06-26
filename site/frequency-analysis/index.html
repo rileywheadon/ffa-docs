@@ -59,14 +59,24 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../eda/">Exploratory Data Analysis</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../distributions/">Probability Distributions</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../model-selection/">Model Selection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../parameter-estimation/">Parameter Estimation</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Frequency Analysis</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example-plot">Example Plot</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#handling-non-stationarity">Handling Non-Stationarity</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example-plot_1">Example Plot</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#an-idea-for-estimating-return-periods">An Idea for Estimating Return Periods</a>
     </li>
         </ul>
@@ -116,9 +126,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="frequency-analysis">Frequency Analysis</h1>
+<h2 id="overview">Overview</h2>
 <p><strong>Flood Frequency Analysis</strong> (FFA) is the act of using a <em>fitted probability distribution</em> to make predictions about the <em>frequency</em> of extreme streamflow events (i.e. floods).
-To do FFA, we require a <a href="../model-selection/">probability model</a> with <a href="../parameter-estimation/">suitably chosen parameters</a> based on the data.
-This section will assume that these requirements are met.</p>
+To do FFA, we require a <a href="../model-selection/">probability model</a> with <a href="../parameter-estimation/">suitably chosen parameters</a> based on the data.</p>
 <p>Typically, we describe the severity of floods in terms of their <em>return period</em>.
 Suppose we have a flood, which I will refer to as <span class="arithmatex">\(A\)</span>.
 If we expect to see a flood <em>at least as severe as</em> <span class="arithmatex">\(A\)</span> every ten years, then we say that <span class="arithmatex">\(A\)</span> is a <em>ten-year flood</em>.
@@ -167,24 +177,31 @@ Here is a table of the return periods, exceedance probabilities, and quantiles u
 </tbody>
 </table>
 <p>Suppose our fitted probability distribution has cumulative distribution function <span class="arithmatex">\(F(x)\)</span>.
-The function <span class="arithmatex">\(F(x)\)</span> maps annual maximum streamflow values to quantiles.
-However, we want to determine the streamflow from the quantiles, so we use the inverse of the cumulative distribution <span class="arithmatex">\(F^{-1}(x)\)</span> instead.
+The function <span class="arithmatex">\(F(x)\)</span> maps annual maximum streamflow values to probabilities.
+However, we want to determine the streamflow from the probabilities, so we use the inverse of the cumulative distribution <span class="arithmatex">\(F^{-1}(x)\)</span> instead.
 The function <span class="arithmatex">\(F^{-1}(x)\)</span> is also known as the <strong>Quantile Function</strong>.</p>
-<p><strong>Note</strong>: The FFA framework uses the quantile functions implemented in the <a href="https://cran.r-project.org/web/packages/lmom/lmom.pdf">lmom</a> package.</p>
+<h3 id="example-plot">Example Plot</h3>
 <p>We typically present the results of a flood frequency analysis as a graph with time on the <span class="arithmatex">\(x\)</span>-axis and annual maximum streamflow on the <span class="arithmatex">\(y\)</span>-axis.
 There are two ways to read a graph like this:</p>
 <ol>
 <li>Estimate the severity of a flood for a given time period.
-    From the graph below, we could determine that every 50 years, we can expect a streamflow event of approximately <span class="arithmatex">\(4500\text{m}^3/\text{s}\)</span>.</li>
+    From the graph below, we could determine that every 50 years, we can expect a streamflow event of approximately <span class="arithmatex">\(85\text{m}^3/\text{s}\)</span>.</li>
 <li>Estimate the frequency of a flood for a given severity.
-    From the graph below, we could determine that a streamflow event of <span class="arithmatex">\(3000\text{m}^3/\text{s}\)</span> or higher will occur every 6-7 years.</li>
+    From the graph below, we could determine that a streamflow event of <span class="arithmatex">\(50\text{m}^3/\text{s}\)</span> or higher will occur every 4 years.</li>
 </ol>
-<p><img alt="An example of flood frequency estimates." src="../img/ffa-example.png" /></p>
-<p><strong>Note</strong>: For information about how the confidence bounds in this figure are computed, see <a href="../uncertainty-quantification/">here</a>.</p>
+<p><img alt="An example of flood frequency estimates." src="../img/plot-s-uncertainty.png" /></p>
+<p><strong>Note</strong>: For information about how the confidence bounds in this figure are determined, see <a href="../uncertainty-quantification/">here</a>.</p>
 <h2 id="handling-non-stationarity">Handling Non-Stationarity</h2>
 <p>We say that a distribution is <strong>Non-Stationary</strong> if its mean or variance (or both) are changing over time.
-Under non-stationarity, the quantile function of our fitted probability distribution is also a function of time <span class="arithmatex">\(F^{-1}(x, t)\)</span>.</p>
-<h3 id="an-idea-for-estimating-return-periods">An Idea for  Estimating Return Periods</h3>
+Under non-stationarity, the quantile function of our fitted probability distribution is also a function of time <span class="arithmatex">\(F^{-1}(x, t)\)</span>.
+This means that our streamflow estimates and return periods also vary with time, so we cannot report a single set of estimates and confidence intervals as we did in the plot above. 
+For non-stationary models, the FFA framework computes <strong>Effective Return Periods</strong>, which are streamflow estimates based on the quantile function <em>for a specific year</em>.</p>
+<h3 id="example-plot_1">Example Plot</h3>
+<p>The plot below shows the effective return periods for the year 2017.</p>
+<p><strong>Note</strong>: A flood with an effective return period of 100 years <em>will not</em> occur every 100 years due to the non-stationarity of the model.
+Instead, an effective return period of 100 years means that <em>in the anchor year</em> (2017), we predict there is a <span class="arithmatex">\(1/100\)</span> probability of a flood with the given severity. </p>
+<p><img alt="" src="../img/plot-ns-uncertainty.png" /></p>
+<h3 id="an-idea-for-estimating-return-periods">An Idea for Estimating Return Periods</h3>
 <p>Suppose we want to estimate the severity of a flood with return period <span class="arithmatex">\(t_{0}\)</span> at time <span class="arithmatex">\(t^{*}\)</span>. </p>
 <ol>
 <li>Generate a sample <span class="arithmatex">\(x_{1}, \dots, x_{t_{0}}\)</span> where <span class="arithmatex">\(x_{i} \sim \text{Unif} [0, 1]\)</span>. </li>

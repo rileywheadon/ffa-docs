@@ -59,6 +59,12 @@
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#installing-the-ffa-framework">Installing the FFA Framework</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#part-1-installing-the-cli">Part 1: Installing the CLI</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#part-2-installing-the-ffaframework-package">Part 2: Installing the ffaframework Package</a>
+    </li>
+        </ul>
     </li>
     </ul>
                   </li>
@@ -68,6 +74,8 @@
               <p class="caption"><span class="caption-text">Concepts</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../eda/">Exploratory Data Analysis</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../distributions/">Probability Distributions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../model-selection/">Model Selection</a>
                   </li>
@@ -118,7 +126,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="installation-instructions">Installation Instructions</h1>
-<p>The FFA framework is currently available as a collection of scripts for the <code>R</code> programming environment.
+<p>The FFA framework is currently available as a command line interface (CLI) for the <code>R</code> programming environment.
 Therefore, installation and usage of the framework will require modellers to be familiar with the shell on their respective operating system.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ol>
@@ -138,19 +146,50 @@ C:\Program Files\R\R-4.5.0\bin
 C:\Program Files\Pandoc
 </code></pre>
 <h2 id="installing-the-ffa-framework">Installing the FFA Framework</h2>
+<h3 id="part-1-installing-the-cli">Part 1: Installing the CLI</h3>
 <ol>
 <li>Open a shell and navigate to the directory where you would like to install the framework.</li>
 <li>
-<p>Clone the Github repository by copying the following command into a shell:</p>
-<p><code>git clone https://github.com/rileywheadon/ffa-framework.git</code></p>
+<p>Clone the Github repository by running the following command in a shell:</p>
+<pre><code>git clone https://github.com/rileywheadon/ffa-framework.git
+</code></pre>
 </li>
 <li>
 <p>Navigate to the <code>source</code> directory. This directory contains a <code>renv.lock</code> file.</p>
 </li>
 <li>Open a command prompt with <code>R</code>. The <code>renv</code> package should install automatically.</li>
 <li>Load libraries from the <code>renv.lock</code> file by executing <code>renv::restore()</code>.</li>
-<li>Exit the command prompt with <code>q()</code>. The installation is complete.</li>
+<li>Exit the command prompt with <code>q()</code>.</li>
 </ol>
+<h3 id="part-2-installing-the-ffaframework-package">Part 2: Installing the <code>ffaframework</code> Package</h3>
+<p>The FFA framework requires this <a href="https://github.com/rileywheadon/ffa-package">R package</a>.
+To install it,</p>
+<ol>
+<li>Open a shell and navigate to the directory where you would like to install the package.</li>
+<li>
+<p>Clone the Github repository by running the following command in a shell:</p>
+<pre><code>git clone https://github.com/rileywheadon/ffa-package.git
+</code></pre>
+</li>
+<li>
+<p>Navigate to the <code>source</code> directory of the CLI installed in Part 1.</p>
+</li>
+<li>
+<p>Open a command prompt with <code>R</code>. Install the <code>devtools</code> package: </p>
+<pre><code>install.packages("devtools")
+library(devtools)
+</code></pre>
+</li>
+<li>
+<p>Run the following command, changing <code>~/path/to/ffa-package</code> as needed. </p>
+<pre><code>devtools::install("~/path/to/ffa-package")
+</code></pre>
+</li>
+<li>
+<p>Exit the command prompt with <code>q()</code>. The installation is complete.</p>
+</li>
+</ol>
+<hr />
 <p>This guide has been tested on Linux, Windows, and MacOS. </p>
 <p>Please submit a <a href="https://github.com/rileywheadon/ffa-framework/issues">Github Issue</a> if you have any problems.</p>
               

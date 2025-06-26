@@ -1,14 +1,7 @@
 # Roadmap
 
-Preparing for CRAN:
-
-- Ensure CRAN check is passing.
-- Regenerate PDF documentation, add to website.
-- Commit package and documentation to Github.
-
 Package Installation:
 
-- Run a test install of the package, write documentation.
 - Write CLI configuration documentation.
 - Test and build the rest of the CLI.
 
@@ -64,34 +57,6 @@ Touch-ups:
 - Ensure that all references are to Hosking, 1997 (not 1996).
 - Add parameter validation to _every_ function.
 - Achieve 100% code coverage using the `covr` library.
-
-### Notes
-
-Local Installation:
-
-- `devtools::install("~/Code/ffa-package/")`
-
-Package checking:
-
-- `devtools::check()`
-- `devtools::check(cran = TRUE)`
-
-Documentation:
-
-- `devtools::document()`: generate docmentation
-- `devtools::build_manual(path = "~/Code/ffa-package")`: generate manual
-
-Unit testing:
-
-- `devtools::test()`: run all unit tests
-- `devtools::test_file("tests/testthat/...")`: run a specific unit test
-
-Generating a coverage report:
-
-```
-cov <- covr::package_coverage()
-covr::report(cov, file = "coverage.html")
-```
 
 ## Command Line Interface
 

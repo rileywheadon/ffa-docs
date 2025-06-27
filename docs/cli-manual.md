@@ -1,138 +1,137 @@
 # User Manual
 
-All configuration is done through YAML files. The default configuration file is `source/config.yml`, although it is possible to create additional configuration files and pass them to the scripts using the `--config` command line argument.
+The `ffaframework.R` script runs the complete EDA and FFA frameworks. 
+The optional command line argument `--config` can be used to specify a custom configuration file (default is `config.yml`). 
 
-## Folder Configuration
-
-`data_folder`: This argument should be an _absolute path_ to a directory containing the CSV files you would like to run the framework on. _The framework may not work if you use a relative path_.
-
-- Alternatively, `data_folder: null` will use the default `ffa-framework/data` folder.
-
-`csv_files`: A list of 1 or more CSV files located in `data_folder`.
-
-- Alternatively, `csv_files: null` will run the framework on every file in `data_folder`.
-
-`report_folder`: An _absolute path_ to a directory which will be used to store EDA and FFA reports. The directory must exist. Again, _the framework may not work if you use a relative path_.
-
-- Alternatively, `report_folder: null` will use the default `ffa-framework/reports` folder.
-
-**Example Configuration (1)**
-
-```yaml
-data_folder: "~/Desktop/ffa-data"
-
-csv_files:
-  - "dataset-1.csv"
-  - "dataset-2.csv"
-
-report_folder: "~/Desktop/ffa-reports"
-```
-
-**Example Configuration (2)**
-
-```yaml
-data_folder: null
-
-csv_files: null
-
-report_folder: null
-```
-
-## Exploratory Data Analysis (EDA)
-
-For more information about the statistical tests used for EDA, see [here](eda.md).
-
-The configuration options for the EDA portion of the framework are as follows:
-
-- `mode`: The mode in which to run EDA (complete framework only). Must be one of:
-    - `"preset"`: Specify split points ahead of time using the `split_points` option.
-    - `"automatic"`: Automatically determine split points using change point tests.
-    - `"manual"`: Manually confirm the split points identified using change point tests.
-- `split_points`: Used with `mode: "preset"` to set split points ahead of time (as a list of years).
-    - Alternatively, `split_points: null` will disable splitting entirely.
-- `alpha`: The confidence level used for statistical tests (must be between $0.01$ and $0.10$).
-- `bbmk_repetitions`: The number of boostrap samples to use for the [BB-MK Test](eda.md/#bb-mk-test).
-- `window_length`: The size of the moving window used to compute the streamflow variance.
-- `window_step`: The size of the steps used to compute the streamflow variance.
-- `show_trend`: Whether or not to draw a trend line between data points (`true` or `false`).
-- `generate_report`: Whether or not to generate a report (`true` or `false`).
-- `report_format`: A list of report formats (`"md_document"`, `"html_document"`, or `"pdf_document"`).
-
-**Example Configuration**
-
-```yaml
-mode: "manual"
-
-split_points: null
-
-alpha: 0.05
-
-bbmk_repetitions: 10000
-
-window_length: 10
-
-window_step: 5
-
-show_trend: false
-
-generate_report: true
-
-report_format: "html_document"
-```
-
-**Example (Disable Splitting)**
-
-```yaml
-mode: "preset"
-
-split_points: null
-```
-
-**Example (Preset Split Points)**
-
-```yaml
-mode: "preset"
-
-split_points:
-  - 1950
-  - 1980
-```
-
-### Running the Complete EDA Framework
-
-The `source/eda.R` script is used to run the complete EDA framework. The optional command line argument `--config` can be used to specify a custom configuration file. If `--config` is not specified, the framework will use `config.yml` as a default.
-
-**Example Usage (1)**
+**Example Usage** (default configuration)
 
 ```
-Rscript eda.R
+Rscript ffaframework.R
 ```
 
-**Example Usage (2)**
+**Example Usage** (custom configuration)
 
 ```
-Rscript eda.R --config='custom-config.yml'
+Rscript ffaframework.R --config='custom-config.yml'
 ```
 
-### Running Individual Statistical Tests
+## Configuration Reference
 
-The `source/stats.R` script is used to run individual statistical tests.
+### Data Preparation
 
-- `--name` (required) is used to configure the name of the statistical test. It must be one of "bbmk", "kpss", "mk", "mks", "mwmk", "pettitt", "pp", "sens-mean", "sens-variance", "spearman", and "white".
-- `--config` (optional) can be used to specify a custom configuration file.
+**`data_source`**: Character (1); method for sourcing data for the framework. Must be one of:
 
-**Example Usage (1)**
+- `"local"`: Source data locally using the **`csv_files`** option.
+- `"msc-geomet"`: Pull data from the [MSC GeoMet API](https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weather-tools-specialized-data/msc-geomet-api-geospatial-web-services.html) using the **`station_ids`** option.
 
-```
-Rscript stats.R --name='mks'
-```
+**`csv_files`**: Character; CSV files located in `/data` used to run the framework.
 
-**Example Usage (2)**
+**`station_ids`**: Character; station IDs for hydrological monitoring stations.
 
-```
-Rscript stats.R --name='white' --config='custom-config.yml'
-```
+### EDA
 
-## Frequency Analysis
+**`run_eda`**: Boolean (1); if set to `true`, run [exploratory data analysis](eda.md).
 
-TBD
+**`split_selection`**: Character (1); method for determining split points. Must be one of:
+
+- `"automatic"`: Identify split points and split the data automatically.
+- `"manual"`: Confirm split points after identification.
+- `"preset"`: Set the split points ahead of time using **`split_points`**.
+
+**`split_points`**: Integer; preset values for split points. 
+
+**`significance_level`**: Numeric (1); significance level for statistical tests.
+
+**`bbmk_samples`**: Integer (1); number of bootstrap samples to use for the [BB-MK Test](eda.md/#bb-mk-test).
+
+### FFA
+
+**`run_ffa`**: Boolean (1); if set to `true`, run [flood frequency analysis](frequency-analysis.md).
+
+**`ns_selection`**: Character (1); non-stationary signature selection method. Must be one of:  
+
+- `"automatic"`: Non-stationarity is identified and handled automatically.
+- `"manual"`: Confirm non-stationary patterns after EDA. Requires `run_eda: true`.
+- `"preset"`: Set non-stationary signature ahead of time with **`ns_signature`**.
+
+**`ns_signature`**: Character (1); stationary or non-stationary signature. Must be one of:
+
+- `NULL`: No non-stationarity.
+- `"10"`: Linear trend in the mean.
+- `"11"`: Linear trend in the mean and variance.
+
+### Distribution Selection
+
+**`z_samples`**: Integer (1); number of bootstrap samples for [Z-statistic selection](model-selection.md#z-statistic).
+
+**`distribution_selection`**: Character (1); [distribution selection](model-selection.md) method:
+
+- `"l-distance"`: Euclidian distance from (L-skewness, L-kurtosis) point.
+- `"l-kurtosis"`: Difference between theoretical and sample L-kurtosis. 
+- `"z-statistic"`: Bootstrapped Z-statistic computed using the Kappa distribution.
+- `"preset"`: Specify a distribution ahead of time with the **`distribution_name`** option.
+
+**`distribution_name`**: Character (1); name of the [probability distributions](distributions.md) to use.
+
+### Parameter Estimation
+
+**`gev_prior`**: Numeric (2); prior parameters for the shape parameter of the GEV distribution.
+
+**`s_estimation`**: Character (1); [parameter estimation method](parameter-estimation.md) for stationary models:
+
+- `"l-moments"`: Method of L-moments using formulas from Hosking (1997).
+- `"mle"`: Maximum likelihood estimation.
+- `"gmle"`: Generalized maximum likelihood estimation (GEV distribution only).
+
+**`ns_estimation`**: Character (1); parameter estimation method for non-stationary models:
+
+- `"mle"`: Maximum likelihood estimation.
+- `"gmle"`: Generalized maximum likelihood estimation (GEV distribution only).
+
+### Uncertainty Quantification
+
+**`return_periods`**: Numeric; list of return periods for estimating return levels.
+
+**`sb_samples`**: Integer (1); number of samples for [bootstrap uncertainty quantification](uncertainty-quantification.md#sample-bootstrap).
+
+**`rfpl_tolerance`**: Numeric (1); log-likelihood tolerance for [RFPL uncertainty quantification](uncertainty-quantification.md#regula-falsi-profile-likelihood-rfpl).
+
+**`s_uncertainty`**: Character (1); [uncertainty quantification](uncertainty-quantification.md) method for stationary models:
+
+- `"s-bootstrap"`: Sample bootstrap method.
+- `"rfpl"`: Regula-falsi profile likelihood (MLE estimation only).
+- `"rfgpl"`: Generalized regula-falsi profile likelihood (GMLE estimation only).
+
+**`ns_uncertainty`**: Character (1); uncertainty quantification method for non-stationary models:
+
+- `"s-bootstrap"`: Sample bootstrap method.
+- `"rfpl"`: Regula-falsi profile likelihood (MLE estimation only).
+- `"rfgpl"`: Generalized regula-falsi profile likelihood (GMLE estimation only).
+
+### Model Assessment
+
+**`pp_formula`**: Character (1); plotting position formula for [model assessment](model-assessment.md). Must be one of: 
+
+- `"weibull"`
+- `"blom"`
+- `"cunnane"`
+- `"gringorten"`
+- `"hazen"`
+
+### Plot Generation
+
+**`show_trend`**: Boolean (1); if `true`, add a trend line through the AMS data where applicable. 
+
+**`anchor_year`**: Integer (1); year used to generate return level plot for non-stationary models. 
+
+### Report Generation
+
+**`generate_report`**: Boolean (1); if `true`, generate a report with specified **`report_formats`**.
+
+**`report_formats`**: Character; list of report formats. Valid report formats are: 
+
+- `"markdown"`
+- `"pdf"`
+- `"html"`
+- `"json"`
+

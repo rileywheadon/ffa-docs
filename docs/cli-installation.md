@@ -1,15 +1,12 @@
-# Installation Instructions
-
-The FFA framework is currently available as a command line interface (CLI) for the `R` programming environment.
-Therefore, installation and usage of the framework will require modellers to be familiar with the shell on their respective operating system.
+# Installing the CLI
 
 ## Prerequisites
 
-1. Install Git from https://git-scm.com/downloads. 
+1. Install Git from [https://git-scm.com/downloads](https://git-scm.com/downloads). 
 2. Check that Git is installed by executing `git --version` in a shell.
-3. Install R from https://www.r-project.org/. Version 4.5.0 is recommended.
+3. Install R from [https://www.r-project.org/](https://www.r-project.org/). Version 4.5.0 is recommended.
 4. Check that R is installed by executing `R --version` in  a shell.  
-5. Install the latest version of Pandoc from https://pandoc.org/.
+5. Install the latest version of Pandoc from [https://pandoc.org/](https://pandoc.org/).
 6. Check that Pandoc is installed by executing `pandoc --version` in a shell.
 
 ### A Note for Windows Users
@@ -24,9 +21,7 @@ C:\Program Files\R\R-4.5.0\bin
 C:\Program Files\Pandoc
 ```
 
-## Installing the FFA Framework 
-
-### Part 1: Installing the CLI
+## Instructions
 
 1. Open a shell and navigate to the directory where you would like to install the framework.
 2. Clone the Github repository by running the following command in a shell:
@@ -38,27 +33,8 @@ C:\Program Files\Pandoc
 5. Load libraries from the `renv.lock` file by executing `renv::restore()`.
 6. Exit the command prompt with `q()`.
 
-### Part 2: Installing the `ffaframework` Package
-
-The FFA framework requires this [R package](https://github.com/rileywheadon/ffa-package).
-To install it,
-
-1. Open a shell and navigate to the directory where you would like to install the package.
-2. Clone the Github repository by running the following command in a shell:
-
-        git clone https://github.com/rileywheadon/ffa-package.git
-
-3. Navigate to the `source` directory of the CLI installed in Part 1.
-4. Open a command prompt with `R`. Install the `devtools` package: 
-
-        install.packages("devtools")
-        library(devtools)
-
-5. Run the following command, changing `~/path/to/ffa-package` as needed. 
-
-        devtools::install("~/path/to/ffa-package")
-
-6. Exit the command prompt with `q()`. The installation is complete.
+You will also need to install the [R package](https://github.com/rileywheadon/ffa-package).
+See [here](r-installation.md) for installation instructions.
 
 
 ---

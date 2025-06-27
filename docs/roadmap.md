@@ -1,11 +1,8 @@
 # Roadmap
 
-Package Installation:
-
-- Write CLI configuration documentation.
-- Test and build the rest of the CLI.
-
 ## CRAN Package
+
+### Status
 
 | File                | Roxygen2 | Website | Tested | Validated | Covered |
 | ------------------- | -------- | ------- | ------ | --------- | ------- |
@@ -45,13 +42,13 @@ Package Installation:
 | white-test.R        | x        | x       | x      |           |         |
 | z-selection.R       | x        | x       | x      |           |         |
 
-Features:
+### Planned Features
 
 - Add support for custom plot labels using an optional argument.
 - Implement models with variance-only trends.
 - Use 2-parameter Weibull for `rfpl-uncertainty`, reparamaterized on $\sigma$.
 
-Touch-ups:
+### Planned Improvements
 
 - Replace `nlminb` with `optim`, update documentation.
 - Ensure that all references are to Hosking, 1997 (not 1996).
@@ -60,61 +57,22 @@ Touch-ups:
 
 ## Command Line Interface
 
-**Exploratory Data Analysis**: Complete.
-
-**Flood Frequency Analysis**: In progress.
+| Helper Function      | Implemented | Tested |
+| -------------------- | ----------- | ------ |
+| `validate.config`    |             |        |
+| `load.data`          |             |        |
+| `change.points`      |             |        |
+| `trend.detection`    |             |        |
+| `frequency.analysis` |             |        |
+| `report.html`        |             |        |
+| `report.pdf`         |             |        |
+| `report.markdown`    |             |        |
+| `report.json`        |             |        |
 
 ## API Development
 
-Talk to Kasra about cloud hosting for API.
-
-- Finish CRAN/CLI/GeoMet by July 10th
-  Link: [Building APIs with R](https://www.youtube.com/watch?v=t-Is-8Qfym0)
-
-Need to learn:
-
-- OpenAPI
-- Swagger
-- Docker
-
-For the web app, use Flask/HTMX/Alpine.
-
-https://api.weather.gc.ca/collections/hydrometric-annual-statistics
-
-Sites used for the paper:
-
-- `Application_1`: 07BE001 (Athabasca River at Athabasca)
-- `Application_2`: 08NH021 (Kootenai River at Porthill)
-- `Application_3_1`: 05BB001 (Bow River at Banff)
-- `Application_3_2`: 08MH016 (Chilliwack River at Chilliwack Lake)
-- `Application_3_3`: 08NM050 (Okanagan River at Penticton)
-
-Query for getting a station (`hydrometric-annual-statistics/items`)
-
-- `limit = 200` to get all the annual data
-- `skipGeometry = TRUE` to ignore geographical data
-- `DATA_TYPE_EN = Discharge` to get flows
-- `STATION_NUMBER` set to the station number
-
-Get a list of stations with (`hydrometric-stations/items`)
+In progress.
 
 ## Web App
 
-Use Flask/HTML/CSS with leaflet.js
-
-## Further Research
-
-Read through papers on different NS metrics and possibly implement them:
-
-- EWT: Olsen et al. 1998; Wigley, 2009
-- ENE: Parey et al. 2007; 2010
-- ERP: Katz et al. 2002
-- R: Read & Vogel, 2015; Salas & Obeysekera, 2014; Serinaldi & Kilsby, 2015
-- DLL: Rootzen & Katz, 2013
-- ADLL: Yan et al. 2017
-
-Outreach:
-
-- Run workshops in August/September
-- Write 10-page report by end of summer
-- Develop training material
+In progress.

@@ -1,11 +1,13 @@
 site_name: FFA Framework
 nav:
   - Home: index.md
-  - R Package:
-    - Documentation: r-documentation.pdf
   - Command Line Interface:
+    - Getting Started: cli-introduction.md
     - Installation Instructions: cli-installation.md
     - User Manual: cli-manual.md
+  - R Package:
+    - Installation instructions: r-installation.md
+    - User Manual: r-documentation.pdf
   - Concepts:
     - Exploratory Data Analysis: eda.md
     - Probability Distributions: distributions.md

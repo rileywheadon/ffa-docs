@@ -43,30 +43,44 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">R Package</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../r-documentation.pdf">Documentation</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Command Line Interface</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-introduction/">Getting Started</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../cli-installation/">Installation Instructions</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">User Manual</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#folder-configuration">Folder Configuration</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-reference">Configuration Reference</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#running-the-complete-eda-framework">Running the Complete EDA Framework</a>
+    <li class="toctree-l3"><a class="reference internal" href="#data-preparation">Data Preparation</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#running-individual-statistical-tests">Running Individual Statistical Tests</a>
+    <li class="toctree-l3"><a class="reference internal" href="#eda">EDA</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ffa">FFA</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#distribution-selection">Distribution Selection</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parameter-estimation">Parameter Estimation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#uncertainty-quantification">Uncertainty Quantification</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#model-assessment">Model Assessment</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#plot-generation">Plot Generation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#report-generation">Report Generation</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#frequency-analysis">Frequency Analysis</a>
-    </li>
     </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">R Package</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-installation/">Installation instructions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-documentation.pdf">User Manual</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Concepts</span></p>
@@ -124,117 +138,114 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="user-manual">User Manual</h1>
-<p>All configuration is done through YAML files. The default configuration file is <code>source/config.yml</code>, although it is possible to create additional configuration files and pass them to the scripts using the <code>--config</code> command line argument.</p>
-<h2 id="folder-configuration">Folder Configuration</h2>
-<p><code>data_folder</code>: This argument should be an <em>absolute path</em> to a directory containing the CSV files you would like to run the framework on. <em>The framework may not work if you use a relative path</em>.</p>
+<p>The <code>ffaframework.R</code> script runs the complete EDA and FFA frameworks. 
+The optional command line argument <code>--config</code> can be used to specify a custom configuration file (default is <code>config.yml</code>). </p>
+<p><strong>Example Usage</strong> (default configuration)</p>
+<pre><code>Rscript ffaframework.R
+</code></pre>
+<p><strong>Example Usage</strong> (custom configuration)</p>
+<pre><code>Rscript ffaframework.R --config='custom-config.yml'
+</code></pre>
+<h2 id="configuration-reference">Configuration Reference</h2>
+<h3 id="data-preparation">Data Preparation</h3>
+<p><strong><code>data_source</code></strong>: Character (1); method for sourcing data for the framework. Must be one of:</p>
 <ul>
-<li>Alternatively, <code>data_folder: null</code> will use the default <code>ffa-framework/data</code> folder.</li>
+<li><code>"local"</code>: Source data locally using the <strong><code>csv_files</code></strong> option.</li>
+<li><code>"msc-geomet"</code>: Pull data from the <a href="https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weather-tools-specialized-data/msc-geomet-api-geospatial-web-services.html">MSC GeoMet API</a> using the <strong><code>station_ids</code></strong> option.</li>
 </ul>
-<p><code>csv_files</code>: A list of 1 or more CSV files located in <code>data_folder</code>.</p>
+<p><strong><code>csv_files</code></strong>: Character; CSV files located in <code>/data</code> used to run the framework.</p>
+<p><strong><code>station_ids</code></strong>: Character; station IDs for hydrological monitoring stations.</p>
+<h3 id="eda">EDA</h3>
+<p><strong><code>run_eda</code></strong>: Boolean (1); if set to <code>true</code>, run <a href="../eda/">exploratory data analysis</a>.</p>
+<p><strong><code>split_selection</code></strong>: Character (1); method for determining split points. Must be one of:</p>
 <ul>
-<li>Alternatively, <code>csv_files: null</code> will run the framework on every file in <code>data_folder</code>.</li>
+<li><code>"automatic"</code>: Identify split points and split the data automatically.</li>
+<li><code>"manual"</code>: Confirm split points after identification.</li>
+<li><code>"preset"</code>: Set the split points ahead of time using <strong><code>split_points</code></strong>.</li>
 </ul>
-<p><code>report_folder</code>: An <em>absolute path</em> to a directory which will be used to store EDA and FFA reports. The directory must exist. Again, <em>the framework may not work if you use a relative path</em>.</p>
+<p><strong><code>split_points</code></strong>: Integer; preset values for split points. </p>
+<p><strong><code>significance_level</code></strong>: Numeric (1); significance level for statistical tests.</p>
+<p><strong><code>bbmk_samples</code></strong>: Integer (1); number of bootstrap samples to use for the <a href="../eda/#bb-mk-test">BB-MK Test</a>.</p>
+<h3 id="ffa">FFA</h3>
+<p><strong><code>run_ffa</code></strong>: Boolean (1); if set to <code>true</code>, run <a href="../frequency-analysis/">flood frequency analysis</a>.</p>
+<p><strong><code>ns_selection</code></strong>: Character (1); non-stationary signature selection method. Must be one of:  </p>
 <ul>
-<li>Alternatively, <code>report_folder: null</code> will use the default <code>ffa-framework/reports</code> folder.</li>
+<li><code>"automatic"</code>: Non-stationarity is identified and handled automatically.</li>
+<li><code>"manual"</code>: Confirm non-stationary patterns after EDA. Requires <code>run_eda: true</code>.</li>
+<li><code>"preset"</code>: Set non-stationary signature ahead of time with <strong><code>ns_signature</code></strong>.</li>
 </ul>
-<p><strong>Example Configuration (1)</strong></p>
-<pre><code class="language-yaml">data_folder: &quot;~/Desktop/ffa-data&quot;
-
-csv_files:
-  - &quot;dataset-1.csv&quot;
-  - &quot;dataset-2.csv&quot;
-
-report_folder: &quot;~/Desktop/ffa-reports&quot;
-</code></pre>
-<p><strong>Example Configuration (2)</strong></p>
-<pre><code class="language-yaml">data_folder: null
-
-csv_files: null
-
-report_folder: null
-</code></pre>
-<h2 id="exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</h2>
-<p>For more information about the statistical tests used for EDA, see <a href="../eda/">here</a>.</p>
-<p>The configuration options for the EDA portion of the framework are as follows:</p>
+<p><strong><code>ns_signature</code></strong>: Character (1); stationary or non-stationary signature. Must be one of:</p>
 <ul>
-<li><code>mode</code>: The mode in which to run EDA (complete framework only). Must be one of:<ul>
-<li><code>"preset"</code>: Specify split points ahead of time using the <code>split_points</code> option.</li>
-<li><code>"automatic"</code>: Automatically determine split points using change point tests.</li>
-<li><code>"manual"</code>: Manually confirm the split points identified using change point tests.</li>
+<li><code>NULL</code>: No non-stationarity.</li>
+<li><code>"10"</code>: Linear trend in the mean.</li>
+<li><code>"11"</code>: Linear trend in the mean and variance.</li>
 </ul>
-</li>
-<li><code>split_points</code>: Used with <code>mode: "preset"</code> to set split points ahead of time (as a list of years).<ul>
-<li>Alternatively, <code>split_points: null</code> will disable splitting entirely.</li>
-</ul>
-</li>
-<li><code>alpha</code>: The confidence level used for statistical tests (must be between <span class="arithmatex">\(0.01\)</span> and <span class="arithmatex">\(0.10\)</span>).</li>
-<li><code>bbmk_repetitions</code>: The number of boostrap samples to use for the <a href="../eda/#bb-mk-test">BB-MK Test</a>.</li>
-<li><code>window_length</code>: The size of the moving window used to compute the streamflow variance.</li>
-<li><code>window_step</code>: The size of the steps used to compute the streamflow variance.</li>
-<li><code>show_trend</code>: Whether or not to draw a trend line between data points (<code>true</code> or <code>false</code>).</li>
-<li><code>generate_report</code>: Whether or not to generate a report (<code>true</code> or <code>false</code>).</li>
-<li><code>report_format</code>: A list of report formats (<code>"md_document"</code>, <code>"html_document"</code>, or <code>"pdf_document"</code>).</li>
-</ul>
-<p><strong>Example Configuration</strong></p>
-<pre><code class="language-yaml">mode: &quot;manual&quot;
-
-split_points: null
-
-alpha: 0.05
-
-bbmk_repetitions: 10000
-
-window_length: 10
-
-window_step: 5
-
-show_trend: false
-
-generate_report: true
-
-report_format: &quot;html_document&quot;
-</code></pre>
-<p><strong>Example (Disable Splitting)</strong></p>
-<pre><code class="language-yaml">mode: &quot;preset&quot;
-
-split_points: null
-</code></pre>
-<p><strong>Example (Preset Split Points)</strong></p>
-<pre><code class="language-yaml">mode: &quot;preset&quot;
-
-split_points:
-  - 1950
-  - 1980
-</code></pre>
-<h3 id="running-the-complete-eda-framework">Running the Complete EDA Framework</h3>
-<p>The <code>source/eda.R</code> script is used to run the complete EDA framework. The optional command line argument <code>--config</code> can be used to specify a custom configuration file. If <code>--config</code> is not specified, the framework will use <code>config.yml</code> as a default.</p>
-<p><strong>Example Usage (1)</strong></p>
-<pre><code>Rscript eda.R
-</code></pre>
-<p><strong>Example Usage (2)</strong></p>
-<pre><code>Rscript eda.R --config='custom-config.yml'
-</code></pre>
-<h3 id="running-individual-statistical-tests">Running Individual Statistical Tests</h3>
-<p>The <code>source/stats.R</code> script is used to run individual statistical tests.</p>
+<h3 id="distribution-selection">Distribution Selection</h3>
+<p><strong><code>z_samples</code></strong>: Integer (1); number of bootstrap samples for <a href="../model-selection/#z-statistic">Z-statistic selection</a>.</p>
+<p><strong><code>distribution_selection</code></strong>: Character (1); <a href="../model-selection/">distribution selection</a> method:</p>
 <ul>
-<li><code>--name</code> (required) is used to configure the name of the statistical test. It must be one of "bbmk", "kpss", "mk", "mks", "mwmk", "pettitt", "pp", "sens-mean", "sens-variance", "spearman", and "white".</li>
-<li><code>--config</code> (optional) can be used to specify a custom configuration file.</li>
+<li><code>"l-distance"</code>: Euclidian distance from (L-skewness, L-kurtosis) point.</li>
+<li><code>"l-kurtosis"</code>: Difference between theoretical and sample L-kurtosis. </li>
+<li><code>"z-statistic"</code>: Bootstrapped Z-statistic computed using the Kappa distribution.</li>
+<li><code>"preset"</code>: Specify a distribution ahead of time with the <strong><code>distribution_name</code></strong> option.</li>
 </ul>
-<p><strong>Example Usage (1)</strong></p>
-<pre><code>Rscript stats.R --name='mks'
-</code></pre>
-<p><strong>Example Usage (2)</strong></p>
-<pre><code>Rscript stats.R --name='white' --config='custom-config.yml'
-</code></pre>
-<h2 id="frequency-analysis">Frequency Analysis</h2>
-<p>TBD</p>
+<p><strong><code>distribution_name</code></strong>: Character (1); name of the <a href="../distributions/">probability distributions</a> to use.</p>
+<h3 id="parameter-estimation">Parameter Estimation</h3>
+<p><strong><code>gev_prior</code></strong>: Numeric (2); prior parameters for the shape parameter of the GEV distribution.</p>
+<p><strong><code>s_estimation</code></strong>: Character (1); <a href="../parameter-estimation/">parameter estimation method</a> for stationary models:</p>
+<ul>
+<li><code>"l-moments"</code>: Method of L-moments using formulas from Hosking (1997).</li>
+<li><code>"mle"</code>: Maximum likelihood estimation.</li>
+<li><code>"gmle"</code>: Generalized maximum likelihood estimation (GEV distribution only).</li>
+</ul>
+<p><strong><code>ns_estimation</code></strong>: Character (1); parameter estimation method for non-stationary models:</p>
+<ul>
+<li><code>"mle"</code>: Maximum likelihood estimation.</li>
+<li><code>"gmle"</code>: Generalized maximum likelihood estimation (GEV distribution only).</li>
+</ul>
+<h3 id="uncertainty-quantification">Uncertainty Quantification</h3>
+<p><strong><code>return_periods</code></strong>: Numeric; list of return periods for estimating return levels.</p>
+<p><strong><code>sb_samples</code></strong>: Integer (1); number of samples for <a href="../uncertainty-quantification/#sample-bootstrap">bootstrap uncertainty quantification</a>.</p>
+<p><strong><code>rfpl_tolerance</code></strong>: Numeric (1); log-likelihood tolerance for <a href="../uncertainty-quantification/#regula-falsi-profile-likelihood-rfpl">RFPL uncertainty quantification</a>.</p>
+<p><strong><code>s_uncertainty</code></strong>: Character (1); <a href="../uncertainty-quantification/">uncertainty quantification</a> method for stationary models:</p>
+<ul>
+<li><code>"s-bootstrap"</code>: Sample bootstrap method.</li>
+<li><code>"rfpl"</code>: Regula-falsi profile likelihood (MLE estimation only).</li>
+<li><code>"rfgpl"</code>: Generalized regula-falsi profile likelihood (GMLE estimation only).</li>
+</ul>
+<p><strong><code>ns_uncertainty</code></strong>: Character (1); uncertainty quantification method for non-stationary models:</p>
+<ul>
+<li><code>"s-bootstrap"</code>: Sample bootstrap method.</li>
+<li><code>"rfpl"</code>: Regula-falsi profile likelihood (MLE estimation only).</li>
+<li><code>"rfgpl"</code>: Generalized regula-falsi profile likelihood (GMLE estimation only).</li>
+</ul>
+<h3 id="model-assessment">Model Assessment</h3>
+<p><strong><code>pp_formula</code></strong>: Character (1); plotting position formula for <a href="../model-assessment/">model assessment</a>. Must be one of: </p>
+<ul>
+<li><code>"weibull"</code></li>
+<li><code>"blom"</code></li>
+<li><code>"cunnane"</code></li>
+<li><code>"gringorten"</code></li>
+<li><code>"hazen"</code></li>
+</ul>
+<h3 id="plot-generation">Plot Generation</h3>
+<p><strong><code>show_trend</code></strong>: Boolean (1); if <code>true</code>, add a trend line through the AMS data where applicable. </p>
+<p><strong><code>anchor_year</code></strong>: Integer (1); year used to generate return level plot for non-stationary models. </p>
+<h3 id="report-generation">Report Generation</h3>
+<p><strong><code>generate_report</code></strong>: Boolean (1); if <code>true</code>, generate a report with specified <strong><code>report_formats</code></strong>.</p>
+<p><strong><code>report_formats</code></strong>: Character; list of report formats. Valid report formats are: </p>
+<ul>
+<li><code>"markdown"</code></li>
+<li><code>"pdf"</code></li>
+<li><code>"html"</code></li>
+<li><code>"json"</code></li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../cli-installation/" class="btn btn-neutral float-left" title="Installation Instructions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../eda/" class="btn btn-neutral float-right" title="Exploratory Data Analysis">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../r-installation/" class="btn btn-neutral float-right" title="Installation instructions">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -260,7 +271,7 @@ split_points:
       <span><a href="../cli-installation/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../eda/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../r-installation/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

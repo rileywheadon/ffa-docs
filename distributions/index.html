@@ -370,9 +370,9 @@ z_{i} = \frac{x_{i} - \mu}{\sigma }
 <p><strong>Support</strong></p>
 <div class="arithmatex">\[
 \begin{cases}
--\infty &lt; x \leq \mu + (\sigma/\kappa ) &amp;\kappa &gt; 0 \\[5pt]
+\mu + (\sigma /\kappa) \leq x &lt; \infty &amp; \kappa &gt; 0 \\[5pt]
 -\infty &lt; x &lt; \infty &amp; \kappa  = 0 \\[5pt]
-\mu + (\sigma /\kappa) \leq x &lt; \infty &amp; \kappa &lt; 0
+-\infty &lt; x \leq \mu + (\sigma/\kappa ) &amp;\kappa &lt; 0 
 \end{cases}
 \]</div>
 <p><strong>Quantiles</strong></p>
@@ -493,7 +493,7 @@ x(F) = \begin{cases}
 \sigma \approx  \frac{\lambda_{2}\kappa e^{-\kappa ^2 / 2}}{1 - 2\Phi (-\kappa  / \sqrt{2})}, \quad
 \mu  \approx  \lambda_{1} - \frac{\sigma }{\kappa }\left(1 - e^{-\kappa ^2 / 2 }\right)
 \]</div>
-<p>The coefficients (<span class="arithmatex">\(A_{i}\)</span>, <span class="arithmatex">\(B_{i}\)</span>, <span class="arithmatex">\(C_{i}\)</span>, <span class="arithmatex">\(D_{i}\)</span>, <span class="arithmatex">\(E_{i}\)</span>, <span class="arithmatex">\(F_{i}\)</span>, and <span class="arithmatex">\(\tau_{4}^{0}\)</span>) are defined in Appendix A.8 of Hosking, 1996<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
+<p>The coefficients (<span class="arithmatex">\(A_{i}\)</span>, <span class="arithmatex">\(B_{i}\)</span>, <span class="arithmatex">\(C_{i}\)</span>, <span class="arithmatex">\(D_{i}\)</span>, <span class="arithmatex">\(E_{i}\)</span>, <span class="arithmatex">\(F_{i}\)</span>, and <span class="arithmatex">\(\tau_{4}^{0}\)</span>) are defined in Appendix A.8 of Hosking, 1997<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
 Although this appendix covers the 3-parameter log-normal distribution, the L-moments of the generalized normal distribution are the same.</p>
 <h3 id="pearson-type-iii-pe3-distribution">Pearson Type III (PE3) Distribution</h3>
 <p>The Pearson Type III distribution is typically reparameterized as follows for <span class="arithmatex">\(\kappa \neq 0\)</span>:</p>
@@ -554,7 +554,7 @@ The first two L-moments are defined as follows:</p>
 \tau_{4} &amp;\approx \frac{1 + G_{1}\alpha + G_{2}\alpha ^2 + G_{3}\alpha ^3}{1 + H_{1}\alpha + H_{2}\alpha ^2 + H_{3}\alpha ^3}
 \end{aligned}
 \]</div>
-<p>Coefficients are given in Appendix A.9 of Hosking, 1996<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
+<p>Coefficients are given in Appendix A.9 of Hosking, 1997<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
 To estimate parameters from the L-moments, we use one of two approximations for <span class="arithmatex">\(\alpha\)</span> depending on the value of <span class="arithmatex">\(\tau_{3}\)</span>:</p>
 <div class="arithmatex">\[
 \alpha \approx \begin{dcases}

@@ -77,6 +77,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#regula-falsi-profile-likelihood-rfpl">Regula-Falsi Profile Likelihood (RFPL)</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#handling-the-weibull-distribution">Handling the Weibull Distribution</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#initialization-algorithm">Initialization Algorithm</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#iteration-algorithm">Iteration Algorithm</a>
@@ -162,7 +164,7 @@ f(\theta) = \ell_{p}(\theta) - \left[\ell_{p}(\hat{\theta}) - \frac{\chi_{1;1-\a
 \]</div>
 <p>In the FFA framework, we compute the profile likelihood of each quantile <span class="arithmatex">\(y\)</span> by reparameterizing the location parameter <span class="arithmatex">\(\mu\)</span>.
 Let <span class="arithmatex">\(q(p, \mu, \psi)\)</span> be a function that takes an exceedance probability <span class="arithmatex">\(p\)</span>, location parameter <span class="arithmatex">\(\mu\)</span> and nuisance parameters <span class="arithmatex">\(\psi\)</span> and returns a quantile <span class="arithmatex">\(y\)</span>.
-All quantile functions satisfy: </p>
+All quantile functions[^1] satisfy: </p>
 <div class="arithmatex">\[
 y = q(p, \mu, \psi) = \mu + q(p, 0, \psi)
 \]</div>
@@ -171,6 +173,17 @@ y = q(p, \mu, \psi) = \mu + q(p, 0, \psi)
 \mu = y - q(p, 0, \psi)
 \]</div>
 <p>We use this relationship to find the profile likelihood <span class="arithmatex">\(\ell_{p}(y)\)</span> by evaluating <span class="arithmatex">\(\mu(p, y, \psi)\)</span> and substituting it into the log-likelihood functions listed <a href="../parameter-estimation/#maximum-likelihood-mle">here</a>.</p>
+<h3 id="handling-the-weibull-distribution">Handling the Weibull Distribution</h3>
+<p>Due to support issues, we use a different reparameterization for the Weibull distribution:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;y = (\mu_{0} + \mu_{1}t) + (\sigma_{0} + \sigma_{1}t)(-\log (1 - p))^{1/\kappa}  \\[5pt]
+\Rightarrow\,&amp;(\sigma_{0} + \sigma_{1}t) = \frac{y - (\mu_{0} + \mu_{1}t)}{(-\log (1 - p))^{1/\kappa}} \\[5pt]
+\Rightarrow\,&amp;\sigma_{0} = \frac{y - (\mu_{0} + \mu_{1}t)}{(-\log (1 - p))^{1 / \kappa }} - \sigma_{1}t
+\end{aligned}
+\]</div>
+<p>The derivation above uses the <code>WEI110</code> model, although the <code>WEI100</code> and <code>WEI</code> reparameterizations can be obtained easily by setting <span class="arithmatex">\(\sigma_{1} = 0\)</span> and <span class="arithmatex">\(\sigma_{1} = \mu_{1} = 0\)</span> respectively.
+After solving for <span class="arithmatex">\(\sigma_{0}\)</span> in terms of the other parameters, we can use the standard log-likelihood function.</p>
 <h3 id="initialization-algorithm">Initialization Algorithm</h3>
 <p>Before we can find the roots of <span class="arithmatex">\(f\)</span>, we need to identify initial values for the regula-falsi algorithm:</p>
 <ul>

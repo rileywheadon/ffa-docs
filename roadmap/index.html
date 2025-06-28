@@ -88,11 +88,13 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#planned-features">Planned Features</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#planned-improvements">Planned Improvements</a>
-    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#command-line-interface">Command Line Interface</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#known-issues">Known Issues</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#api-development">API Development</a>
     </li>
@@ -430,16 +432,13 @@
 </table>
 <h3 id="planned-features">Planned Features</h3>
 <ul>
+<li>Use 2-parameter Weibull for <code>rfpl-uncertainty</code>, reparamaterized on <span class="arithmatex">\(\sigma\)</span>.</li>
 <li>Add support for custom plot labels using an optional argument.</li>
 <li>Implement models with variance-only trends.</li>
-<li>Use 2-parameter Weibull for <code>rfpl-uncertainty</code>, reparamaterized on <span class="arithmatex">\(\sigma\)</span>.</li>
-</ul>
-<h3 id="planned-improvements">Planned Improvements</h3>
-<ul>
 <li>Replace <code>nlminb</code> with <code>optim</code>, update documentation.</li>
-<li>Ensure that all references are to Hosking, 1997 (not 1996).</li>
 <li>Add parameter validation to <em>every</em> function.</li>
 <li>Achieve 100% code coverage using the <code>covr</code> library.</li>
+<li><code>mw.variance</code> behaves unpredictably when there are missing data points.</li>
 </ul>
 <h2 id="command-line-interface">Command Line Interface</h2>
 <table>
@@ -453,27 +452,27 @@
 <tbody>
 <tr>
 <td><code>validate.config</code></td>
-<td></td>
-<td></td>
+<td>x</td>
+<td>x</td>
 </tr>
 <tr>
 <td><code>load.data</code></td>
-<td></td>
-<td></td>
+<td>x</td>
+<td>x</td>
 </tr>
 <tr>
 <td><code>change.points</code></td>
-<td></td>
+<td>x</td>
 <td></td>
 </tr>
 <tr>
 <td><code>trend.detection</code></td>
-<td></td>
+<td>x</td>
 <td></td>
 </tr>
 <tr>
 <td><code>frequency.analysis</code></td>
-<td></td>
+<td>x</td>
 <td></td>
 </tr>
 <tr>
@@ -498,6 +497,10 @@
 </tr>
 </tbody>
 </table>
+<h3 id="known-issues">Known Issues</h3>
+<ul>
+<li><code>window_length</code> and <code>window_step</code> options are missing from <code>config.yml</code></li>
+</ul>
 <h2 id="api-development">API Development</h2>
 <p>In progress.</p>
 <h2 id="web-app">Web App</h2>

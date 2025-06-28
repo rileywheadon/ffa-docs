@@ -147,11 +147,13 @@ The optional command line argument <code>--config</code> can be used to specify 
 <pre><code>Rscript ffaframework.R --config='custom-config.yml'
 </code></pre>
 <h2 id="configuration-reference">Configuration Reference</h2>
+<p style="color: red;"><b>Note</b>: All configuration options are specified using <i>lowercase characters</i>.</p>
+
 <h3 id="data-preparation">Data Preparation</h3>
 <p><strong><code>data_source</code></strong>: Character (1); method for sourcing data for the framework. Must be one of:</p>
 <ul>
 <li><code>"local"</code>: Source data locally using the <strong><code>csv_files</code></strong> option.</li>
-<li><code>"msc-geomet"</code>: Pull data from the <a href="https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weather-tools-specialized-data/msc-geomet-api-geospatial-web-services.html">MSC GeoMet API</a> using the <strong><code>station_ids</code></strong> option.</li>
+<li><code>"geomet"</code>: Pull data from the <a href="https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weather-tools-specialized-data/msc-geomet-api-geospatial-web-services.html">MSC GeoMet API</a> using the <strong><code>station_ids</code></strong> option.</li>
 </ul>
 <p><strong><code>csv_files</code></strong>: Character; CSV files located in <code>/data</code> used to run the framework.</p>
 <p><strong><code>station_ids</code></strong>: Character; station IDs for hydrological monitoring stations.</p>
@@ -163,8 +165,8 @@ The optional command line argument <code>--config</code> can be used to specify 
 <li><code>"manual"</code>: Confirm split points after identification.</li>
 <li><code>"preset"</code>: Set the split points ahead of time using <strong><code>split_points</code></strong>.</li>
 </ul>
-<p><strong><code>split_points</code></strong>: Integer; preset values for split points. </p>
-<p><strong><code>significance_level</code></strong>: Numeric (1); significance level for statistical tests.</p>
+<p><strong><code>split_points</code></strong>: Integer; preset values for split points or <code>null</code> for no split points. </p>
+<p><strong><code>significance_level</code></strong>: Numeric (1); significance level. Must be between <code>0.01</code> and <code>0.1</code>.</p>
 <p><strong><code>bbmk_samples</code></strong>: Integer (1); number of bootstrap samples to use for the <a href="../eda/#bb-mk-test">BB-MK Test</a>.</p>
 <h3 id="ffa">FFA</h3>
 <p><strong><code>run_ffa</code></strong>: Boolean (1); if set to <code>true</code>, run <a href="../frequency-analysis/">flood frequency analysis</a>.</p>
@@ -176,7 +178,7 @@ The optional command line argument <code>--config</code> can be used to specify 
 </ul>
 <p><strong><code>ns_signature</code></strong>: Character (1); stationary or non-stationary signature. Must be one of:</p>
 <ul>
-<li><code>NULL</code>: No non-stationarity.</li>
+<li><code>null</code>: No non-stationarity.</li>
 <li><code>"10"</code>: Linear trend in the mean.</li>
 <li><code>"11"</code>: Linear trend in the mean and variance.</li>
 </ul>
@@ -222,24 +224,18 @@ The optional command line argument <code>--config</code> can be used to specify 
 <h3 id="model-assessment">Model Assessment</h3>
 <p><strong><code>pp_formula</code></strong>: Character (1); plotting position formula for <a href="../model-assessment/">model assessment</a>. Must be one of: </p>
 <ul>
-<li><code>"weibull"</code></li>
-<li><code>"blom"</code></li>
-<li><code>"cunnane"</code></li>
-<li><code>"gringorten"</code></li>
-<li><code>"hazen"</code></li>
+<li><code>"weibull"</code>: <span class="arithmatex">\(i / (n + 1)\)</span></li>
+<li><code>"blom"</code>: <span class="arithmatex">\((i - 0.375) / (n + 0.25)\)</span></li>
+<li><code>"cunnane"</code>: <span class="arithmatex">\((i - 0.4) / (n + 0.2)\)</span></li>
+<li><code>"gringorten"</code>: <span class="arithmatex">\((i - 0.44) / (n + 0.12)\)</span></li>
+<li><code>"hazen"</code>: <span class="arithmatex">\((i - 0.5) / n\)</span></li>
 </ul>
 <h3 id="plot-generation">Plot Generation</h3>
 <p><strong><code>show_trend</code></strong>: Boolean (1); if <code>true</code>, add a trend line through the AMS data where applicable. </p>
 <p><strong><code>anchor_year</code></strong>: Integer (1); year used to generate return level plot for non-stationary models. </p>
 <h3 id="report-generation">Report Generation</h3>
 <p><strong><code>generate_report</code></strong>: Boolean (1); if <code>true</code>, generate a report with specified <strong><code>report_formats</code></strong>.</p>
-<p><strong><code>report_formats</code></strong>: Character; list of report formats. Valid report formats are: </p>
-<ul>
-<li><code>"markdown"</code></li>
-<li><code>"pdf"</code></li>
-<li><code>"html"</code></li>
-<li><code>"json"</code></li>
-</ul>
+<p><strong><code>report_formats</code></strong>: Character; list of report formats (<code>"markdown"</code>, <code>"pdf"</code>, <code>"html"</code>, or <code>"json"</code>).</p>
               
             </div>
           </div><footer>

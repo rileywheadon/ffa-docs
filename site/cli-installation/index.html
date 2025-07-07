@@ -43,13 +43,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">R Package</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../r-documentation.pdf">Documentation</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Command Line Interface</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-introduction/">Getting Started</a>
+                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Installation Instructions</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
@@ -58,17 +55,18 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#installing-the-ffa-framework">Installing the FFA Framework</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#part-1-installing-the-cli">Part 1: Installing the CLI</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#part-2-installing-the-ffaframework-package">Part 2: Installing the ffaframework Package</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#instructions">Instructions</a>
     </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../cli-manual/">User Manual</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">R Package</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-installation/">Installation instructions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-documentation.pdf">User Manual</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Concepts</span></p>
@@ -125,16 +123,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="installation-instructions">Installation Instructions</h1>
-<p>The FFA framework is currently available as a command line interface (CLI) for the <code>R</code> programming environment.
-Therefore, installation and usage of the framework will require modellers to be familiar with the shell on their respective operating system.</p>
+                <h1 id="installing-the-cli">Installing the CLI</h1>
 <h2 id="prerequisites">Prerequisites</h2>
 <ol>
-<li>Install Git from https://git-scm.com/downloads. </li>
+<li>Install Git from <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a>. </li>
 <li>Check that Git is installed by executing <code>git --version</code> in a shell.</li>
-<li>Install R from https://www.r-project.org/. Version 4.5.0 is recommended.</li>
+<li>Install R from <a href="https://www.r-project.org/">https://www.r-project.org/</a>. Version 4.5.0 is recommended.</li>
 <li>Check that R is installed by executing <code>R --version</code> in  a shell.  </li>
-<li>Install the latest version of Pandoc from https://pandoc.org/.</li>
+<li>Install the latest version of Pandoc from <a href="https://pandoc.org/">https://pandoc.org/</a>.</li>
 <li>Check that Pandoc is installed by executing <code>pandoc --version</code> in a shell.</li>
 </ol>
 <h3 id="a-note-for-windows-users">A Note for Windows Users</h3>
@@ -145,8 +141,7 @@ The default paths for Git, R and Pandoc are:</p>
 C:\Program Files\R\R-4.5.0\bin
 C:\Program Files\Pandoc
 </code></pre>
-<h2 id="installing-the-ffa-framework">Installing the FFA Framework</h2>
-<h3 id="part-1-installing-the-cli">Part 1: Installing the CLI</h3>
+<h2 id="instructions">Instructions</h2>
 <ol>
 <li>Open a shell and navigate to the directory where you would like to install the framework.</li>
 <li>
@@ -161,34 +156,8 @@ C:\Program Files\Pandoc
 <li>Load libraries from the <code>renv.lock</code> file by executing <code>renv::restore()</code>.</li>
 <li>Exit the command prompt with <code>q()</code>.</li>
 </ol>
-<h3 id="part-2-installing-the-ffaframework-package">Part 2: Installing the <code>ffaframework</code> Package</h3>
-<p>The FFA framework requires this <a href="https://github.com/rileywheadon/ffa-package">R package</a>.
-To install it,</p>
-<ol>
-<li>Open a shell and navigate to the directory where you would like to install the package.</li>
-<li>
-<p>Clone the Github repository by running the following command in a shell:</p>
-<pre><code>git clone https://github.com/rileywheadon/ffa-package.git
-</code></pre>
-</li>
-<li>
-<p>Navigate to the <code>source</code> directory of the CLI installed in Part 1.</p>
-</li>
-<li>
-<p>Open a command prompt with <code>R</code>. Install the <code>devtools</code> package: </p>
-<pre><code>install.packages("devtools")
-library(devtools)
-</code></pre>
-</li>
-<li>
-<p>Run the following command, changing <code>~/path/to/ffa-package</code> as needed. </p>
-<pre><code>devtools::install("~/path/to/ffa-package")
-</code></pre>
-</li>
-<li>
-<p>Exit the command prompt with <code>q()</code>. The installation is complete.</p>
-</li>
-</ol>
+<p>You will also need to install the <a href="https://github.com/rileywheadon/ffa-package">R package</a>.
+See <a href="../r-installation/">here</a> for installation instructions.</p>
 <hr />
 <p>This guide has been tested on Linux, Windows, and MacOS. </p>
 <p>Please submit a <a href="https://github.com/rileywheadon/ffa-framework/issues">Github Issue</a> if you have any problems.</p>
@@ -196,7 +165,7 @@ library(devtools)
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../r-documentation.pdf" class="btn btn-neutral float-left" title="Documentation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../cli-introduction/" class="btn btn-neutral float-left" title="Getting Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../cli-manual/" class="btn btn-neutral float-right" title="User Manual">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -220,7 +189,7 @@ library(devtools)
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../r-documentation.pdf" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../cli-introduction/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../cli-manual/" style="color: #fcfcfc">Next &raquo;</a></span>

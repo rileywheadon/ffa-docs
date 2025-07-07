@@ -4,70 +4,72 @@
 
 ### Status
 
-| File                | Roxygen2 | Website | Tested | Validated | Covered |
-| ------------------- | -------- | ------- | ------ | --------- | ------- |
-| ams-decomposition.R | x        | x       | x      |           |         |
-| assessment-plot.R   | x        | x       | x      |           |         |
-| bbmk-plot.R         | x        | x       | x      |           |         |
-| bbmk-test.R         | x        | x       | x      |           |         |
-| gll-functions.R     | x        | x       | x      | x         |         |
-| kpss-test.R         | x        | x       | x      |           |         |
-| ld-selection.R      | x        | x       | x      |           |         |
-| lk-selection.R      | x        | x       | x      |           |         |
-| llv-functions.R     | x        | x       | x      | x         |         |
-| lmom-plot.R         | x        | x       | x      |           |         |
-| lmom-sample.R       | x        | x       | x      |           |         |
-| lmr-functions.R     | x        | x       | x      |           |         |
-| mks-plot.R          | x        | x       | x      |           |         |
-| mks-test.R          | x        | x       | x      |           |         |
-| mk-test.R           | x        | x       | x      |           |         |
-| mle-estimation.R    | x        | x       | x      |           |         |
-| model-assessment.R  | x        | x       | x      |           |         |
-| mw-variance.R       | x        | x       | x      |           |         |
-| pel-functions.R     | x        | x       | x      |           |         |
-| pelkap.R            | x        | x       | x      |           |         |
-| pettitt-plot.R      | x        | x       | x      |           |         |
-| pettitt-test.R      | x        | x       | x      |           |         |
-| pp-test.R           | x        | x       | x      |           |         |
-| qnt-functions.R     | x        | x       | x      |           |         |
-| rfpl-uncertainty.R  | x        | x       | x      |           |         |
-| runs-plot.R         | x        | x       | x      |           |         |
-| runs-test.R         | x        | x       | x      |           |         |
-| sb-uncertainty.R    | x        | x       | x      |           |         |
-| sens-plot.R         | x        | x       | x      |           |         |
-| sens-trend.R        | x        | x       | x      |           |         |
-| spearman-plot.R     | x        | x       | x      |           |         |
-| spearman-test.R     | x        | x       | x      |           |         |
-| uncertainty-plot.R  | x        | x       | x      |           |         |
-| white-test.R        | x        | x       | x      |           |         |
-| z-selection.R       | x        | x       | x      |           |         |
-
-### Planned Features
-
-- Add support for custom plot labels using an optional argument.
-- Implement models with variance-only trends.
-- Use 2-parameter Weibull for `rfpl-uncertainty`, reparamaterized on $\sigma$.
-
-### Planned Improvements
-
-- Replace `nlminb` with `optim`, update documentation.
-- Ensure that all references are to Hosking, 1997 (not 1996).
-- Add parameter validation to _every_ function.
-- Achieve 100% code coverage using the `covr` library.
+| File                     | Roxygen2 | Tested | Validated | Covered |
+| ------------------------ | -------- | ------ | --------- | ------- |
+| 00-ffa-framework.R       |          | -      | -         | -       |
+| ams-decomposition.R      | x        | x      | x         | x       |
+| ams-mw-variance.R        | x        | x      | x         | x       |
+| eda-bbmk-test.R          | x        | x      | x         | x       |
+| eda-kpss-test.R          | x        | x      | x         |         |
+| eda-mks-test.R           | x        | x      | x         | x       |
+| eda-mk-test.R            | x        | x      | x         | x       |
+| eda-pettitt-test.R       | x        | x      | x         | x       |
+| eda-pp-test.R            | x        | x      | x         | x       |
+| eda-runs-test.R          | x        | x      | x         | x       |
+| eda-sens-trend.R         | x        | x      | x         | x       |
+| eda-spearman-test.R      | x        | x      | x         | x       |
+| eda-white-test.R         | x        | x      | x         | x       |
+| fit-lmom-fast.R          | x        | x      | x         | x       |
+| fit-lmom-kappa.R         | x        | x      | x         |         |
+| fit-lmom-methods.R       | x        | x      | x         | x       |
+| fit-maximum-likelihood.R | x        | x      | x         | x       |
+| general-loglik-fast.R    | x        | x      | x         | x       |
+| general-loglik-methods.R | x        | x      | x         | x       |
+| gll-xxx.R                | x        | x      | x         | x       |
+| lmom-fast.R              | x        | x      | x         | x       |
+| lmom-sample.R            | x        | x      | x         | x       |
+| lmom-theoretical.R       | x        | x      | x         | x       |
+| loglik-fast.R            | x        | x      | x         | x       |
+| loglik-methods.R         | x        | x      | x         | x       |
+| model-diagnostics.R      | x        | x      | x         | x       |
+| plot-bbmk-test.R         | x        | x      | x         | x       |
+| plot-lmom-diagram.R      | x        | x      | x         | x       |
+| plot-mks-test.R          | x        | x      | x         | x       |
+| plot-model-assessment.R  | x        | x      | x         | x       |
+| plot-pettitt-test.R      | x        | x      | x         | x       |
+| plot-runs-test.R         | x        | x      | x         | x       |
+| plot-sens-trend.R        | x        | x      | x         | x       |
+| plot-spearman-test.R     | x        | x      | x         | x       |
+| plot-uncertainty.R       | x        | x      | x         | x       |
+| quantile-fast.R          | x        | x      | x         | x       |
+| quantile-methods.R       | x        | x      | x         | x       |
+| select-ldistance.R       | x        | x      | x         | x       |
+| select-lkurtosis.R       | x        | x      | x         | x       |
+| select-zstatistic.R      | x        | x      | x         | x       |
+| uncertainty-bootstrap.R  | x        | x      | x         | x       |
+| uncertainty-rfpl.R       | x        | x      | x         | x       |
+| utils-model.R            |          |        |           |         |
+| utils-plot.R             |          |        |           |         |
+| utils-test.R             |          |        |           |         |
+| utils-validation.R       |          |        |           |         |
 
 ## Command Line Interface
 
 | Helper Function      | Implemented | Tested |
 | -------------------- | ----------- | ------ |
-| `validate.config`    |             |        |
-| `load.data`          |             |        |
-| `change.points`      |             |        |
-| `trend.detection`    |             |        |
-| `frequency.analysis` |             |        |
+| `validate.config`    | x           | x      |
+| `load.data`          | x           | x      |
+| `change.points`      | x           |        |
+| `trend.detection`    | x           |        |
+| `frequency.analysis` | x           |        |
 | `report.html`        |             |        |
 | `report.pdf`         |             |        |
 | `report.markdown`    |             |        |
 | `report.json`        |             |        |
+
+### Known Issues
+
+- `window_length` and `window_step` options are missing from `config.yml`
 
 ## API Development
 

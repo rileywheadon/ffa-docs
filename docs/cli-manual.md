@@ -17,12 +17,14 @@ Rscript ffaframework.R --config='custom-config.yml'
 
 ## Configuration Reference
 
+<p style="color: red;"><b>Note</b>: All configuration options are specified using <i>lowercase characters</i>.</p>
+
 ### Data Preparation
 
 **`data_source`**: Character (1); method for sourcing data for the framework. Must be one of:
 
 - `"local"`: Source data locally using the **`csv_files`** option.
-- `"msc-geomet"`: Pull data from the [MSC GeoMet API](https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weather-tools-specialized-data/msc-geomet-api-geospatial-web-services.html) using the **`station_ids`** option.
+- `"geomet"`: Pull data from the [MSC GeoMet API](https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weather-tools-specialized-data/msc-geomet-api-geospatial-web-services.html) using the **`station_ids`** option.
 
 **`csv_files`**: Character; CSV files located in `/data` used to run the framework.
 
@@ -38,9 +40,9 @@ Rscript ffaframework.R --config='custom-config.yml'
 - `"manual"`: Confirm split points after identification.
 - `"preset"`: Set the split points ahead of time using **`split_points`**.
 
-**`split_points`**: Integer; preset values for split points. 
+**`split_points`**: Integer; preset values for split points or `null` for no split points. 
 
-**`significance_level`**: Numeric (1); significance level for statistical tests.
+**`significance_level`**: Numeric (1); significance level. Must be between `0.01` and `0.1`.
 
 **`bbmk_samples`**: Integer (1); number of bootstrap samples to use for the [BB-MK Test](eda.md/#bb-mk-test).
 
@@ -56,7 +58,7 @@ Rscript ffaframework.R --config='custom-config.yml'
 
 **`ns_signature`**: Character (1); stationary or non-stationary signature. Must be one of:
 
-- `NULL`: No non-stationarity.
+- `null`: No non-stationarity.
 - `"10"`: Linear trend in the mean.
 - `"11"`: Linear trend in the mean and variance.
 
@@ -112,11 +114,11 @@ Rscript ffaframework.R --config='custom-config.yml'
 
 **`pp_formula`**: Character (1); plotting position formula for [model assessment](model-assessment.md). Must be one of: 
 
-- `"weibull"`
-- `"blom"`
-- `"cunnane"`
-- `"gringorten"`
-- `"hazen"`
+- `"weibull"`: $i / (n + 1)$
+- `"blom"`: $(i - 0.375) / (n + 0.25)$
+- `"cunnane"`: $(i - 0.4) / (n + 0.2)$
+- `"gringorten"`: $(i - 0.44) / (n + 0.12)$
+- `"hazen"`: $(i - 0.5) / n$
 
 ### Plot Generation
 
@@ -128,10 +130,5 @@ Rscript ffaframework.R --config='custom-config.yml'
 
 **`generate_report`**: Boolean (1); if `true`, generate a report with specified **`report_formats`**.
 
-**`report_formats`**: Character; list of report formats. Valid report formats are: 
-
-- `"markdown"`
-- `"pdf"`
-- `"html"`
-- `"json"`
+**`report_formats`**: Character; list of report formats (`"markdown"`, `"pdf"`, `"html"`, or `"json"`).
 

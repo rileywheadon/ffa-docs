@@ -43,16 +43,20 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">R Package</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../r-documentation.pdf">Documentation</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">Command Line Interface</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-introduction/">Getting Started</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../cli-installation/">Installation Instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../cli-manual/">User Manual</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">R Package</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-installation/">Installation instructions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-documentation.pdf">User Manual</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Concepts</span></p>
@@ -80,17 +84,21 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#cran-package">CRAN Package</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#status">Status</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#planned-features">Planned Features</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#command-line-interface">Command Line Interface</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#known-issues">Known Issues</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#api-development">API Development</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#web-app">Web App</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#further-research">Further Research</a>
     </li>
     </ul>
                   </li>
@@ -126,19 +134,8 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="roadmap">Roadmap</h1>
-<p>Preparing for CRAN:</p>
-<ul>
-<li>Ensure CRAN check is passing.</li>
-<li>Regenerate PDF documentation, add to website.</li>
-<li>Commit package and documentation to Github.</li>
-</ul>
-<p>Package Installation:</p>
-<ul>
-<li>Run a test install of the package, write documentation.</li>
-<li>Write CLI configuration documentation.</li>
-<li>Test and build the rest of the CLI.</li>
-</ul>
 <h2 id="cran-package">CRAN Package</h2>
+<h3 id="status">Status</h3>
 <table>
 <thead>
 <tr>
@@ -433,94 +430,81 @@
 </tr>
 </tbody>
 </table>
-<p>Features:</p>
+<h3 id="planned-features">Planned Features</h3>
 <ul>
+<li>Use 2-parameter Weibull for <code>rfpl-uncertainty</code>, reparamaterized on <span class="arithmatex">\(\sigma\)</span>.</li>
 <li>Add support for custom plot labels using an optional argument.</li>
 <li>Implement models with variance-only trends.</li>
-<li>Use 2-parameter Weibull for <code>rfpl-uncertainty</code>, reparamaterized on <span class="arithmatex">\(\sigma\)</span>.</li>
-</ul>
-<p>Touch-ups:</p>
-<ul>
 <li>Replace <code>nlminb</code> with <code>optim</code>, update documentation.</li>
-<li>Ensure that all references are to Hosking, 1997 (not 1996).</li>
 <li>Add parameter validation to <em>every</em> function.</li>
 <li>Achieve 100% code coverage using the <code>covr</code> library.</li>
+<li><code>mw.variance</code> behaves unpredictably when there are missing data points.</li>
 </ul>
-<h3 id="notes">Notes</h3>
-<p>Local Installation:</p>
-<ul>
-<li><code>devtools::install("~/Code/ffa-package/")</code></li>
-</ul>
-<p>Package checking:</p>
-<ul>
-<li><code>devtools::check()</code></li>
-<li><code>devtools::check(cran = TRUE)</code></li>
-</ul>
-<p>Documentation:</p>
-<ul>
-<li><code>devtools::document()</code>: generate docmentation</li>
-<li><code>devtools::build_manual(path = "~/Code/ffa-package")</code>: generate manual</li>
-</ul>
-<p>Unit testing:</p>
-<ul>
-<li><code>devtools::test()</code>: run all unit tests</li>
-<li><code>devtools::test_file("tests/testthat/...")</code>: run a specific unit test</li>
-</ul>
-<p>Generating a coverage report:</p>
-<pre><code>cov &lt;- covr::package_coverage()
-covr::report(cov, file = &quot;coverage.html&quot;)
-</code></pre>
 <h2 id="command-line-interface">Command Line Interface</h2>
-<p><strong>Exploratory Data Analysis</strong>: Complete.</p>
-<p><strong>Flood Frequency Analysis</strong>: In progress.</p>
+<table>
+<thead>
+<tr>
+<th>Helper Function</th>
+<th>Implemented</th>
+<th>Tested</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>validate.config</code></td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr>
+<td><code>load.data</code></td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr>
+<td><code>change.points</code></td>
+<td>x</td>
+<td></td>
+</tr>
+<tr>
+<td><code>trend.detection</code></td>
+<td>x</td>
+<td></td>
+</tr>
+<tr>
+<td><code>frequency.analysis</code></td>
+<td>x</td>
+<td></td>
+</tr>
+<tr>
+<td><code>report.html</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>report.pdf</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>report.markdown</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>report.json</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="known-issues">Known Issues</h3>
+<ul>
+<li><code>window_length</code> and <code>window_step</code> options are missing from <code>config.yml</code></li>
+</ul>
 <h2 id="api-development">API Development</h2>
-<p>Talk to Kasra about cloud hosting for API.</p>
-<ul>
-<li>Finish CRAN/CLI/GeoMet by July 10th
-  Link: <a href="https://www.youtube.com/watch?v=t-Is-8Qfym0">Building APIs with R</a></li>
-</ul>
-<p>Need to learn:</p>
-<ul>
-<li>OpenAPI</li>
-<li>Swagger</li>
-<li>Docker</li>
-</ul>
-<p>For the web app, use Flask/HTMX/Alpine.</p>
-<p>https://api.weather.gc.ca/collections/hydrometric-annual-statistics</p>
-<p>Sites used for the paper:</p>
-<ul>
-<li><code>Application_1</code>: 07BE001 (Athabasca River at Athabasca)</li>
-<li><code>Application_2</code>: 08NH021 (Kootenai River at Porthill)</li>
-<li><code>Application_3_1</code>: 05BB001 (Bow River at Banff)</li>
-<li><code>Application_3_2</code>: 08MH016 (Chilliwack River at Chilliwack Lake)</li>
-<li><code>Application_3_3</code>: 08NM050 (Okanagan River at Penticton)</li>
-</ul>
-<p>Query for getting a station (<code>hydrometric-annual-statistics/items</code>)</p>
-<ul>
-<li><code>limit = 200</code> to get all the annual data</li>
-<li><code>skipGeometry = TRUE</code> to ignore geographical data</li>
-<li><code>DATA_TYPE_EN = Discharge</code> to get flows</li>
-<li><code>STATION_NUMBER</code> set to the station number</li>
-</ul>
-<p>Get a list of stations with (<code>hydrometric-stations/items</code>)</p>
+<p>In progress.</p>
 <h2 id="web-app">Web App</h2>
-<p>Use Flask/HTML/CSS with leaflet.js</p>
-<h2 id="further-research">Further Research</h2>
-<p>Read through papers on different NS metrics and possibly implement them:</p>
-<ul>
-<li>EWT: Olsen et al. 1998; Wigley, 2009</li>
-<li>ENE: Parey et al. 2007; 2010</li>
-<li>ERP: Katz et al. 2002</li>
-<li>R: Read &amp; Vogel, 2015; Salas &amp; Obeysekera, 2014; Serinaldi &amp; Kilsby, 2015</li>
-<li>DLL: Rootzen &amp; Katz, 2013</li>
-<li>ADLL: Yan et al. 2017</li>
-</ul>
-<p>Outreach:</p>
-<ul>
-<li>Run workshops in August/September</li>
-<li>Write 10-page report by end of summer</li>
-<li>Develop training material</li>
-</ul>
+<p>In progress.</p>
               
             </div>
           </div><footer>

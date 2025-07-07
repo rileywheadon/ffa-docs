@@ -8,6 +8,12 @@ nav:
   - R Package:
     - Installation instructions: r-installation.md
     - User Manual: r-documentation.pdf
+    - Vignettes:
+      - "Introduction": vignettes/introduction.html
+      - "Change Point Detection": vignettes/change-points.html
+      - "Trend Identification": vignettes/trend-identification.html
+      - "Stationary FFA": vignettes/stationary-ffa.html
+      - "Non-Stationary FFA": vignettes/non-stationary-ffa.html
   - Concepts:
     - Exploratory Data Analysis: eda.md
     - Probability Distributions: distributions.md

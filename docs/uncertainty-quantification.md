@@ -40,7 +40,7 @@ $$
 
 In the FFA framework, we compute the profile likelihood of each quantile $y$ by reparameterizing the location parameter $\mu$.
 Let $q(p, \mu, \psi)$ be a function that takes an exceedance probability $p$, location parameter $\mu$ and nuisance parameters $\psi$ and returns a quantile $y$.
-All quantile functions satisfy: 
+All quantile functions[^1] satisfy: 
 
 $$
 y = q(p, \mu, \psi) = \mu + q(p, 0, \psi)
@@ -53,6 +53,21 @@ $$
 $$ 
 
 We use this relationship to find the profile likelihood $\ell_{p}(y)$ by evaluating $\mu(p, y, \psi)$ and substituting it into the log-likelihood functions listed [here](parameter-estimation.md#maximum-likelihood-mle).
+
+### Handling the Weibull Distribution
+
+Due to support issues, we use a different reparameterization for the Weibull distribution:
+
+$$
+\begin{aligned}
+&y = (\mu_{0} + \mu_{1}t) + (\sigma_{0} + \sigma_{1}t)(-\log (1 - p))^{1/\kappa}  \\[5pt]
+\Rightarrow\,&(\sigma_{0} + \sigma_{1}t) = \frac{y - (\mu_{0} + \mu_{1}t)}{(-\log (1 - p))^{1/\kappa}} \\[5pt]
+\Rightarrow\,&\sigma_{0} = \frac{y - (\mu_{0} + \mu_{1}t)}{(-\log (1 - p))^{1 / \kappa }} - \sigma_{1}t
+\end{aligned}
+$$
+
+The derivation above uses the `WEI110` model, although the `WEI100` and `WEI` reparameterizations can be obtained easily by setting $\sigma_{1} = 0$ and $\sigma_{1} = \mu_{1} = 0$ respectively.
+After solving for $\sigma_{0}$ in terms of the other parameters, we can use the standard log-likelihood function.
 
 ### Initialization Algorithm
 
@@ -95,3 +110,5 @@ However, [model assessment](model-assessment.md) requires confidence intervals f
 
 **Note**: The sample bootstrap algorithm is the fastest algorithm for computing confidence intervals on all years in a dataset because the probabilities used to generate the bootstrapped samples can be reused.
 The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.
+
+

@@ -162,9 +162,9 @@ See [Normal Distribution](#normal-nor-distribution).
 
 $$
 \begin{cases}
--\infty < x \leq \mu + (\sigma/\kappa ) &\kappa > 0 \\[5pt]
+\mu + (\sigma /\kappa) \leq x < \infty & \kappa > 0 \\[5pt]
 -\infty < x < \infty & \kappa  = 0 \\[5pt]
-\mu + (\sigma /\kappa) \leq x < \infty & \kappa < 0
+-\infty < x \leq \mu + (\sigma/\kappa ) &\kappa < 0 
 \end{cases}
 $$
 
@@ -322,7 +322,7 @@ $$
 \mu  \approx  \lambda_{1} - \frac{\sigma }{\kappa }\left(1 - e^{-\kappa ^2 / 2 }\right)
 $$
 
-The coefficients ($A_{i}$, $B_{i}$, $C_{i}$, $D_{i}$, $E_{i}$, $F_{i}$, and $\tau_{4}^{0}$) are defined in Appendix A.8 of Hosking, 1996[^1].
+The coefficients ($A_{i}$, $B_{i}$, $C_{i}$, $D_{i}$, $E_{i}$, $F_{i}$, and $\tau_{4}^{0}$) are defined in Appendix A.8 of Hosking, 1997[^1].
 Although this appendix covers the 3-parameter log-normal distribution, the L-moments of the generalized normal distribution are the same.
 
 ### Pearson Type III (PE3) Distribution
@@ -403,7 +403,7 @@ $$
 \end{aligned}
 $$
 
-Coefficients are given in Appendix A.9 of Hosking, 1996[^1].
+Coefficients are given in Appendix A.9 of Hosking, 1997[^1].
 To estimate parameters from the L-moments, we use one of two approximations for $\alpha$ depending on the value of $\tau_{3}$:
 
 $$

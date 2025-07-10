@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Parameter Estimation - FFA Framework</title>
+    <title>Change Points - FFA Framework</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Parameter Estimation";
-        var mkdocs_page_input_path = "parameter-estimation.md";
+        var mkdocs_page_name = "Change Points";
+        var mkdocs_page_input_path = "eda-change-points.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -74,10 +74,24 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../eda-introduction/">Introduction</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../eda-change-points/">Change Points</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Change Points</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#mann-kendall-sneyers-test">Mann-Kendall-Sneyers Test</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example-plot">Example Plot</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pettitt-test">Pettitt Test</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example-plot_1">Example Plot</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../eda-trend-ams-mean/">Trends in AMS Mean</a>
                   </li>
@@ -85,22 +99,14 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Flood Frequency Analysis</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ffa-introduction/">Introduction</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../probability-distributions/">Probability Distributions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../model-selection/">Model Selection</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Parameter Estimation</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#l-moments">L-Moments</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#maximum-likelihood-mle">Maximum Likelihood (MLE)</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#generalized-maximum-likelihood-gmle">Generalized Maximum Likelihood (GMLE)</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../parameter-estimation/">Parameter Estimation</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../uncertainty-quantification/">Uncertainty Quantification</a>
                   </li>
@@ -134,8 +140,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Flood Frequency Analysis</li>
-      <li class="breadcrumb-item active">Parameter Estimation</li>
+          <li class="breadcrumb-item">Exploratory Data Analysis</li>
+      <li class="breadcrumb-item active">Change Points</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -144,54 +150,62 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="parameter-estimation">Parameter Estimation</h1>
-<p>The FFA framework implements three methods for parameter estimation:</p>
-<ol>
-<li>L-moments</li>
-<li>Maximum likelihood (MLE)</li>
-<li>Generalized maximum likelihood (GMLE)</li>
-</ol>
-<h2 id="l-moments">L-Moments</h2>
-<p>The method estimates parameter values based on the sample L-moments <span class="arithmatex">\(l_{1}\)</span>, <span class="arithmatex">\(l_{2}\)</span> and the sample L-moment ratios <span class="arithmatex">\(t_{3}\)</span>, <span class="arithmatex">\(t_{4}\)</span>.
-For more information about L-moments, see <a href="../model-selection/#an-introduction-to-l-moments">here</a>.
-For a information about distribution-specific parameter estimation with L-moments, see <a href="../probability-distributions/">here</a>.
-The parameter estimation methods used in the framework are based on <a href="https://lib.stat.cmu.edu/general/lmoments">these</a> Fortran routines by J.R.M. Hosking.</p>
-<p><strong>Warning</strong>: L-moments parameter estimation can yield distributions which do not have support at small values.
-This is generally not an issue, since we are only interested in the higher quantiles of the distribution.
-However, it is important to remember that the probability distributions produced by L-moments <em>should not</em> be used to predict future streamflow maxima in general.</p>
-<h2 id="maximum-likelihood-mle">Maximum Likelihood (MLE)</h2>
-<p>Maximum likelihood estimation aims to maximize the log-likelihood function <span class="arithmatex">\(\ell(x : \theta)\)</span> of the data <span class="arithmatex">\(x = x_{1}, \dots , x_{n}\)</span> given the parameters <span class="arithmatex">\(\theta\)</span>.
-The log-likelihood functions for each distribution are defined <a href="../probability-distributions/">here</a>.
-To find the optimal parameters <span class="arithmatex">\(\hat{\theta}\)</span>, we use the <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/nlminb"><code>nlminb</code></a> function from the <code>stats</code> library.
-This function implements the "L-BFGS-B" algorithm for constrained optimization.</p>
-<h2 id="generalized-maximum-likelihood-gmle">Generalized Maximum Likelihood (GMLE)</h2>
-<p>The generalized maximum likelihood (GMLE) parameter estimation method is used to determine the parameters of the <a href="../probability-distributions/#generalized-extreme-value-gev-distribution">generalized extreme value (GEV) distribution</a> given a prior distribution for the shape parameter <span class="arithmatex">\(\kappa\)</span>.
-This method uses <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation">maximum a posteriori estimation</a>, which maximizes the product of the likelihood and the prior distribution.</p>
-<p>Suppose that <span class="arithmatex">\(\kappa\)</span> is drawn from a random variable <span class="arithmatex">\(K \sim \text{Beta}(p, q)\)</span> where <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(q\)</span> are determined using prior knowledge. 
-The prior PDF <span class="arithmatex">\(f_{K}(\kappa)\)</span> is shown below, where <span class="arithmatex">\(B(p, q)\)</span> is the <a href="https://en.wikipedia.org/wiki/Beta_function">Beta function</a>.</p>
+                <h1 id="change-point-detection">Change Point Detection</h1>
+<h2 id="mann-kendall-sneyers-test">Mann-Kendall-Sneyers Test</h2>
+<p>The <strong>Mann-Kendall-Sneyers (MKS) Test</strong> is used to identify the beginning of a trend in a time series:</p>
+<ul>
+<li>Null hypothesis: There are no change points in the time series.</li>
+<li>Alternative hypothesis: There are <em>one or more</em> change points in the time series.</li>
+</ul>
+<p>Define <span class="arithmatex">\(\mathbb{I}(y_{i} &gt; y_{j})\)</span> to be <span class="arithmatex">\(1\)</span> if <span class="arithmatex">\(y_{i} &gt; y_{j}\)</span> and <span class="arithmatex">\(0\)</span> otherwise.</p>
+<p>Given a time series <span class="arithmatex">\(y_{1}, \dots, y_{n}\)</span>, we compute the <em>progressive series</em> <span class="arithmatex">\(S^{F}_{t}\)</span>:</p>
 <div class="arithmatex">\[
-f_{K}(\kappa) = \frac{\kappa ^{p - 1}(1 - \kappa)^{q-1}}{B(p, q)}
+S^{F}_{t} = \sum_{i=i}^{t} \sum_{j=1}^{i-1} \mathbb{I}(y_{i} &gt; y_{j})
 \]</div>
-<p>As in the case of regular maximum likelihood estimation, the likelihood function is:</p>
+<p>Next, we reverse the time series <span class="arithmatex">\(y\)</span>.
+This gives us a new time series <span class="arithmatex">\(y'\)</span> such that <span class="arithmatex">\(y_{i}' = y_{n+1-i}\)</span>. 
+Then we compute the <em>regressive series</em> <span class="arithmatex">\(S^{B}_{t}\)</span>, where <span class="arithmatex">\(\text{rev}\)</span> indicates that the vector is reversed:</p>
 <div class="arithmatex">\[
-f_{X}(x : \mu, \sigma, \kappa) =\prod_{i=1}^{n} \frac{1}{\sigma}t_{i}^{-1 - (1/\kappa)} \exp (-t_{i}^{-1/\kappa}), \quad
-t_{i} = 1 + \kappa \left(\frac{x_{i} - \mu }{\sigma } \right)
+S^{B}_{t} = \text{rev}\left( \sum_{i=i}^{t} \sum_{j=1}^{i-1} \mathbb{I}(y'_{i} &gt; y'_{j})\right)
 \]</div>
-<p>As mentioned previously, we want to maximize the product <span class="arithmatex">\(\mathcal{L} = f_{K}(\kappa)f_{X}(x:\mu ,\sigma ,\kappa)\)</span>. 
-To ensure numerical stability, we will maximize <span class="arithmatex">\(\ln  (\mathcal{L})\)</span> instead, which has the following form:</p>
+<p>Then, we compute the <em>normalized progressive series</em> <span class="arithmatex">\(UF_{t}\)</span> and <em>normalized regressive series</em> <span class="arithmatex">\(UB_{t}\)</span>:</p>
 <div class="arithmatex">\[
-\begin{aligned}
-\ln(\mathcal{L}) &amp;= \ln(f_{K}(\kappa)) + \ln(f_{X}(x:\mu ,\sigma ,\kappa )) \\[10pt]
-\ln(f_{K}(\kappa)) &amp;= (p - 1)\ln \kappa + (q-1) \ln (1 - \kappa)  - \ln (B(p, q)) \\[5pt]
-\ln(f_{X}(x:\mu ,\sigma ,\kappa )) &amp;= \sum_{i=1}^{n} \left[-\ln \sigma - \left(1 + \frac{1}{\kappa }\right) \ln t_{i} - t_{i}^{-1/\kappa}\right]
-\end{aligned}
+UF_{t} = \frac{S^{F}_{t} - \mathbb{E}[S^{F}_{t}]}{\sqrt{\text{Var}\,(S^{F}_{t})}}, \quad
+UB_{t} = \frac{S^{B}_{t} - \mathbb{E}[S^{B}_{t}]}{\sqrt{\text{Var}\,(S^{B}_{t})}}
 \]</div>
+<p>For both the progressive and regressive series, the expectation and variance is as follows:</p>
+<div class="arithmatex">\[
+\mathbb{E}[S^{F}_{t}] = \mathbb{E}[S^{B}_{t}] = \frac{t(t-1)}{4}, \quad
+\text{Var}(S^{F}_{t}) = \text{Var}(S^{B}_{t}) = \frac{t(t-1)(2t+5)}{72}
+\]</div>
+<p>Finally, we plot <span class="arithmatex">\(UF_{t}\)</span> and <span class="arithmatex">\(UB_{t}\)</span> with confidence bounds at the <span class="arithmatex">\(\alpha/2\)</span> and <span class="arithmatex">\(1 - (\alpha /2))\)</span> quantiles of the standard normal distribution, where <span class="arithmatex">\(\alpha\)</span> is the chosen significance level.
+A crossing point between <span class="arithmatex">\(UF_{t}\)</span> and <span class="arithmatex">\(UB_{t}\)</span> that lies outside the confidence bounds indicates the start of the trend.</p>
+<h3 id="example-plot">Example Plot</h3>
+<p><img alt="" src="../img/plot-mks.png" /></p>
+<h2 id="pettitt-test">Pettitt Test</h2>
+<p>The <strong>Pettitt Test</strong> is used to identify abrupt changes in the mean of a time series.</p>
+<ul>
+<li>Null hypothesis: There are no abrupt changes in the time series mean.</li>
+<li>Alternative hypothesis: There is <em>one</em> abrupt change in the time series mean.</li>
+</ul>
+<p>Define <span class="arithmatex">\(\text{sign}(x)\)</span> to be <span class="arithmatex">\(1\)</span> if <span class="arithmatex">\(x &gt; 0\)</span>, <span class="arithmatex">\(0\)</span> if <span class="arithmatex">\(x = 0\)</span>, and <span class="arithmatex">\(-1\)</span> otherwise.</p>
+<p>Given a time series <span class="arithmatex">\(y_{1}, \dots, y_{n}\)</span>, compute the following test statistic:</p>
+<div class="arithmatex">\[
+U_{t} = \sum_{i=1}^{t} \sum_{j=t+1}^{n} \text{sign} (y_{j} - y_{i}), \quad K = \max_{t}|U_{t}|
+\]</div>
+<p>The value of <span class="arithmatex">\(t\)</span> such that <span class="arithmatex">\(U_{t} = K\)</span> is a <em>potential change point</em>. The p-value of the potential change point can be approximated using the following formula for a one-sided test:</p>
+<div class="arithmatex">\[
+p \approx \exp \left(-\frac{6K^2}{n^3 + n^2}\right)
+\]</div>
+<p>If the p-value is less than the significance level <span class="arithmatex">\(\alpha\)</span>, we reject the null hypothesis and conclude that there is evidence for an abrupt change in the mean at the potential change point.</p>
+<h3 id="example-plot_1">Example Plot</h3>
+<p><img alt="" src="../img/plot-pettitt.png" /></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../model-selection/" class="btn btn-neutral float-left" title="Model Selection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../uncertainty-quantification/" class="btn btn-neutral float-right" title="Uncertainty Quantification">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../eda-introduction/" class="btn btn-neutral float-left" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../eda-trend-ams-mean/" class="btn btn-neutral float-right" title="Trends in AMS Mean">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -214,10 +228,10 @@ To ensure numerical stability, we will maximize <span class="arithmatex">\(\ln  
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../model-selection/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../eda-introduction/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../uncertainty-quantification/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../eda-trend-ams-mean/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

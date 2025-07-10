@@ -45,18 +45,18 @@
               </ul>
               <p class="caption"><span class="caption-text">Command Line Interface</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-introduction/">Getting Started</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation/">Installation Instructions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-manual/">User Manual</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../r-installation/">Installation instructions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../r-documentation.pdf">User Manual</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
     <ul>
@@ -73,11 +73,22 @@
     </ul>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Concepts</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../eda/">Exploratory Data Analysis</a>
+              <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-introduction/">Introduction</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../distributions/">Probability Distributions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-change-points/">Change Points</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-trend-ams-mean/">Trends in AMS Mean</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-trend-ams-variability/">Trends in AMS Variability</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flood Frequency Analysis</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../ffa-introduction/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../probability-distributions/">Probability Distributions</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Model Selection</a>
     <ul class="current">
@@ -111,8 +122,6 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../parameter-estimation/">Parameter Estimation</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../frequency-analysis/">Frequency Analysis</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../uncertainty-quantification/">Uncertainty Quantification</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
@@ -124,9 +133,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../roadmap/">Roadmap</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Release Notes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../release-notes/">Release Notes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../matlab/">MATLAB Version</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../matlab-version/">MATLAB Version</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
                   </li>
@@ -145,7 +154,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Concepts</li>
+          <li class="breadcrumb-item">Flood Frequency Analysis</li>
       <li class="breadcrumb-item active">Model Selection</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -189,7 +198,7 @@ t_{3} &amp;= l_{3} / l_{2} \\
 t_{4} &amp;= l_{4} / l_{2}
 \end{aligned}
 \]</div>
-<p>Then, we compare these statistics, specifically the L-skewness and L-kurtosis to their theoretical values (given <a href="../distributions/">here</a>) using one of three different metrics to select a distribution.</p>
+<p>Then, we compare these statistics, specifically the L-skewness and L-kurtosis to their theoretical values (given <a href="../probability-distributions/">here</a>) using one of three different metrics to select a distribution.</p>
 <p><strong>Note</strong>: Probability distributions with less than three parameters have constant L-skewness <span class="arithmatex">\(\tau_{3}\)</span> and L-kurtosis <span class="arithmatex">\(\tau_{4}\)</span> regardless of their parameters.
 The L-skewness and L-kurtosis of probability distributions with three parameters is a function of the shape parameter <span class="arithmatex">\(\kappa\)</span>.
 The notation <span class="arithmatex">\(\tau_{3}(\kappa)\)</span> and <span class="arithmatex">\(\tau_{4}(\kappa)\)</span> refers to the L-skewness and L-kurtosis <em>curves</em> for the three parameter distributions.</p>
@@ -245,14 +254,14 @@ z = \frac{\tau_{4} (\kappa ^{*}) - t_{4} + B_{4} }{ \sigma _{4}}
 <p>To determine the best probability distribution for non-stationary data, we <em>decompose</em> the data into stationary and non-stationary components and then use one of the methods described above.</p>
 <h3 id="decomposition-scenario-1">Decomposition (Scenario 1)</h3>
 <ol>
-<li>Use <a href="../eda/#sens-trend-estimator">Sen's Trend Estimator</a> to identify the slope <span class="arithmatex">\(b_{1}\)</span> and intercept <span class="arithmatex">\(b_{0}\)</span> of the trend. </li>
+<li>Use <a href="../eda-trend-ams-mean/#sens-trend-estimator">Sen's Trend Estimator</a> to identify the slope <span class="arithmatex">\(b_{1}\)</span> and intercept <span class="arithmatex">\(b_{0}\)</span> of the trend. </li>
 <li>Detrend the data by subtracting the linear function <span class="arithmatex">\((b_{1} \cdot \text{Covariate})\)</span> from the data, where the <em>covariate</em> is a value between <span class="arithmatex">\([0, 1]\)</span> derived from the index.</li>
 <li>If necessary, enforce positivity by adding a constant such that <span class="arithmatex">\(\min(\text{data}) = 1\)</span> .</li>
 </ol>
 <h3 id="decomposition-scenario-2">Decomposition (Scenario 2)</h3>
 <ol>
 <li>Use a moving-window algorithm to compute the variance of the data. </li>
-<li>Use <a href="../eda/#sens-trend-estimator">Sen's Trend Estimator</a> to identify the slope <span class="arithmatex">\(c_{1}\)</span> and intercept <span class="arithmatex">\(c_{0}\)</span> of the trend in the variance. </li>
+<li>Use <a href="../eda-trend-ams-mean/#sens-trend-estimator">Sen's Trend Estimator</a> to identify the slope <span class="arithmatex">\(c_{1}\)</span> and intercept <span class="arithmatex">\(c_{0}\)</span> of the trend in the variance. </li>
 <li>
 <p>Normalize the data to have mean <span class="arithmatex">\(0\)</span>, then divide out the scale factor <span class="arithmatex">\(g_{t}\)</span>.</p>
 <div class="arithmatex">\[
@@ -274,7 +283,7 @@ g_{t} = \frac{(c_{1} \cdot  \text{Covariate} ) + c_{0}}{c_{0}}
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../distributions/" class="btn btn-neutral float-left" title="Probability Distributions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../probability-distributions/" class="btn btn-neutral float-left" title="Probability Distributions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../parameter-estimation/" class="btn btn-neutral float-right" title="Parameter Estimation">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -298,7 +307,7 @@ g_{t} = \frac{(c_{1} \cdot  \text{Covariate} ) + c_{0}}{c_{0}}
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../distributions/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../probability-distributions/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../parameter-estimation/" style="color: #fcfcfc">Next &raquo;</a></span>

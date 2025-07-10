@@ -13,7 +13,7 @@
       <script>
         // Current page data
         var mkdocs_page_name = "User Manual";
-        var mkdocs_page_input_path = "cli-manual.md";
+        var mkdocs_page_input_path = "cli-user-manual.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -45,9 +45,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Command Line Interface</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-introduction/">Getting Started</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation/">Installation Instructions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">User Manual</a>
     <ul class="current">
@@ -78,9 +78,9 @@
               </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../r-installation/">Installation instructions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../r-documentation.pdf">User Manual</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
     <ul>
@@ -97,17 +97,26 @@
     </ul>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Concepts</span></p>
+              <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../eda/">Exploratory Data Analysis</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-introduction/">Introduction</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../distributions/">Probability Distributions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-change-points/">Change Points</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-trend-ams-mean/">Trends in AMS Mean</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-trend-ams-variability/">Trends in AMS Variability</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flood Frequency Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ffa-introduction/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../probability-distributions/">Probability Distributions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../model-selection/">Model Selection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../parameter-estimation/">Parameter Estimation</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../frequency-analysis/">Frequency Analysis</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../uncertainty-quantification/">Uncertainty Quantification</a>
                   </li>
@@ -120,9 +129,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../roadmap/">Roadmap</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Release Notes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../release-notes/">Release Notes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../matlab/">MATLAB Version</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../matlab-version/">MATLAB Version</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
                   </li>
@@ -170,9 +179,9 @@ The optional command line argument <code>--config</code> can be used to specify 
 <li><code>"geomet"</code>: Pull data from the <a href="https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weather-tools-specialized-data/msc-geomet-api-geospatial-web-services.html">MSC GeoMet API</a> using the <strong><code>station_ids</code></strong> option.</li>
 </ul>
 <p><strong><code>csv_files</code></strong>: Character; CSV files located in <code>/data</code> used to run the framework.</p>
-<p><strong><code>station_ids</code></strong>: Character; station IDs for hydrological monitoring stations.</p>
+<p><strong><code>station_ids</code></strong>: Character; station IDs for hydrological monitoring stations. You can search for station IDs by name, province, drainage basin, and location <a href="https://wateroffice.ec.gc.ca/search/real_time_e.html">here</a>.</p>
 <h3 id="eda">EDA</h3>
-<p><strong><code>run_eda</code></strong>: Boolean (1); if set to <code>true</code>, run <a href="../eda/">exploratory data analysis</a>.</p>
+<p><strong><code>run_eda</code></strong>: Boolean (1); if set to <code>true</code>, run exploratory data analysis.</p>
 <p><strong><code>split_selection</code></strong>: Character (1); method for determining split points. Must be one of:</p>
 <ul>
 <li><code>"automatic"</code>: Identify split points and split the data automatically.</li>
@@ -181,9 +190,9 @@ The optional command line argument <code>--config</code> can be used to specify 
 </ul>
 <p><strong><code>split_points</code></strong>: Integer; preset values for split points or <code>null</code> for no split points. </p>
 <p><strong><code>significance_level</code></strong>: Numeric (1); significance level. Must be between <code>0.01</code> and <code>0.1</code>.</p>
-<p><strong><code>bbmk_samples</code></strong>: Integer (1); number of bootstrap samples to use for the <a href="../eda/#bb-mk-test">BB-MK Test</a>.</p>
+<p><strong><code>bbmk_samples</code></strong>: Integer (1); number of bootstrap samples to use for the <a href="../eda-trend-ams-mean/#bb-mk-test">BB-MK Test</a>.</p>
 <h3 id="ffa">FFA</h3>
-<p><strong><code>run_ffa</code></strong>: Boolean (1); if set to <code>true</code>, run <a href="../frequency-analysis/">flood frequency analysis</a>.</p>
+<p><strong><code>run_ffa</code></strong>: Boolean (1); if set to <code>true</code>, run <a href="../ffa-introduction/">flood frequency analysis</a>.</p>
 <p><strong><code>ns_selection</code></strong>: Character (1); non-stationary signature selection method. Must be one of:  </p>
 <ul>
 <li><code>"automatic"</code>: Non-stationarity is identified and handled automatically.</li>
@@ -205,7 +214,7 @@ The optional command line argument <code>--config</code> can be used to specify 
 <li><code>"z-statistic"</code>: Bootstrapped Z-statistic computed using the Kappa distribution.</li>
 <li><code>"preset"</code>: Specify a distribution ahead of time with the <strong><code>distribution_name</code></strong> option.</li>
 </ul>
-<p><strong><code>distribution_name</code></strong>: Character (1); name of the <a href="../distributions/">probability distributions</a> to use.</p>
+<p><strong><code>distribution_name</code></strong>: Character (1); name of the <a href="../probability-distributions/">probability distributions</a> to use.</p>
 <h3 id="parameter-estimation">Parameter Estimation</h3>
 <p><strong><code>gev_prior</code></strong>: Numeric (2); prior parameters for the shape parameter of the GEV distribution.</p>
 <p><strong><code>s_estimation</code></strong>: Character (1); <a href="../parameter-estimation/">parameter estimation method</a> for stationary models:</p>
@@ -254,8 +263,8 @@ The optional command line argument <code>--config</code> can be used to specify 
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../cli-installation/" class="btn btn-neutral float-left" title="Installation Instructions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../r-installation/" class="btn btn-neutral float-right" title="Installation instructions">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../cli-installation-instructions/" class="btn btn-neutral float-left" title="Installation Instructions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../r-installation-instructions/" class="btn btn-neutral float-right" title="Installation instructions">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -278,10 +287,10 @@ The optional command line argument <code>--config</code> can be used to specify 
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../cli-installation/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../cli-installation-instructions/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../r-installation/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../r-installation-instructions/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

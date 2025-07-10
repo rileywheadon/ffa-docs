@@ -28,11 +28,11 @@ Rscript ffaframework.R --config='custom-config.yml'
 
 **`csv_files`**: Character; CSV files located in `/data` used to run the framework.
 
-**`station_ids`**: Character; station IDs for hydrological monitoring stations.
+**`station_ids`**: Character; station IDs for hydrological monitoring stations. You can search for station IDs by name, province, drainage basin, and location [here](https://wateroffice.ec.gc.ca/search/real_time_e.html).
 
 ### EDA
 
-**`run_eda`**: Boolean (1); if set to `true`, run [exploratory data analysis](eda.md).
+**`run_eda`**: Boolean (1); if set to `true`, run exploratory data analysis.
 
 **`split_selection`**: Character (1); method for determining split points. Must be one of:
 
@@ -44,11 +44,11 @@ Rscript ffaframework.R --config='custom-config.yml'
 
 **`significance_level`**: Numeric (1); significance level. Must be between `0.01` and `0.1`.
 
-**`bbmk_samples`**: Integer (1); number of bootstrap samples to use for the [BB-MK Test](eda.md/#bb-mk-test).
+**`bbmk_samples`**: Integer (1); number of bootstrap samples to use for the [BB-MK Test](eda-trend-ams-mean.md/#bb-mk-test).
 
 ### FFA
 
-**`run_ffa`**: Boolean (1); if set to `true`, run [flood frequency analysis](frequency-analysis.md).
+**`run_ffa`**: Boolean (1); if set to `true`, run [flood frequency analysis](ffa-introduction.md).
 
 **`ns_selection`**: Character (1); non-stationary signature selection method. Must be one of:  
 
@@ -73,7 +73,7 @@ Rscript ffaframework.R --config='custom-config.yml'
 - `"z-statistic"`: Bootstrapped Z-statistic computed using the Kappa distribution.
 - `"preset"`: Specify a distribution ahead of time with the **`distribution_name`** option.
 
-**`distribution_name`**: Character (1); name of the [probability distributions](distributions.md) to use.
+**`distribution_name`**: Character (1); name of the [probability distributions](probability-distributions.md) to use.
 
 ### Parameter Estimation
 

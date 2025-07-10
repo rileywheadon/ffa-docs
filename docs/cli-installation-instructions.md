@@ -34,7 +34,7 @@ C:\Program Files\Pandoc
 6. Exit the command prompt with `q()`.
 
 You will also need to install the [R package](https://github.com/rileywheadon/ffa-package).
-See [here](r-installation.md) for installation instructions.
+See [here](r-installation-instructions.md) for installation instructions.
 
 
 ---

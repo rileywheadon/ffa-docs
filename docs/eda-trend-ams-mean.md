@@ -1,17 +1,4 @@
-# EDA Framework
-
-The exploratory data analysis (EDA) module of the flood frequency analysis (FFA) framework contains a collection of statistical tests for annual maximum streamflow (AMS) data.
-These tests are performed in a specific order to accomplish the four goals listed below:
-
-1. Identify change points ("jumps" or "kinks") in the AMS data.
-2. Identify [autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation) in the AMS data.
-3. Identify trends in the mean value of the AMS data.
-4. Identify trends in the variance of the AMS data.
-
-A diagram showing the current EDA framework is shown below:
-
-![Diagram showing current EDA framework.](img/fig-eda-current.png)
-
+# Identifying Trends in the AMS Mean
 
 ## BB-MK Test
 
@@ -106,7 +93,7 @@ Instead, we compute the p-value by interpolating the table of quantiles from [Ho
 | Quantile | 0.119 | 0.146 | 0.176 | 0.216 |
 
 **Warning**: The interpolation procedure discussed above only works for $0.01 < p < 0.10$.
-Therefore, p-values below $0.01$ and above $0.10$ will be truncated. 
+Therefore, p-values below $0.01$ and above $0.10$ will be truncated.
 It is also required that the significance level $\alpha$ is between $0.01$ and $0.10$.
 
 ## Mann-Kendall Test
@@ -141,96 +128,6 @@ Z_{MK} = \begin{cases}
 $$
 
 For a two-sided test, we reject the null hypothesis if $|Z_{MK}| \geq Z_{1 - (\alpha/2) }$ and conclude that there is a statistically significant monotonic trend in the data. For more information, see [here](https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm).
-
-## Mann-Kendall-Sneyers Test
-
-The **Mann-Kendall-Sneyers (MKS) Test** is used to identify the beginning of a trend in a time series:
-
-- Null hypothesis: There are no change points in the time series.
-- Alternative hypothesis: There are _one or more_ change points in the time series.
-
-Define $\mathbb{I}(y_{i} > y_{j})$ to be $1$ if $y_{i} > y_{j}$ and $0$ otherwise.
-
-Given a time series $y_{1}, \dots, y_{n}$, we compute the *progressive series* $S^{F}_{t}$:
-
-$$
-S^{F}_{t} = \sum_{i=i}^{t} \sum_{j=1}^{i-1} \mathbb{I}(y_{i} > y_{j})
-$$
-
-Next, we reverse the time series $y$.
-This gives us a new time series $y'$ such that $y_{i}' = y_{n+1-i}$. 
-Then we compute the *regressive series* $S^{B}_{t}$, where $\text{rev}$ indicates that the vector is reversed:
-
-$$
-S^{B}_{t} = \text{rev}\left( \sum_{i=i}^{t} \sum_{j=1}^{i-1} \mathbb{I}(y'_{i} > y'_{j})\right)
-$$
-
-Then, we compute the _normalized progressive series_ $UF_{t}$ and _normalized regressive series_ $UB_{t}$:
-
-$$
-UF_{t} = \frac{S^{F}_{t} - \mathbb{E}[S^{F}_{t}]}{\sqrt{\text{Var}\,(S^{F}_{t})}}, \quad
-UB_{t} = \frac{S^{B}_{t} - \mathbb{E}[S^{B}_{t}]}{\sqrt{\text{Var}\,(S^{B}_{t})}}
-$$
-
-For both the progressive and regressive series, the expectation and variance is as follows:
-
-$$
-\mathbb{E}[S^{F}_{t}] = \mathbb{E}[S^{B}_{t}] = \frac{t(t-1)}{4}, \quad
-\text{Var}(S^{F}_{t}) = \text{Var}(S^{B}_{t}) = \frac{t(t-1)(2t+5)}{72}
-$$
-
-Finally, we plot $UF_{t}$ and $UB_{t}$ with confidence bounds at the $\alpha/2$ and $1 - (\alpha /2))$ quantiles of the standard normal distribution, where $\alpha$ is the chosen significance level.
-A crossing point between $UF_{t}$ and $UB_{t}$ that lies outside the confidence bounds indicates the start of the trend.
-
-### Example Plot
-
-![](img/plot-mks.png)
-
-## MW-MK Test
-
-The **Moving Window Mann-Kendall (MW-MK) Test** is used to identify a statistically significant monotonic trend in the variances of an AMS time series.
-
-- Null hypothesis: There is no significant trend in the variance of the AMS.
-- Alternative hypothesis: There is a significant trend in the variance of the AMS.
-
-To compute the AMS variances we use a moving window algorithm:
-
-1. Let $w$ be the length of the moving window and $s$ be the step size.
-2. Initialize the moving window at indices $[1, w]$.
-3. Compute the sample standard deviation within the moving window.
-4. Move the window forward by $s$ indices.
-5. Check if last index in the window is greater than the length of the data. If it is, all moving window variances have been computed. Otherwise, go to step (3).
-
-Then, we perform the Mann-Kendall Test on the time series of variances.
-
-For more information about the Mann-Kendall test, see [here](#mann-kendall-test).
-
-## Pettitt Test
-
-The **Pettitt Test** is used to identify abrupt changes in the mean of a time series.
-
-- Null hypothesis: There are no abrupt changes in the time series mean.
-- Alternative hypothesis: There is _one_ abrupt change in the time series mean.
-
-Define $\text{sign}(x)$ to be $1$ if $x > 0$, $0$ if $x = 0$, and $-1$ otherwise.
-
-Given a time series $y_{1}, \dots, y_{n}$, compute the following test statistic:
-
-$$
-U_{t} = \sum_{i=1}^{t} \sum_{j=t+1}^{n} \text{sign} (y_{j} - y_{i}), \quad K = \max_{t}|U_{t}|
-$$
-
-The value of $t$ such that $U_{t} = K$ is a _potential change point_. The p-value of the potential change point can be approximated using the following formula for a one-sided test:
-
-$$
-p \approx \exp \left(-\frac{6K^2}{n^3 + n^2}\right)
-$$
-
-If the p-value is less than the significance level $\alpha$, we reject the null hypothesis and conclude that there is evidence for an abrupt change in the mean at the potential change point.
-
-### Example Plot
-
-![](img/plot-pettitt.png)
 
 ## Phillips-Perron Test
 
@@ -308,13 +205,13 @@ Therefore, p-values below $0.01$ will be truncated and it is required that $0.01
 
 ## Runs Test
 
-After computing the regression line using [Sen's trend estimator](eda.md#sens-trend-estimator), we use the **Runs Test** to determine whether the residuals from the regression are random.
+After computing the regression line using [Sen's trend estimator](#sens-trend-estimator), we use the **Runs Test** to determine whether the residuals from the regression are random.
 If the Runs test identifies non-randomness in the residuals, it is a strong indication that the non-stationarity in the data is not linear.
 
 - Null hypothesis: The residuals are distributed randomly.
 - Alternative hypothesis: The residuals _are not_ distributed randomly.
 
-Prior to applying the Runs test, the data is categorized based on whether it is above ($+$) or below $(-)$ the median. 
+Prior to applying the Runs test, the data is categorized based on whether it is above ($+$) or below $(-)$ the median.
 Any data points equal to the median are removed.
 Then, we compute the number of contiguous blocks of $+$ or $-$ (known as _runs_) in the data.
 
@@ -386,27 +283,3 @@ For more information, see the Wikipedia pages on [Autocorrelation](https://en.wi
 
 ![](img/plot-spearman.png)
 
-## White Test
-
-The **White Test** is used to detect changes in the variance of a time series.
-
-- Null hypothesis: The variance of the time series is constant (homoskedasticity).
-- Alternative hypothesis: The variance of the time series is time-dependent (heteroskedasticity).
-
-Consider a simple linear regression model:
-
-$$y_{i} = \beta_{0} + \beta_{1} x_{i} + \epsilon_{i}$$
-
-Use ordinary least squares to fit the model. Then compute the squared residuals:
-
-$${\hat{r}}_{i}^{2} = (y_{i} - \hat{y}_{i})^{2}$$
-
-Next, fit an auxillary regression model to the squared residuals.
-This model includes each regressor, the square of each regressor, and the cross products between all regressors.
-Since $x$ is the only regressor, the regression model is simply:
-
-$${\hat{r}}_{i}^{2} = \alpha_{0} + \alpha_{1}x_{i} + \alpha_{2}x_{i}^{2} + u_{i}$$
-
-Next, we compute the [coefficient of determination](https://en.wikipedia.org/wiki/Coefficient_of_determination) $R^2$ for the auxillary model.
-The test statistic is $nR^2 \sim \chi_{d}^2$, where $n$ is the number of observations and $d = 2$ is the number of regressors, excluding the intercept.
-If $nR^2 > \chi^2_{1-\alpha, d}$, we reject the null hypothesis and conclude that the time series exhibits heteroskedasticity.

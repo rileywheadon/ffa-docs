@@ -104,7 +104,7 @@ For more information about generalized parameter estimation, see [here](paramete
 ## Handling Non-Stationarity
 
 If the selected probability distribution is non-stationary, the quantiles (and hence confidence intervals) for the bootstrapped distributions change in time.
-See [here](frequency-analysis.md#handling-non-stationarity) for a more detailed discussion of this idea.
+See [here](ffa-introduction.md#handling-non-stationarity) for a more detailed discussion of this idea.
 By default, the FFA framework anchors uncertainty analysis at the *last* year of the dataset. 
 However, [model assessment](model-assessment.md) requires confidence intervals for *every* year in the dataset.
 

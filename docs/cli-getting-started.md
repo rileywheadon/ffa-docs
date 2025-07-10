@@ -1,12 +1,12 @@
 # Getting Started
 
-First, you will need to install the CLI. Installation instructions can be found [here](cli-installation.md).
+First, you will need to install the CLI. Installation instructions can be found [here](cli-installation-instructions.md).
 
 The FFA Framework CLI consists of a single script, `ffaframework.R`.
-This script runs [exploratory data analysis](eda.md) and/or [flood frequency analysis](frequency-analysis.md) on one or many datasets. 
+This script runs exploratory data analysis and/or flood frequency analysis on one or many datasets. 
 It can also produce a report as a markdown, PDF, HTML, or JSON file.
 To configure the CLI, simply edit `config.yml`.
-See the [user manual](cli-manual.md) for more information.
+See the [user manual](cli-user-manual.md) for more information.
 
 ## Folder Structure
 

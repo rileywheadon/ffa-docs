@@ -46,7 +46,7 @@ t_{4} &= l_{4} / l_{2}
 \end{aligned}
 $$ 
 
-Then, we compare these statistics, specifically the L-skewness and L-kurtosis to their theoretical values (given [here](distributions.md)) using one of three different metrics to select a distribution.
+Then, we compare these statistics, specifically the L-skewness and L-kurtosis to their theoretical values (given [here](probability-distributions.md)) using one of three different metrics to select a distribution.
 
 **Note**: Probability distributions with less than three parameters have constant L-skewness $\tau_{3}$ and L-kurtosis $\tau_{4}$ regardless of their parameters.
 The L-skewness and L-kurtosis of probability distributions with three parameters is a function of the shape parameter $\kappa$.
@@ -112,14 +112,14 @@ To determine the best probability distribution for non-stationary data, we *deco
 
 ### Decomposition (Scenario 1)
 
-1. Use [Sen's Trend Estimator](eda.md#sens-trend-estimator) to identify the slope $b_{1}$ and intercept $b_{0}$ of the trend. 
+1. Use [Sen's Trend Estimator](eda-trend-ams-mean.md#sens-trend-estimator) to identify the slope $b_{1}$ and intercept $b_{0}$ of the trend. 
 2. Detrend the data by subtracting the linear function $(b_{1} \cdot \text{Covariate})$ from the data, where the *covariate* is a value between $[0, 1]$ derived from the index.
 3. If necessary, enforce positivity by adding a constant such that $\min(\text{data}) = 1$ .
 
 ### Decomposition (Scenario 2)
 
 1. Use a moving-window algorithm to compute the variance of the data. 
-2. Use [Sen's Trend Estimator](eda.md#sens-trend-estimator) to identify the slope $c_{1}$ and intercept $c_{0}$ of the trend in the variance. 
+2. Use [Sen's Trend Estimator](eda-trend-ams-mean.md#sens-trend-estimator) to identify the slope $c_{1}$ and intercept $c_{0}$ of the trend in the variance. 
 3. Normalize the data to have mean $0$, then divide out the scale factor $g_{t}$.
 
     $$

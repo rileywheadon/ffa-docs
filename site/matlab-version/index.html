@@ -13,7 +13,7 @@
       <script>
         // Current page data
         var mkdocs_page_name = "MATLAB Version";
-        var mkdocs_page_input_path = "matlab.md";
+        var mkdocs_page_input_path = "matlab-version.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -45,18 +45,18 @@
               </ul>
               <p class="caption"><span class="caption-text">Command Line Interface</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-introduction/">Getting Started</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation/">Installation Instructions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-manual/">User Manual</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../r-installation/">Installation instructions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../r-documentation.pdf">User Manual</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
     <ul>
@@ -73,17 +73,26 @@
     </ul>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Concepts</span></p>
+              <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../eda/">Exploratory Data Analysis</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-introduction/">Introduction</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../distributions/">Probability Distributions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-change-points/">Change Points</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-trend-ams-mean/">Trends in AMS Mean</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../eda-trend-ams-variability/">Trends in AMS Variability</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Flood Frequency Analysis</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ffa-introduction/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../probability-distributions/">Probability Distributions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../model-selection/">Model Selection</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../parameter-estimation/">Parameter Estimation</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../frequency-analysis/">Frequency Analysis</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../uncertainty-quantification/">Uncertainty Quantification</a>
                   </li>
@@ -96,7 +105,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../roadmap/">Roadmap</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Release Notes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../release-notes/">Release Notes</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">MATLAB Version</a>
     <ul class="current">
@@ -130,54 +139,48 @@
             <div class="section" itemprop="articleBody">
               
                 <p>This page documents changes from <a href="https://zenodo.org/records/8012096">original MATLAB code</a>.</p>
-<h2 id="general">General</h2>
+<h2 id="general-improvements">General Improvements</h2>
 <ul>
-<li>All configuration details are now stored in YAML files.</li>
+<li>Store configuration details in YAML files instead of code.</li>
 <li>Implement a suite of unit tests using the <code>testthat</code> library.</li>
 <li>Use <code>knitr</code> and <code>rmarkdown</code> to generate reports with text, equations, and images.</li>
-<li>Export reports to <code>.md</code> (Pandoc) and <code>.html</code>.</li>
-<li>Run individual statistical tests using <code>run-stats.R</code>.</li>
+<li>Easily run individual statistical tests and model fitting functions using the R package.</li>
+<li>Export reports to <code>.md</code> (Pandoc), <code>.html</code>, and <code>.pdf</code>.</li>
 </ul>
 <h2 id="exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>
 <li>Only show statistically significant change points for the Pettitt and MKS plots.</li>
-<li>Fix bug where the MKS test would only identify one change point, even if multiple change points were found to be above the threshold for statistical significance.</li>
-<li>Fix major bug where the MKS test identified change points based on the progressive series instead of the U-statistics of the crossing points.</li>
+<li>Fix bug causing the MKS test to only identify one change point, even if multiple change points were found to be above the threshold for statistical significance.</li>
+<li>Fix major bug causing the MKS test to identify change points based on the progressive series instead of the z-statistics of the crossing points.</li>
 <li>Remove unnecessary rounding in the moving window algorithm for AMS variability.</li>
-<li>Fix bug where the Phillips-Perron and KPSS tests failed to account for drift and trend.</li>
-<li>Fix bug where the Phillips-Perron and KPSS tests failed to account for serial correlation.</li>
+<li>Re-implement the Phillips-Perron and KPSS tests to account for drift and trend.</li>
 </ul>
 <h3 id="framework-changes">Framework Changes</h3>
 <ul>
 <li>If serial correlation is identified, do not run the Phillips-Perron and KPSS tests.</li>
-<li>Implement the Runs test to detect nonlinearity after fitting Sen's trend estimator.</li>
-<li>Run change point detection in multiple stages.</li>
+<li>Add the the Runs test to detect nonlinearity after fitting Sen's trend estimator.</li>
+<li>Run change point detection in multiple stages to prevent overpartitioning.</li>
 </ul>
 <h2 id="flood-frequency-analysis-ffa">Flood Frequency Analysis (FFA)</h2>
-<h3 id="bug-fixes_1">Bug Fixes</h3>
-<ul>
-<li>Implement the RFPL uncertainty quantification with the Weibull distribution.</li>
-</ul>
 <h3 id="distribution-changes">Distribution Changes</h3>
-<p>The generalized pareto (GPA) distribution has been removed, since its likelihood function is not amenable to maximum likelihood estimation.
-This issue occurs because the GPA distribution is used in peaks over threshold modelling, which we have not yet implemented.</p>
+<p>The generalized Pareto (GPA) distribution has been removed, since its likelihood function is not amenable to maximum likelihood estimation.
+Issues occur because the GPA distribution is intended for peaks over threshold modelling, which we do not use.</p>
 <p>The R version uses the three parameter Weibull distribution (with location, scale, and shape) parameters instead of the two parameter Weibull distribution (with scale and shape parameters).
 This ensures consistency with the other distributions, which all have location parameters.</p>
-<p>The quantile function for the Pearson Type III (PE3) distribution does not have a closed form.
-The <code>quape3</code> function, which computes the quantiles of the PE3 distribution in the R version, uses a different approximate formula than the MATLAB version.
-Therefore, quantiles for the PE3 distribution may vary by up to <span class="arithmatex">\(1\%\)</span> between the R version and MATLAB versions.</p>
 <h3 id="model-selection-changes">Model Selection Changes</h3>
-<p>The L-distance and L-kurtosis selection methods have been improved by using an optimization algorithm to find the parameters with the closest L-moments to the data instead of using a brute force approach. This is more computational efficient and elegant (but has no significant effect on the results).</p>
+<p>The L-distance and L-kurtosis selection methods have been improved by using an optimization algorithm to find the parameters with the closest L-moments to the data instead of using a brute force approach. This is more computationally efficient and gives more precise results.</p>
 <p>The procedure for computing the Z-statistic selection metric has been changed.
 If the L-moments of the dataset do not satisfy <span class="arithmatex">\(\tau_{4} \leq (1 + 5\tau _{3}^2)/6\)</span>, then the Kappa distribution will not be fitted and the candidate distributions that use the dataset will be omitted.</p>
 <h3 id="parameter-estimation-changes">Parameter Estimation Changes</h3>
 <p>Parameterization of the PE3/LP3 distributions fails for some datasets because MATLAB is unable to handle the large numbers created by the gamma function.
 To manage this issue, the MATLAB version used the conventional moments (i.e. sample mean/variance/skewness) when this occurred.
-This behaviour is no longer necessary and has been removed.</p>
+We avoid this problem in the R version by using the <code>lgamma</code> (log-gamma) function.</p>
 <p>The R implementation uses L-BFGS-B for MLE/GMLE parameter estimation instead of Nelder-Mead, since the gradient is well defined for the likelihood functions we are working with.
 Additionally, the L-BFGS-B method makes it possible to assign bounds to the variables.
-This modification produced slight improvements to the MLE/GMLE for some datasets.</p>
+This modification produced slight improvements to the MLL/GMLL for some datasets.</p>
+<h3 id="uncertainty-quantification">Uncertainty Quantification</h3>
+<p>Implement RFPL uncertainty quantification for the Weibull distribution.</p>
 <h3 id="model-assessment-changes">Model Assessment Changes</h3>
 <p>Use the built-in R function <code>approx()</code> to perform log-linear interpolation of the return periods.
 The MATLAB implementation uses a hard-coded algorithm which behaves unpredictably when the original and interpolated <span class="arithmatex">\(x\)</span>-values are equal.</p>
@@ -185,7 +188,7 @@ The MATLAB implementation uses a hard-coded algorithm which behaves unpredictabl
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../changelog/" class="btn btn-neutral float-left" title="Release Notes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../release-notes/" class="btn btn-neutral float-left" title="Release Notes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../license/" class="btn btn-neutral float-right" title="License">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -209,7 +212,7 @@ The MATLAB implementation uses a hard-coded algorithm which behaves unpredictabl
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../changelog/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../release-notes/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../license/" style="color: #fcfcfc">Next &raquo;</a></span>

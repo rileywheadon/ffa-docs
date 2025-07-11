@@ -6,9 +6,12 @@ knitr::opts_chunk$set(
 
 ## ----setup--------------------------------------------------------------------
 library(ffaframework)
+
 csv_path <- system.file("extdata", "Application_3.3.csv", package = "ffaframework")
 df <- read.csv(csv_path)
 df <- subset(df, !is.na(max)) # Remove missing values
+
+head(df)
 
 ## -----------------------------------------------------------------------------
 mk_test <- eda_mk_test(df$max)

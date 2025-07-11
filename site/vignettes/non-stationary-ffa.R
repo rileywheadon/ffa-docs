@@ -6,9 +6,12 @@ knitr::opts_chunk$set(
 
 ## ----setup--------------------------------------------------------------------
 library(ffaframework)
+
 csv_path <- system.file("extdata", "Application_3.1.csv", package = "ffaframework")
 df <- read.csv(csv_path)
 df <- subset(df, !is.na(max)) # Remove missing values
+
+head(df)
 
 ## -----------------------------------------------------------------------------
 trend <- list(location = TRUE, scale = FALSE)
@@ -16,7 +19,7 @@ trend <- list(location = TRUE, scale = FALSE)
 ## ----fig.width = 10, fig.height = 8, fig.align = "center", out.width = "100%"----
 data_decomposed <- ams_decomposition(df$max, df$year, trend)
 
-selection <- select_zstatistic(data_decomposed)
+selection <- select_ldistance(data_decomposed)
 
 print(selection$recommendation)
 
@@ -40,8 +43,10 @@ uncertainty <- uncertainty_rfpl(
 	"GNO",
 	years = df$year,
 	trend = trend,
-	slice = 2025
+	slices = c(1925, 2025)
 )
 
-plot_uncertainty(uncertainty)
+print(uncertainty[[2]]$estimates)
+
+plot_nsffa(uncertainty)
 

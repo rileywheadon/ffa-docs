@@ -57,8 +57,6 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#eda">EDA</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#ffa">FFA</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#distribution-selection">Distribution Selection</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#parameter-estimation">Parameter Estimation</a>
@@ -161,104 +159,82 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="user-manual">User Manual</h1>
-<p>The <code>ffaframework.R</code> script runs the complete EDA and FFA frameworks. 
-The optional command line argument <code>--config</code> can be used to specify a custom configuration file (default is <code>config.yml</code>). </p>
-<p><strong>Example Usage</strong> (default configuration)</p>
-<pre><code>Rscript ffaframework.R
-</code></pre>
-<p><strong>Example Usage</strong> (custom configuration)</p>
-<pre><code>Rscript ffaframework.R --config='custom-config.yml'
-</code></pre>
+<p>The <code>ffaframework.R</code> script runs the complete EDA and FFA frameworks. </p>
 <h2 id="configuration-reference">Configuration Reference</h2>
-<p style="color: red;"><b>Note</b>: All configuration options are specified using <i>lowercase characters</i>.</p>
-
+<p>The configuration is stored in the <code>config.yml</code> file using the <a href="https://learnxinyminutes.com/yaml/">YAML</a> markup language.</p>
 <h3 id="data-preparation">Data Preparation</h3>
 <p><strong><code>data_source</code></strong>: Character (1); method for sourcing data for the framework. Must be one of:</p>
 <ul>
-<li><code>"local"</code>: Source data locally using the <strong><code>csv_files</code></strong> option.</li>
-<li><code>"geomet"</code>: Pull data from the <a href="https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weather-tools-specialized-data/msc-geomet-api-geospatial-web-services.html">MSC GeoMet API</a> using the <strong><code>station_ids</code></strong> option.</li>
+<li><code>"Local"</code>: Source data locally using the <strong><code>csv_files</code></strong> option.</li>
+<li><code>"GeoMet"</code>: Pull data from the <a href="https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weather-tools-specialized-data/msc-geomet-api-geospatial-web-services.html">MSC GeoMet API</a> using the <strong><code>station_ids</code></strong> option.</li>
 </ul>
 <p><strong><code>csv_files</code></strong>: Character; CSV files located in <code>/data</code> used to run the framework.</p>
-<p><strong><code>station_ids</code></strong>: Character; station IDs for hydrological monitoring stations. You can search for station IDs by name, province, drainage basin, and location <a href="https://wateroffice.ec.gc.ca/search/real_time_e.html">here</a>.</p>
+<p><strong><code>station_ids</code></strong>: Character; station IDs for hydrological monitoring stations.
+You can search for station IDs by name, province, drainage basin, and location <a href="https://wateroffice.ec.gc.ca/search/real_time_e.html">here</a>.
+Some stations may have little or no data.</p>
 <h3 id="eda">EDA</h3>
-<p><strong><code>run_eda</code></strong>: Boolean (1); if set to <code>true</code>, run exploratory data analysis.</p>
 <p><strong><code>split_selection</code></strong>: Character (1); method for determining split points. Must be one of:</p>
 <ul>
-<li><code>"automatic"</code>: Identify split points and split the data automatically.</li>
-<li><code>"manual"</code>: Confirm split points after identification.</li>
-<li><code>"preset"</code>: Set the split points ahead of time using <strong><code>split_points</code></strong>.</li>
+<li><code>"Automatic"</code>: Identify split points and split the data automatically.</li>
+<li><code>"Manual"</code>: Confirm split points after identification.</li>
+<li><code>"Preset"</code>: Set the split points ahead of time using <strong><code>split_points</code></strong>.</li>
 </ul>
 <p><strong><code>split_points</code></strong>: Integer; preset values for split points or <code>null</code> for no split points. </p>
 <p><strong><code>significance_level</code></strong>: Numeric (1); significance level. Must be between <code>0.01</code> and <code>0.1</code>.</p>
 <p><strong><code>bbmk_samples</code></strong>: Integer (1); number of bootstrap samples to use for the <a href="../eda-trend-ams-mean/#bb-mk-test">BB-MK Test</a>.</p>
-<h3 id="ffa">FFA</h3>
-<p><strong><code>run_ffa</code></strong>: Boolean (1); if set to <code>true</code>, run <a href="../ffa-introduction/">flood frequency analysis</a>.</p>
-<p><strong><code>ns_selection</code></strong>: Character (1); non-stationary signature selection method. Must be one of:  </p>
-<ul>
-<li><code>"automatic"</code>: Non-stationarity is identified and handled automatically.</li>
-<li><code>"manual"</code>: Confirm non-stationary patterns after EDA. Requires <code>run_eda: true</code>.</li>
-<li><code>"preset"</code>: Set non-stationary signature ahead of time with <strong><code>ns_signature</code></strong>.</li>
-</ul>
-<p><strong><code>ns_signature</code></strong>: Character (1); stationary or non-stationary signature. Must be one of:</p>
-<ul>
-<li><code>null</code>: No non-stationarity.</li>
-<li><code>"10"</code>: Linear trend in the mean.</li>
-<li><code>"11"</code>: Linear trend in the mean and variance.</li>
-</ul>
 <h3 id="distribution-selection">Distribution Selection</h3>
-<p><strong><code>z_samples</code></strong>: Integer (1); number of bootstrap samples for <a href="../model-selection/#z-statistic">Z-statistic selection</a>.</p>
 <p><strong><code>distribution_selection</code></strong>: Character (1); <a href="../model-selection/">distribution selection</a> method:</p>
 <ul>
-<li><code>"l-distance"</code>: Euclidian distance from (L-skewness, L-kurtosis) point.</li>
-<li><code>"l-kurtosis"</code>: Difference between theoretical and sample L-kurtosis. </li>
-<li><code>"z-statistic"</code>: Bootstrapped Z-statistic computed using the Kappa distribution.</li>
-<li><code>"preset"</code>: Specify a distribution ahead of time with the <strong><code>distribution_name</code></strong> option.</li>
+<li><code>"L-distance"</code>: Euclidian distance from (L-skewness, L-kurtosis) point.</li>
+<li><code>"L-kurtosis"</code>: Difference between theoretical and sample L-kurtosis. </li>
+<li><code>"L-statistic"</code>: Bootstrapped Z-statistic computed using the Kappa distribution.</li>
+<li><code>"Preset"</code>: Specify a distribution ahead of time with the <strong><code>distribution_name</code></strong> option.</li>
 </ul>
 <p><strong><code>distribution_name</code></strong>: Character (1); name of the <a href="../probability-distributions/">probability distributions</a> to use.</p>
+<p><strong><code>z_samples</code></strong>: Integer (1); number of bootstrap samples for <a href="../model-selection/#z-statistic">Z-statistic selection</a>.</p>
 <h3 id="parameter-estimation">Parameter Estimation</h3>
-<p><strong><code>gev_prior</code></strong>: Numeric (2); prior parameters for the shape parameter of the GEV distribution.</p>
 <p><strong><code>s_estimation</code></strong>: Character (1); <a href="../parameter-estimation/">parameter estimation method</a> for stationary models:</p>
 <ul>
-<li><code>"l-moments"</code>: Method of L-moments using formulas from Hosking (1997).</li>
-<li><code>"mle"</code>: Maximum likelihood estimation.</li>
-<li><code>"gmle"</code>: Generalized maximum likelihood estimation (GEV distribution only).</li>
+<li><code>"L-moments"</code>: Method of L-moments using formulas from Hosking (1997).</li>
+<li><code>"MLE"</code>: Maximum likelihood estimation.</li>
+<li><code>"GMLE"</code>: Generalized maximum likelihood estimation (GEV distribution only).</li>
 </ul>
 <p><strong><code>ns_estimation</code></strong>: Character (1); parameter estimation method for non-stationary models:</p>
 <ul>
-<li><code>"mle"</code>: Maximum likelihood estimation.</li>
-<li><code>"gmle"</code>: Generalized maximum likelihood estimation (GEV distribution only).</li>
+<li><code>"MLE"</code>: Maximum likelihood estimation.</li>
+<li><code>"GMLE"</code>: Generalized maximum likelihood estimation (GEV distribution only).</li>
 </ul>
+<p><strong><code>gev_prior</code></strong>: Numeric (2); prior parameters for the shape parameter of the GEV distribution. If you are using maximum likelihood estimation without a prior, set this option to <code>null</code>. </p>
 <h3 id="uncertainty-quantification">Uncertainty Quantification</h3>
-<p><strong><code>return_periods</code></strong>: Numeric; list of return periods for estimating return levels.</p>
-<p><strong><code>sb_samples</code></strong>: Integer (1); number of samples for <a href="../uncertainty-quantification/#sample-bootstrap">bootstrap uncertainty quantification</a>.</p>
-<p><strong><code>rfpl_tolerance</code></strong>: Numeric (1); log-likelihood tolerance for <a href="../uncertainty-quantification/#regula-falsi-profile-likelihood-rfpl">RFPL uncertainty quantification</a>.</p>
 <p><strong><code>s_uncertainty</code></strong>: Character (1); <a href="../uncertainty-quantification/">uncertainty quantification</a> method for stationary models:</p>
 <ul>
-<li><code>"s-bootstrap"</code>: Sample bootstrap method.</li>
-<li><code>"rfpl"</code>: Regula-falsi profile likelihood (MLE estimation only).</li>
-<li><code>"rfgpl"</code>: Generalized regula-falsi profile likelihood (GMLE estimation only).</li>
+<li><code>"S-bootstrap"</code>: Sample bootstrap method.</li>
+<li><code>"RFPL"</code>: Regula-falsi profile likelihood (MLE estimation only).</li>
+<li><code>"RFGPL"</code>: Generalized regula-falsi profile likelihood (GMLE estimation only).</li>
 </ul>
 <p><strong><code>ns_uncertainty</code></strong>: Character (1); uncertainty quantification method for non-stationary models:</p>
 <ul>
-<li><code>"s-bootstrap"</code>: Sample bootstrap method.</li>
-<li><code>"rfpl"</code>: Regula-falsi profile likelihood (MLE estimation only).</li>
-<li><code>"rfgpl"</code>: Generalized regula-falsi profile likelihood (GMLE estimation only).</li>
+<li><code>"S-bootstrap"</code>: Sample bootstrap method.</li>
+<li><code>"RFPL"</code>: Regula-falsi profile likelihood (MLE estimation only).</li>
+<li><code>"RFGPL"</code>: Generalized regula-falsi profile likelihood (GMLE estimation only).</li>
 </ul>
+<p><strong><code>return_periods</code></strong>: Numeric; list of return periods (in years) for estimating return levels.</p>
+<p><strong><code>sb_samples</code></strong>: Integer (1); number of samples for <a href="../uncertainty-quantification/#sample-bootstrap">bootstrap uncertainty quantification</a>.</p>
+<p><strong><code>rfpl_tolerance</code></strong>: Numeric (1); log-likelihood tolerance for <a href="../uncertainty-quantification/#regula-falsi-profile-likelihood-rfpl">RFPL uncertainty quantification</a>.</p>
 <h3 id="model-assessment">Model Assessment</h3>
 <p><strong><code>pp_formula</code></strong>: Character (1); plotting position formula for <a href="../model-assessment/">model assessment</a>. Must be one of: </p>
 <ul>
-<li><code>"weibull"</code>: <span class="arithmatex">\(i / (n + 1)\)</span></li>
-<li><code>"blom"</code>: <span class="arithmatex">\((i - 0.375) / (n + 0.25)\)</span></li>
-<li><code>"cunnane"</code>: <span class="arithmatex">\((i - 0.4) / (n + 0.2)\)</span></li>
-<li><code>"gringorten"</code>: <span class="arithmatex">\((i - 0.44) / (n + 0.12)\)</span></li>
-<li><code>"hazen"</code>: <span class="arithmatex">\((i - 0.5) / n\)</span></li>
+<li><code>"Weibull"</code>: <span class="arithmatex">\(i / (n + 1)\)</span></li>
+<li><code>"Blom"</code>: <span class="arithmatex">\((i - 0.375) / (n + 0.25)\)</span></li>
+<li><code>"Cunnane"</code>: <span class="arithmatex">\((i - 0.4) / (n + 0.2)\)</span></li>
+<li><code>"Gringorten"</code>: <span class="arithmatex">\((i - 0.44) / (n + 0.12)\)</span></li>
+<li><code>"Hazen"</code>: <span class="arithmatex">\((i - 0.5) / n\)</span></li>
 </ul>
 <h3 id="plot-generation">Plot Generation</h3>
 <p><strong><code>show_trend</code></strong>: Boolean (1); if <code>true</code>, add a trend line through the AMS data where applicable. </p>
-<p><strong><code>anchor_year</code></strong>: Integer (1); year used to generate return level plot for non-stationary models. </p>
+<p><strong><code>slices</code></strong>: Integer; years used to estimate return levels for non-stationary models. Slices outside of the dataset (or trend-stationary partition) will be ignored.</p>
 <h3 id="report-generation">Report Generation</h3>
-<p><strong><code>generate_report</code></strong>: Boolean (1); if <code>true</code>, generate a report with specified <strong><code>report_formats</code></strong>.</p>
-<p><strong><code>report_formats</code></strong>: Character; list of report formats (<code>"markdown"</code>, <code>"pdf"</code>, <code>"html"</code>, or <code>"json"</code>).</p>
+<p><strong><code>generate_report</code></strong>: Boolean (1); if <code>true</code>, generate a report in <code>.html</code> format.</p>
               
             </div>
           </div><footer>

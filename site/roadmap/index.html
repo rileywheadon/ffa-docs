@@ -150,8 +150,8 @@
 <h2 id="cran-package">CRAN Package</h2>
 <p><strong>Known Issues</strong>:</p>
 <ul>
-<li><code>model_diagnostics</code> has argument <code>pp.formula</code> (should be <code>pp_formula</code>)</li>
-<li>Bootstrap functions cannot accept custom return periods</li>
+<li>Sample bootstrap yields unusually large CIs for non-stationary models</li>
+<li>RFPL breaks on some stations (i.e. Lake Louise, station ID <code>05BA001</code>)</li>
 </ul>
 <h2 id="command-line-interface">Command Line Interface</h2>
 <p><strong>Status</strong></p>
@@ -160,7 +160,7 @@
 <tr>
 <th>Function</th>
 <th>Implemented</th>
-<th>Covered</th>
+<th>100% Code Coverage</th>
 </tr>
 </thead>
 <tbody>
@@ -187,19 +187,20 @@
 <tr>
 <td><code>frequency_analysis</code></td>
 <td>x</td>
-<td></td>
+<td>x</td>
 </tr>
 <tr>
 <td><code>ffaframework</code></td>
-<td></td>
+<td>x</td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Known Issues</strong>:</p>
+<p><strong>Planned Features</strong>:</p>
 <ul>
-<li>Cross-field checks are not thorough enough in <code>validate_config</code></li>
-<li>Documentation is not up to date with current <code>config.yml</code></li>
+<li>Secondary change point analysis</li>
+<li>Option to set trend signatures prior to analysis</li>
+<li>Option to export reports to formats other than <code>.html</code></li>
 </ul>
 <h2 id="api-development">API Development</h2>
 <p>Starting soon.</p>

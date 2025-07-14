@@ -28,8 +28,9 @@ C:\Program Files\Pandoc
 
         git clone https://github.com/rileywheadon/ffa-framework.git
 
-3. Navigate to the `source` directory. This directory contains a `renv.lock` file.
-4. Open a command prompt with `R`. The `renv` package should install automatically.
+3. Navigate to the `ffa-framework` directory. This directory contains a `renv.lock` file.
+4. Open a command prompt with `R`. The `renv` package may install itself automatically. 
+    If it does not, run `install.packages("renv")` to install it manually.
 5. Load libraries from the `renv.lock` file by executing `renv::restore()`.
 6. Exit the command prompt with `q()`.
 

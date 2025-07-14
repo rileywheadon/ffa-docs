@@ -165,6 +165,8 @@ C:\Program Files\R\R-4.5.0\bin
 C:\Program Files\Pandoc
 </code></pre>
 <h2 id="instructions">Instructions</h2>
+<p>First, you will need to install the <a href="https://github.com/rileywheadon/ffa-package">R package</a>.
+See <a href="../r-installation-instructions/">here</a> for installation instructions.</p>
 <ol>
 <li>Open a shell and navigate to the directory where you would like to install the framework.</li>
 <li>
@@ -173,14 +175,14 @@ C:\Program Files\Pandoc
 </code></pre>
 </li>
 <li>
-<p>Navigate to the <code>source</code> directory. This directory contains a <code>renv.lock</code> file.</p>
+<p>Navigate to the <code>ffa-framework</code> directory. This directory contains a <code>renv.lock</code> file.</p>
 </li>
-<li>Open a command prompt with <code>R</code>. The <code>renv</code> package should install automatically.</li>
+<li>Open a command prompt with <code>R</code>. The <code>renv</code> package may install itself automatically. 
+    If it does not, run <code>install.packages("renv")</code> to install it manually.</li>
 <li>Load libraries from the <code>renv.lock</code> file by executing <code>renv::restore()</code>.</li>
+<li>Install the R package using <code>devtools.install("...")</code>. You will need to replace <code>"..."</code> with the path to the R package (which you should have installed already).</li>
 <li>Exit the command prompt with <code>q()</code>.</li>
 </ol>
-<p>You will also need to install the <a href="https://github.com/rileywheadon/ffa-package">R package</a>.
-See <a href="../r-installation-instructions/">here</a> for installation instructions.</p>
 <hr />
 <p>This guide has been tested on Linux, Windows, and MacOS. </p>
 <p>Please submit a <a href="https://github.com/rileywheadon/ffa-framework/issues">Github Issue</a> if you have any problems.</p>

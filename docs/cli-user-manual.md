@@ -65,13 +65,13 @@ Some stations may have little or no data.
 
 **`s_uncertainty`**: Character (1); [uncertainty quantification](uncertainty-quantification.md) method for stationary models:
 
-- `"S-bootstrap"`: Sample bootstrap method.
+- `"Bootstrap"`: Parametric bootstrap method.
 - `"RFPL"`: Regula-falsi profile likelihood (MLE estimation only).
 - `"RFGPL"`: Generalized regula-falsi profile likelihood (GMLE estimation only).
 
 **`ns_uncertainty`**: Character (1); uncertainty quantification method for non-stationary models:
 
-- `"S-bootstrap"`: Sample bootstrap method.
+- `"Bootstrap"`: Parametric bootstrap method.
 - `"RFPL"`: Regula-falsi profile likelihood (MLE estimation only).
 - `"RFGPL"`: Generalized regula-falsi profile likelihood (GMLE estimation only).
 

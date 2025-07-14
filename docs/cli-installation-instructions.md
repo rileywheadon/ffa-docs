@@ -23,6 +23,9 @@ C:\Program Files\Pandoc
 
 ## Instructions
 
+First, you will need to install the [R package](https://github.com/rileywheadon/ffa-package).
+See [here](r-installation-instructions.md) for installation instructions.
+
 1. Open a shell and navigate to the directory where you would like to install the framework.
 2. Clone the Github repository by running the following command in a shell:
 
@@ -32,10 +35,9 @@ C:\Program Files\Pandoc
 4. Open a command prompt with `R`. The `renv` package may install itself automatically. 
     If it does not, run `install.packages("renv")` to install it manually.
 5. Load libraries from the `renv.lock` file by executing `renv::restore()`.
-6. Exit the command prompt with `q()`.
+6. Install the R package using `devtools.install("...")`. You will need to replace `"..."` with the path to the R package (which you should have installed already).
+7. Exit the command prompt with `q()`.
 
-You will also need to install the [R package](https://github.com/rileywheadon/ffa-package).
-See [here](r-installation-instructions.md) for installation instructions.
 
 
 ---

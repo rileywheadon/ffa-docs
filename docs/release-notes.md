@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.2.0
+
+July 14th, 2025
+
+- The first version of the [CLI](cli-installation-instructions.md) is here!
+    - Perform stationary and non-stationary flood frequency analysis
+    - Configure the framework using the `config.yml` file
+    - Generate HTML reports using `knitr` and `rmarkdown`
+
 ## v0.1.0
 
 July 9th, 2025

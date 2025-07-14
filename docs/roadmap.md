@@ -4,26 +4,27 @@
 
 **Known Issues**:
 
-- `model_diagnostics` has argument `pp.formula` (should be `pp_formula`)
-- Bootstrap functions cannot accept custom return periods
+- Sample bootstrap yields unusually large CIs for non-stationary models
+- RFPL breaks on some stations (i.e. Lake Louise, station ID `05BA001`)
 
 ## Command Line Interface
 
 **Status**
 
-| Function             | Implemented | Covered |
-| -------------------- | ----------- | ------- |
-| `validate_config`    | x           | x       |
-| `load_data`          | x           | x       |
-| `change_points`      | x           | x       |
-| `trend_detection`    | x           | x       |
-| `frequency_analysis` | x           |         |
-| `ffaframework`       |             |         |
+| Function             | Implemented | 100% Code Coverage |
+| -------------------- | ----------- | ------------------ |
+| `validate_config`    | x           | x                  |
+| `load_data`          | x           | x                  |
+| `change_points`      | x           | x                  |
+| `trend_detection`    | x           | x                  |
+| `frequency_analysis` | x           | x                  |
+| `ffaframework`       | x           |                    |
 
-**Known Issues**:
+**Planned Features**:
 
-- Cross-field checks are not thorough enough in `validate_config`
-- Documentation is not up to date with current `config.yml`
+- Secondary change point analysis
+- Option to set trend signatures prior to analysis
+- Option to export reports to formats other than `.html`
 
 ## API Development
 

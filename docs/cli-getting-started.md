@@ -28,5 +28,5 @@ Give it a try by navigating to the `ffa-framework` folder in a terminal and runn
 
 ## What Next?
 
-We recommend reading the documents in the "Concepts" sidebar to familiarize yourself with the statistical techniques used in the FFA Framework.
+We recommend reading the documents in the "Exploratory Data Analysis" and "Flood Frequency Analysis" sidebars to familiarize yourself with the statistical techniques used in the FFA Framework.
 Once you're comfortable with the ideas, try running another flood frequency analysis on one of the example datasets! 

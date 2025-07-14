@@ -32,6 +32,19 @@ print(bbmk_test$p_value)
 
 plot_bbmk_test(bbmk_test)
 
+## -----------------------------------------------------------------------------
+pp_test <- eda_pp_test(df$max)
+
+
+# NOTE: The PP-test rounds p-values below 0.01 to 0.01
+print(pp_test$p_value)
+
+## -----------------------------------------------------------------------------
+kpss_test <- eda_kpss_test(df$max)
+
+# NOTE: The KPSS test rounds p-values above 0.1 to 0.1
+print(kpss_test$p_value)
+
 ## ----fig.width = 10, fig.height = 8, fig.align = "center", out.width = "100%"----
 sens_trend <- eda_sens_trend(df$max, df$year)
 

@@ -21,7 +21,7 @@ print(selection$recommendation)
 plot_lmom_diagram(selection)
 
 ## -----------------------------------------------------------------------------
-params <- fit_lmom_gev(df$max)
+params <- fit_lmom_gev(df$max)$params
 
 print(params)
 

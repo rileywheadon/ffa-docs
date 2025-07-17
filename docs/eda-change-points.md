@@ -1,11 +1,13 @@
 # Change Point Detection
 
+The FFA Framework includes two statistical tests for detecting change points in the annual maximum series (AMS): the **Mann-Kendall-Sneyers (MKS) test** and the **Pettitt test**. These help identify changes in trends and abrupt changes in the AMS.
+
 ## Mann-Kendall-Sneyers Test
 
-The **Mann-Kendall-Sneyers (MKS) Test** is used to identify the beginning of a trend in a time series:
+The **Mann-Kendall-Sneyers (MKS) test** detects the beginning of a trend in a time series:
 
-- Null hypothesis: There are no change points in the time series.
-- Alternative hypothesis: There are _one or more_ change points in the time series.
+- Null hypothesis: There are no change points.
+- Alternative hypothesis: There are _one or more_ change points.
 
 Define $\mathbb{I}(y_{i} > y_{j})$ to be $1$ if $y_{i} > y_{j}$ and $0$ otherwise.
 
@@ -30,7 +32,7 @@ UF_{t} = \frac{S^{F}_{t} - \mathbb{E}[S^{F}_{t}]}{\sqrt{\text{Var}\,(S^{F}_{t})}
 UB_{t} = \frac{S^{B}_{t} - \mathbb{E}[S^{B}_{t}]}{\sqrt{\text{Var}\,(S^{B}_{t})}}
 $$
 
-For both the progressive and regressive series, the expectation and variance is as follows:
+For both the progressive and regressive series, the expectation and variance are as follows:
 
 $$
 \mathbb{E}[S^{F}_{t}] = \mathbb{E}[S^{B}_{t}] = \frac{t(t-1)}{4}, \quad
@@ -46,10 +48,10 @@ A crossing point between $UF_{t}$ and $UB_{t}$ that lies outside the confidence 
 
 ## Pettitt Test
 
-The **Pettitt Test** is used to identify abrupt changes in the mean of a time series.
+The **Pettitt test** detects abrupt changes in the mean of a time series.
 
-- Null hypothesis: There are no abrupt changes in the time series mean.
-- Alternative hypothesis: There is _one_ abrupt change in the time series mean.
+- Null hypothesis: There are no abrupt changes.
+- Alternative hypothesis: There is _one_ abrupt change.
 
 Define $\text{sign}(x)$ to be $1$ if $x > 0$, $0$ if $x = 0$, and $-1$ otherwise.
 

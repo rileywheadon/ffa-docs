@@ -4,14 +4,16 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----setup--------------------------------------------------------------------
+## ----fig.width = 10, fig.height = 8, fig.align = "center", out.width = "100%"----
 library(ffaframework)
 
 csv_path <- system.file("extdata", "Application_2.csv", package = "ffaframework")
-df <- read.csv(csv_path)
+df <- read.csv(csv_path, comment.char = "#")
 df <- subset(df, !is.na(max)) # Remove missing values
 
 head(df)
+
+plot_ams_data(df$max, df$year, title = "Kootenai River at Porthill (08NH021)")
 
 ## ----fig.width = 10, fig.height = 8, fig.align = "center", out.width = "100%"----
 pettitt_test <- eda_pettitt_test(df$max, df$year)

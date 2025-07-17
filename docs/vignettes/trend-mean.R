@@ -16,39 +16,26 @@ head(df)
 plot_ams_data(df$max, df$year, title = "Bow River at Banff (05BB001)")
 
 ## -----------------------------------------------------------------------------
-trend <- list(location = TRUE, scale = FALSE)
+mk_test <- eda_mk_test(df$max)
+
+print(mk_test$p_value)
 
 ## ----fig.width = 10, fig.height = 8, fig.align = "center", out.width = "100%"----
-data_decomposed <- ams_decomposition(df$max, df$year, trend)
+spearman_test <- eda_spearman_test(df$max)
 
-selection <- select_ldistance(data_decomposed)
+print(spearman_test$least_lag)
 
-print(selection$recommendation)
-
-plot_lmom_diagram(selection)
-
-## -----------------------------------------------------------------------------
-fit <- fit_maximum_likelihood(
-	df$max,
-	"GNO",
-	years = df$year,
-	trend = trend
-)
-
-print(fit$params)
-
-print(fit$mll)
+plot_spearman_test(spearman_test)
 
 ## ----fig.width = 10, fig.height = 8, fig.align = "center", out.width = "100%"----
-uncertainty <- uncertainty_rfpl(
-	df$max,
-	"GNO",
-	years = df$year,
-	trend = trend,
-	slices = c(1925, 2025)
-)
+mean_trend <- eda_sens_trend(df$max, df$year)
 
-print(uncertainty[[2]]$estimates)
+plot_sens_trend(df$max, df$year, mean_trend = mean_trend)
 
-plot_nsffa(uncertainty)
+## ----fig.width = 10, fig.height = 8, fig.align = "center", out.width = "100%"----
+runs_test <- eda_runs_test(mean_trend)
+
+print(runs_test$p_value)
+
+plot_runs_test(runs_test, "Runs Test (AMS Mean)")
 

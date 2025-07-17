@@ -2,11 +2,16 @@
 
 ## v0.2.1
 
+July 17th, 2025
+
 Changes to the CLI:
 
 - Fix `load_data` to better handle missing entries.
-- Add Mission Creek and Lake Louise stations to the example datasets.
+- Add Mission Creek (`Application_5.csv`) and Lake Louise (`Application_4.csv`) datasets.
 - Add station information to the top of each CSV file.
+- Add support for manual trend selection.
+- Add support for batch processing of multiple datasets.
+- Add support for three more report types (markdown, PDF, and JSON)
 
 Changes to the package:
 
@@ -25,6 +30,7 @@ Changes to the vignettes:
 Changes to the documentation website:
 
 - Add a cheat sheet for the R package.
+- Small changes to formatting and clarity.
 
 ## v0.2.0
 

@@ -16,7 +16,7 @@ The parametric bootstrap is a flexible method for uncertainty quantification tha
 4. Generate confidence intervals using the mean and variance of the bootstrapped quantiles.
 
 **Warning**: The parametric bootstrap is known to give unreasonably wide confidence intervals for small datasets. 
-If the FFA framework detects a confidence interval that is 5+ times wider than the return levels themselves, it will return an error and recommend RFPL uncertainty quantification.
+If the FFA framework detects a confidence interval that is 5+ times wider than the return levels themselves, it will return an error and recommend RFPL uncertainty quantification[^1].
 
 ## Regula-Falsi Profile Likelihood (RFPL)
 
@@ -115,6 +115,12 @@ By default, the FFA framework anchors uncertainty analysis at the *last* year of
 However, [model assessment](model-assessment.md) requires confidence intervals for *every* year in the dataset.
 
 **Note**: The parametric bootstrap algorithm is the fastest algorithm for computing confidence intervals on all years in a dataset because the probabilities used to generate the bootstrapped samples can be reused.
-The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.
+The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.[^1]
+
+[^1]: For more information, please see the following references:
+
+    Vidrio-Sahagún, C.T., He, J. Enhanced profile likelihood method for the nonstationary hydrological frequency analysis, Advances in Water Resources 161, 10451 (2022). [https://doi.org/10.1016/j.advwatres.2022.104151](https://doi.org/10.1016/j.advwatres.2022.104151)
+
+    Vidrio-Sahagún, C.T., He, J. & Pietroniro, A. Multi-distribution regula-falsi profile likelihood method for nonstationary hydrological frequency analysis. Stoch Environ Res Risk Assess 38, 843–867 (2024). [https://doi.org/10.1007/s00477-023-02603-0](https://doi.org/10.1007/s00477-023-02603-0)
 
 

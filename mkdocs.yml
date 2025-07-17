@@ -9,12 +9,7 @@ nav:
     - Installation instructions: r-installation-instructions.md
     - User Manual: r-user-manual.pdf
     - Cheat Sheet: cheat-sheet.pdf
-    - Vignettes:
-      - "Introduction": vignettes/introduction.html
-      - "Change Point Detection": vignettes/change-points.html
-      - "Trend Identification": vignettes/trend-identification.html
-      - "Stationary FFA": vignettes/stationary-ffa.html
-      - "Non-Stationary FFA": vignettes/non-stationary-ffa.html
+    - Vignettes: vignettes.md
   - Exploratory Data Analysis: 
     - Introduction: eda-introduction.md
     - Change Points: eda-change-points.md

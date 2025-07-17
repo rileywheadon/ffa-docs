@@ -1,6 +1,6 @@
 # Change Point Detection
 
-The FFA Framework includes two statistical tests for detecting change points in the annual maximum series (AMS): the **Mann-Kendall-Sneyers (MKS) test** and the **Pettitt test**. These help identify changes in trends and abrupt changes in the AMS.
+The EDA module of the FFA Framework includes two statistical tests for detecting change points in the annual maximum series (AMS): the **Mann-Kendall-Sneyers (MKS) test** and the **Pettitt test**. These help identify changes in trends and abrupt changes in the AMS.
 
 ## Mann-Kendall-Sneyers Test
 

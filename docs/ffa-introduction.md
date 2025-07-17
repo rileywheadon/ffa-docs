@@ -9,7 +9,7 @@ Since the FFA Framework uses **annual maxima** data, this equates to the 90th pe
 
 Here is a summary of return periods, exceedance probabilities, and associated distribution quantiles used in the FFA framework:
 
-| Return Period ($T$) | Exceedance Probability ($p_e$)   | Quantile ($F(q)$) |
+| Return Period ($T$) | Exceedance Probability ($p_e$)   | Quantile ( $F(q)$ )|
 |---------------------|----------------------------------|-------------------|
 | 2 Years             | 0.50                             | 0.50              |
 | 5 Years             | 0.20                             | 0.80              |

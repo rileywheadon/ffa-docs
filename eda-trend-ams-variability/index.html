@@ -146,6 +146,7 @@
               
                 <h1 id="detecting-trends-in-the-ams-variability">Detecting Trends in the AMS Variability</h1>
 <p>This section describes the methods used to detect trends or changes in the <strong>variability</strong> (e.g., variance or standard deviation) of the Annual Maximum Series (AMS).</p>
+<hr />
 <h2 id="moving-window-mann-kendall-mw-mk-test">Moving Window Mann-Kendall (MW-MK) Test</h2>
 <p>The <strong>MW-MK test</strong> detects statistically significant monotonic trends in the standard deviation of an AMS time series.</p>
 <ul>
@@ -163,12 +164,13 @@
 <p>This produces a time series of moving-window standard deviations. 
 Then, apply the Mann-Kendall Test to this series to test for monotonic trends.</p>
 <p>For more information about the Mann-Kendall test, see <a href="../eda-trend-ams-mean/#mann-kendall-mk-test">here</a>.</p>
+<hr />
 <h2 id="sens-trend-estimator">Sen's Trend Estimator</h2>
-<p>Used to estimate the slope of a trend in the standard deviations' time series.<br />
-See <a href="../eda-trend-ams-mean/#sens-trend-estimator">here</a>.</p>
+<p>Used to estimate the slope of a trend in the standard deviations' time series (see <a href="../eda-trend-ams-mean/#sens-trend-estimator">here</a>).</p>
+<hr />
 <h2 id="runs-test">Runs Test</h2>
-<p>Used to evaluate the randomness of residuals from a fitted trend in the standard deviations' time series.<br />
-See <a href="../eda-trend-ams-mean/#runs-test">here</a>.</p>
+<p>Used to evaluate the randomness of residuals from a fitted trend in the standard deviations' time series (see <a href="../eda-trend-ams-mean/#runs-test">here</a>).</p>
+<hr />
 <h2 id="white-test">White Test</h2>
 <p>The <strong>White Test</strong> detects time-varying variance (heteroskedasticity) in a time series.</p>
 <ul>
@@ -177,32 +179,27 @@ See <a href="../eda-trend-ams-mean/#runs-test">here</a>.</p>
 </ul>
 <h3 id="steps_1">Steps</h3>
 <ol>
-<li>Fit a simple linear regression model using ordinary least squares:</li>
-</ol>
+<li>
+<p>Fit a simple linear regression model using ordinary least squares:</p>
 <div class="arithmatex">\[y_{i} = \beta_{0} + \beta_{1} x_{i} + \epsilon_{i}\]</div>
-<ol>
-<li>Compute the squared residuals:</li>
-</ol>
+</li>
+<li>
+<p>Compute the squared residuals:</p>
 <div class="arithmatex">\[
 \hat{r}_i^2 = \left(y_i - \hat{y}_i\right)^2
 \]</div>
-<ol>
-<li>Fit an auxiliary regression model to the squared residuals. This model includes each regressor, the square of each regressor, and the cross products between all regressors.
-Since <span class="arithmatex">\(x\)</span> is the only regressor, the regression model is simply:</li>
-</ol>
+</li>
+<li>
+<p>Fit an auxiliary regression model to the squared residuals. This model includes each regressor, the square of each regressor, and the cross products between all regressors. Since <span class="arithmatex">\(x\)</span> is the only regressor, the regression model is simply:</p>
 <div class="arithmatex">\[
 \hat{r}_i^2 = \alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + u_i
 \]</div>
-<ol>
+</li>
 <li>
 <p>Compute the <a href="https://en.wikipedia.org/wiki/Coefficient_of_determination">coefficient of determination</a> <span class="arithmatex">\(R^2\)</span> for the auxillary model.</p>
 </li>
 <li>
-<p>Compute the test statistic:
-$$
-nR^2 \sim \chi_{d}^2$
-$$
-where <span class="arithmatex">\(n\)</span> is the number of observations and <span class="arithmatex">\(d = 2\)</span> is the number of regressors, excluding the intercept.</p>
+<p>Compute the test statistic <span class="arithmatex">\(nR^2 \sim \chi_{d}^2\)</span> where <span class="arithmatex">\(n\)</span> is the number of observations and <span class="arithmatex">\(d = 2\)</span> is the number of regressors, excluding the intercept.</p>
 </li>
 <li>
 <p>If <span class="arithmatex">\(nR^2 &gt; \chi^2_{1-\alpha, d}\)</span>, we reject the null hypothesis and conclude that the time series exhibits heteroskedasticity.</p>

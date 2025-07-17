@@ -2,7 +2,7 @@
 
 ## MW-MK Test
 
-The **Moving Window Mann-Kendall (MW-MK) Test** is used to identify a statistically significant monotonic trend in the variances of an AMS time series.
+The **Moving Window Mann-Kendall (MW-MK) Test** identifies a statistically significant monotonic trend in the variances of an AMS time series.
 
 - Null hypothesis: There is no significant trend in the variance of the AMS.
 - Alternative hypothesis: There is a significant trend in the variance of the AMS.
@@ -29,7 +29,7 @@ See [here](eda-trend-ams-mean.md#runs-test).
 
 ## White Test
 
-The **White Test** is used to detect changes in the variance of a time series.
+The **White Test** detects changes in the variance of a time series.
 
 - Null hypothesis: The variance of the time series is constant (homoskedasticity).
 - Alternative hypothesis: The variance of the time series is time-dependent (heteroskedasticity).

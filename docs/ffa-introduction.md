@@ -2,14 +2,14 @@
 
 ## Overview
 
-**Flood Frequency Analysis** (FFA) is the act of using a _fitted probability distribution_ to make predictions about the _frequency_ of floods.
-To do FFA, we require a [probability model](model-selection.md) with [suitably chosen parameters](parameter-estimation.md) based on the data.
+FFA uses a _fitted probability distribution_ to make predictions about the _frequency_ of extreme streamflow events (i.e., floods).
+To do this, we require a [probability model](model-selection.md) [fitted](parameter-estimation.md) to the sample.
 
 Typically, we describe the severity of floods in terms of their _return period_.
-Suppose we have a flood, which I will refer to as $A$.
-If we expect to see a flood _at least as severe as_ $A$ every ten years, then we say that $A$ is a _ten-year flood_.
-Since our framework uses _annual_ maximum series data, a ten-year flood corresponds to an _exceedance probability_ of $0.1$.
-Note that an exceedance probability of $0.1$ corresponds to the $1 - 0.1 = 0.90$ quantile of our probability distribution.
+Suppose we have a flood, referred to as $Q$.
+If we expect to see a flood _at least as severe as_ $Q$, every ten years, then we say that $Q$ is a _ten-year flood_.
+Since the FFA framework uses _annual_ maximum series data, a ten-year flood corresponds to an _exceedance probability_ of $0.1$.
+Note that an exceedance probability of $0.1$ corresponds to the $1 - 0.1 = 0.90$ quantile (non-exceedance probability) of our distribution.
 Here is a table of the return periods, exceedance probabilities, and quantiles used in the FFA framework:
 
 | Return Period | Exceedance Probability | Quantile |
@@ -21,9 +21,9 @@ Here is a table of the return periods, exceedance probabilities, and quantiles u
 | $50$ Years    | $0.02$                 | $0.98$   |
 | $100$ Years   | $0.01$                 | $0.99$   |
 
-Suppose our fitted probability distribution has cumulative distribution function $F(x)$.
-The function $F(x)$ maps annual maximum series values to probabilities.
-However, we want to determine the annual maxima from the probabilities, so we use the inverse of the cumulative distribution $F^{-1}(x)$ instead.
+Suppose our fitted probability distribution has a cumulative distribution function $F(x)$.
+The function $F(x)$ maps annual maximum flood magnitudes to quantiles/non-exceedance probabilities.
+However, we want to determine flood magnitudes from the quantiles/non-exceedance probabilities, so we use the inverse of the cumulative distribution $F^{-1}(x)$ instead.
 The function $F^{-1}(x)$ is also known as the **Quantile Function**.
 
 ### Example Plot
@@ -55,14 +55,3 @@ The plot below shows the effective return periods for the year 2017.
 Instead, an effective return period of 100 years means that *in the anchor year* (2017), we predict there is a $1/100$ probability of a flood with the given severity. 
 
 ![](img/plot-ns-uncertainty.png)
-
-### An Idea for Estimating Return Periods
-
-Suppose we want to estimate the severity of a flood with return period $t_{0}$ at time $t^{*}$. 
-
-1. Generate a sample $x_{1}, \dots, x_{t_{0}}$ where $x_{i} \sim \text{Unif} [0, 1]$. 
-2. Compute simulated floods  $y_{1}, \dots, y_{t_{0}}$ where $y_{i} = F^{-1}(x_{i}, t^{*} + i)$. 
-3. Let $z = \max (y_{1}, \dots, y_{t_{0}})$ be the most severe flood in the sample.
-4. Repeat steps 1-3 $n$ times to generate a sequence $(z_{1}, \dots, z_{n})$.
-5. The mean $(z_{1}, \dots, z_{n}) / n$ is an accurate estimate of the severity.
-

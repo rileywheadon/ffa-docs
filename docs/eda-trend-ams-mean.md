@@ -1,13 +1,16 @@
 # Identifying Trends in the AMS Mean
 
+**Note**: Statistical tests are listed in *alphabetical order*.
+
 ## BB-MK Test
 
-The **Block Bootstrap Mann-Kendall (BB-MK) Test** is used to assess whether there is a statistically significant monotonic trend in a time series. The BB-MK test is insensitive to [autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation), which is known to produce false positives in the [MK test](#mann-kendall-test).
+The **Block Bootstrap Mann-Kendall (BB-MK) Test** assesses whether there is a statistically significant monotonic trend in the time series.
+Unlike the MK test (see below), the BB-MK test is insensitive to autocorrelation.
 
 - Null hypothesis: There is no monotonic trend.
 - Alternative hypothesis: There is a monotonic upwards or downwards trend.
 
-To carry out the BB-MK test, we rely on the results of the MK test and Spearman test.
+To carry out the BB-MK test, we rely on the results of the MK test and the Spearman auto-correlation test.
 
 1. Compute the MK test statistic.
 2. Find the least insignificant lag $k$ using the Spearman test.
@@ -22,12 +25,12 @@ To carry out the BB-MK test, we rely on the results of the MK test and Spearman 
 
 ## KPSS Test
 
-The **KPSS Test** is used to identify if an autoregressive time series has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
+The **KPSS Test** determines whether an autoregressive time series has a _unit root_.
 
-- Null hypothesis: The time series does not have a unit root and is _trend-stationary_.
-- Alternative hypothesis: The time series has a unit root and is _nonstationary_.
+- Null hypothesis: The time series has a deterministic trend (no unit root).
+- Alternative hypothesis: The time series has a stochastic trend (unit root).
 
-Precisely, the autoregressive time series shown below has unit root if $\sigma_{v}^2 > 0$:
+The autoregressive time series shown below has a unit root if $\sigma_{v}^2 > 0$.
 
 $$
 \begin{align}
@@ -37,69 +40,56 @@ v_{t} &\sim \mathcal{N}(0, \sigma_{v}^2)
 \end{align}
 $$
 
-Here is what each term in this formulation represents:
+where:
 
 - $\mu_{t}$ is the _drift_, or the deviation of $y_{t}$ from $0$.
   Under the null hypothesis, $\mu_{t}$ is constant (since $v_{t}$ is constant).
   Under the alternative hypothesis, $\mu_t$ is a stochastic process with unit root.
 - $\beta t$ is a _linear trend_, which represents deterministic nonstationarity (i.e. climate change).
 - $\epsilon_{t}$ is _stationary noise_, corresponding to reversible fluctuations in $y_{t}$.
-  In hydrology, $\epsilon_{t}$ represents fluctuations in annual maxima due to random events (i.e. weather).
+  In hydrology, $\epsilon_{t}$ represents natural variability.
 - $v_{t}$ is _random walk innovation_, or irreversible fluctuations in $\mu_{t}$.
   In hydrology, $v_{t}$ could represent randomness in industrial activity causing climate change.
 
-To conduct the test, we fit a linear model to $y_{t}$ and get the residuals $\hat{r}_{t}$.
-Then, we compute the cumulative partial-sum statistics $S_{k}$ using the following formula:
+To perform the test, fit a linear model to the time series $y_t$ to get the residuals $\hat{r}_t$.
+Then, compute cumulative partial-sum statistics:
 
 $$
 S_{k} = \sum_{t=1}^{k} \hat{r}_{t}
 $$
 
-Under the null hypothesis, $S_{k}$ will behave like a random walk with finite variance.
-If $y_{t}$ has a unit root, then the sums will "drift" too much.
-
-Next, we estimate the long-run variance of the time series while adjusting for autocovariance.
-To do this, we require the sample autocovariances $\gamma_{j}$ for up to $q$ lags, where:
-
-$$
-q = \left\lfloor \frac{3\sqrt{n}}{13} \right\rfloor
-$$
-
-The sample autocovariance $\gamma_{j}$ is a measure of the correlation between the time series $y_{t}$ and the shifted time series $y_{t-j}$.
-Each sample autocovariance $\gamma_{j}$ for $j = 0, 1, \dots, q$ is computed as follows:
+Next, estimate the long-run variance using a Newey-West style estimator to correct for additional variability in $\epsilon_{t}$ due to autocorrelation and heteroskedasticity.
+To do this, compute the sample autocovariances $\gamma_{j}$ up to lag $q = \left\lfloor 3\sqrt{n} / 13 \right\rfloor$:
 
 $$
 \hat{\gamma}_{j} = \frac{1}{n} \sum_{t = j + 1}^{n} \hat{r}_{t}\hat{r}_{t-j}
 $$
 
-Finally, we estimate the long-run variance $\hat{\lambda}^2$ using a [Newey-West](https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator) style estimator.
-This estimator corrects for the additional variability in $\epsilon_{t}$ caused by autocorrelation and heteroskedasticity.
+Then estimate the long-run variance:
 
 $$
-\hat{\lambda}^2 = \hat{\gamma}_{0} + 2\sum_{j=1}^{q} \left(1 - \frac{j}{q + 1} \right)  \gamma_{j}
+\hat{\lambda}^2 = \hat{\gamma}_{0}+2\sum_{j=1}^{q} \left(1-\frac{j}{q + 1} \right)\gamma_{j}
 $$
 
-Then, we compute the test statistic $z_{\text{KPSS}}$ using the following formula:
+Use the long-run variance to Calculate the test statistic:
 
 $$
-z_{\text{KPSS}} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
+z_{K} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
 $$
 
-The test statistic $z_{\text{KPSS}}$ is not normally distributed.
-Instead, we compute the p-value by interpolating the table of quantiles from [Hobjin et al. (2004)](https://doi.org/10.1111/j.1467-9574.2004.00272.x) shown below.
+Compare $z_K$ to critical values from [Hobjin et al. (2004)](https://doi.org/10.1111/j.1467-9574.2004.00272.x):
 
-| Probability       | 0.90  | 0.95  | 0.975 | 0.99  |
+| $q$       | 0.90  | 0.95  | 0.975 | 0.99  |
 | --------- | ----- | ----- | ----- | ----- |
-| Quantile | 0.119 | 0.146 | 0.176 | 0.216 |
+| Statistic | 0.119 | 0.146 | 0.176 | 0.216 |
 
-**Warning**: The interpolation procedure discussed above only works for $0.01 < p < 0.10$.
-Therefore, p-values below $0.01$ and above $0.10$ will be truncated.
-It is also required that the significance level $\alpha$ is between $0.01$ and $0.10$.
+**Warning**: Interpolation is valid only for $0.01 < p < 0.10$.
+P-values less than $0.01$ and greater than $0.10$ will be truncated.
+Use confidence levels $\alpha$ within the range $0.01 < \alpha < 0.1$.
 
 ## Mann-Kendall Test
 
-The **Mann-Kendall Test** is used to assess whether there is a statistically significant monotonic trend in a time series.
-The test requires that when no trend is present, the data is independent and identically distributed.
+The **Mann-Kendall Test** assesses whether there is a statistically significant monotonic trend in a time series. It assumes independence.
 
 - Null hypothesis: There is no monotonic trend.
 - Alternative hypothesis: There is a monotonic upwards or downwards trend.
@@ -122,16 +112,17 @@ Then, compute the MK test statistic, $Z_{MK}$, as follows:
 $$
 Z_{MK} = \begin{cases}
 \frac{S-1}{\sqrt{\text{Var}(S)}} &\text{if } S > 0 \\
-0 &\text{if }  S = 0 \\[4pt]
+0 &\text{if }  S = 0 \\
 \frac{S+1}{\sqrt{\text{Var}(S)}} &\text{if } S < 0
 \end{cases}
 $$
 
-For a two-sided test, we reject the null hypothesis if $|Z_{MK}| \geq Z_{1 - (\alpha/2) }$ and conclude that there is a statistically significant monotonic trend in the data. For more information, see [here](https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm).
+For a two-sided test, we reject the null hypothesis if $|Z_{MK}| \geq Z_{1 - (\alpha/2) }$ and conclude that there is a statistically significant monotonic trend in the data.
+For more information, see [here](https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm).
 
 ## Phillips-Perron Test
 
-The **Phillips-Perron (PP) Test** is used to identify if an autoregressive time series $y_t$ has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
+The **Phillips-Perron (PP) Test** identifies if an autoregressive time series $y_t$ has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
 
 - Null hypothesis: $y_{t}$ has a _unit root_ and is thus _nonstationary_.
 - Alternative hypothesis: $y_{t}$ does not have a unit root and is _trend-stationary_.
@@ -238,7 +229,7 @@ $$
 
 ## Sen's Trend Estimator
 
-**Sen's Trend Estimator** is used to estimate the slope of a regression line.
+**Sen's Trend Estimator** estimates the slope of a regression line.
 Unlike [Least Squares](https://en.wikipedia.org/wiki/Least_squares), Sen's trend estimator uses a non-parametric approach which makes it robust to outliers.
 
 To compute Sen's trend estimator we use the following procedure:
@@ -255,7 +246,7 @@ After computing $\hat{m}$, we can estimate the $y$-intercept $b$ by the median o
 
 ## Spearman Test
 
-The **Spearman Test** is used to identify autocorrelation in a time series $y_{t}$.
+The **Spearman Test** estimates autocorrelation in a time series $y_{t}$.
 A _significant lag_ is a number $i$ such that the correlation between $y_{t}$ and $y_{t-i}$ is statistically significant.
 The _least insignificant lag_ is the largest $i$ such that all $j < i$ are significant lags.
 

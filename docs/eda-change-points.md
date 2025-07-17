@@ -2,7 +2,7 @@
 
 ## Mann-Kendall-Sneyers Test
 
-The **Mann-Kendall-Sneyers (MKS) Test** is used to identify the beginning of a trend in a time series:
+The **Mann-Kendall-Sneyers (MKS) Test** identifies the beginning of a trend in a time series:
 
 - Null hypothesis: There are no change points in the time series.
 - Alternative hypothesis: There are _one or more_ change points in the time series.
@@ -46,7 +46,7 @@ A crossing point between $UF_{t}$ and $UB_{t}$ that lies outside the confidence 
 
 ## Pettitt Test
 
-The **Pettitt Test** is used to identify abrupt changes in the mean of a time series.
+The **Pettitt Test** identifies abrupt changes in the mean of a time series.
 
 - Null hypothesis: There are no abrupt changes in the time series mean.
 - Alternative hypothesis: There is _one_ abrupt change in the time series mean.

@@ -1,15 +1,14 @@
-# Introduction to EDA
+# Introduction to Exploratory Data Analysis (EDA)
 
-The exploratory data analysis (EDA) module of the flood frequency analysis (FFA) framework contains a collection of statistical tests for annual maximum streamflow (AMS) data.
-These tests are performed in a specific order to accomplish the four goals listed below:
+The EDA module in the FFA Framework helps evaluate whether the available evidence supports the assumption of stationarity. EDA detects statistically significant nonstationary signatures in a given annual maximum series (AMS). 
+EDA applies a structured sequence of statistical tests on AMS data to achieve four key objectives:
 
-1. Identify change points ("jumps" or "kinks") in the AMS data.
-2. Identify [autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation) in the AMS data.
-3. Identify trends in the mean value of the AMS data.
-4. Identify trends in the variance of the AMS data.
+1. Detect **change points** (i.e., abrupt shifts or trend changes).
+2. Detect **trends in the mean** and determine their nature (deterministic vs stochastic, linear vs non-linear, if any).
+3. Detect **trends in the variability** (i.e., heteroskedasticity and trends in standard deviation).
 
-***Ultimately the goal of EDA is to choose between stationary and non-stationary FFA.***
+***The primary goal of EDA is to inform the selection between stationary and nonstationary FFA.***
 
-A diagram showing the current EDA framework is shown below:
+The EDA workflow is illustrated below:
 
 ![Diagram showing current EDA framework.](img/fig-eda-current.png)

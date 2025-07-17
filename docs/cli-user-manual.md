@@ -54,7 +54,7 @@ Some stations may have little or no data.
 - `"MLE"`: Maximum likelihood estimation.
 - `"GMLE"`: Generalized maximum likelihood estimation (GEV distribution only).
 
-**`ns_estimation`**: Character (1); parameter estimation method for non-stationary models:
+**`ns_estimation`**: Character (1); parameter estimation method for nonstationary models:
 
 - `"MLE"`: Maximum likelihood estimation.
 - `"GMLE"`: Generalized maximum likelihood estimation (GEV distribution only).
@@ -69,7 +69,7 @@ Some stations may have little or no data.
 - `"RFPL"`: Regula-falsi profile likelihood (MLE estimation only).
 - `"RFGPL"`: Generalized regula-falsi profile likelihood (GMLE estimation only).
 
-**`ns_uncertainty`**: Character (1); uncertainty quantification method for non-stationary models:
+**`ns_uncertainty`**: Character (1); uncertainty quantification method for nonstationary models:
 
 - `"Bootstrap"`: Parametric bootstrap method.
 - `"RFPL"`: Regula-falsi profile likelihood (MLE estimation only).
@@ -77,7 +77,7 @@ Some stations may have little or no data.
 
 **`return_periods`**: Numeric; list of return periods (in years) for estimating return levels.
 
-**`sb_samples`**: Integer (1); number of samples for [bootstrap uncertainty quantification](uncertainty-quantification.md#sample-bootstrap).
+**`sb_samples`**: Integer (1); number of samples for [bootstrap uncertainty quantification](uncertainty-quantification.md#parametric-bootstrap).
 
 **`rfpl_tolerance`**: Numeric (1); log-likelihood tolerance for [RFPL uncertainty quantification](uncertainty-quantification.md#regula-falsi-profile-likelihood-rfpl).
 
@@ -95,7 +95,7 @@ Some stations may have little or no data.
 
 **`show_trend`**: Boolean (1); if `true`, add a trend line through the AMS data where applicable. 
 
-**`slices`**: Integer; years used to estimate return levels for non-stationary models. Slices outside of the dataset (or trend-stationary partition) will be ignored.
+**`slices`**: Integer; years used to estimate return levels for nonstationary models. Slices outside of the dataset (or trend-stationary partition) will be ignored.
 
 ### Report Generation
 

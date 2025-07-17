@@ -2,18 +2,21 @@
 
 The FFA framework implements three methods for uncertainty quantification: 
 
-1. Sample bootstrap
+1. Parametric bootstrap
 2. Regula-falsi profile likelihood (RFPL)
 2. Regula-falsi generalized profile likelihood (RFGPL)
 
-## Sample Bootstrap
+## Parametric Bootstrap
 
-The sample bootstrap is a flexible method for uncertainty quantification that works with all probability models and parameter estimation methods. Let $n$ be the size of the original dataset.
+The parametric bootstrap is a flexible method for uncertainty quantification that works with all probability models and parameter estimation methods. Let $n$ be the size of the original dataset.
 
 1. Draw $N_{\text{sim}}$ bootstrap samples of size $n$ from the selected probability distribution.
 2. Fit a probability distribution to each bootstrap sample using the same [model selection method](model-selection.md) and [parameter estimation method](parameter-estimation.md) that was used to generate the original distribution.
 3. Compute the quantiles for each of the bootstrapped distributions. 
 4. Generate confidence intervals using the mean and variance of the bootstrapped quantiles.
+
+**Warning**: The parametric bootstrap is known to give unreasonably wide confidence intervals for small datasets. 
+If the FFA framework detects a confidence interval that is 5+ times wider than the return levels themselves, it will return an error and recommend RFPL uncertainty quantification.
 
 ## Regula-Falsi Profile Likelihood (RFPL)
 
@@ -53,6 +56,9 @@ $$
 $$ 
 
 We use this relationship to find the profile likelihood $\ell_{p}(y)$ by evaluating $\mu(p, y, \psi)$ and substituting it into the log-likelihood functions listed [here](parameter-estimation.md#maximum-likelihood-mle).
+
+**Warning**: RFPL uncertainty quantification can be numerically unstable for some datasets. 
+If the FFA framework encounters an issue, it will return an error and recommend the parametric bootstrap.
 
 ### Handling the Weibull Distribution
 
@@ -101,14 +107,14 @@ Otherwise, assign $a_{i} = c_{i}$ if $f(c_{i}) < 0$ and $b_{i} = c_{i}$ if $f(c_
 The regula-falsi generalized profile likelihood (RFGPL) method performs the regula-falsi algorithm shown above on the GEV distributions with a $\text{Beta}(p, q)$ prior for the shape parameter $\kappa$.
 For more information about generalized parameter estimation, see [here](parameter-estimation.md#generalized-maximum-likelihood-gmle).
 
-## Handling Non-Stationarity
+## Handling Nonstationarity
 
-If the selected probability distribution is non-stationary, the quantiles (and hence confidence intervals) for the bootstrapped distributions change in time.
-See [here](ffa-introduction.md#handling-non-stationarity) for a more detailed discussion of this idea.
+If the selected probability distribution is nonstationary, the quantiles (and hence confidence intervals) for the bootstrapped distributions change in time.
+See [here](ffa-introduction.md#handling-nonstationarity) for a more detailed discussion of this idea.
 By default, the FFA framework anchors uncertainty analysis at the *last* year of the dataset. 
 However, [model assessment](model-assessment.md) requires confidence intervals for *every* year in the dataset.
 
-**Note**: The sample bootstrap algorithm is the fastest algorithm for computing confidence intervals on all years in a dataset because the probabilities used to generate the bootstrapped samples can be reused.
+**Note**: The parametric bootstrap algorithm is the fastest algorithm for computing confidence intervals on all years in a dataset because the probabilities used to generate the bootstrapped samples can be reused.
 The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.
 
 

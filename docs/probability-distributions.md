@@ -14,7 +14,7 @@ The FFA framework uses the $9$ probability distributions listed below:
 | Log-Pearson Type III       | `LP3`        | $\mu$ (location), $\sigma$ (scale), $\kappa$ (shape) |
 | Weibull                    | `WEI`        | $\mu$ (location), $\sigma$ (scale), $\kappa$ (shape) |
 
-Each distribution also has two non-stationary variants which we denote by adding a "signature" to the model abbreviation.
+Each distribution also has two nonstationary variants which we denote by adding a "signature" to the model abbreviation.
 For two-parameter distributions (`GUM`, `NOR`, `LNO`):
 
 1. `XXX` is the standard, stationary model.

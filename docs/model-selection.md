@@ -70,8 +70,8 @@ For probability distributions with three parameters, we use the *minimum distanc
 
 ### L-Kurtosis
 
-For two-parameter probability distributions, simply compare the difference between the sample L-kurtosis and the theoretical L-kurtosis using the metric $|\tau_{4} - t_{4} |$.
-For three-parameter distributions, we first identify the shape parameter $\kappa^{*}$ such that $t_{3} = \tau _{3}(\kappa ^{*})$.
+The L-kurtosis selection metric only supports three-parameter distributions.
+First, we identify the shape parameter $\kappa^{*}$ such that $t_{3} = \tau _{3}(\kappa ^{*})$.
 Then, compare the difference between the sample L-kurtosis and the theoretical L-kurtosis using the metric $|\tau_{4}(\kappa ^{*}) - t_{4} |$.
 
 ### Z-statistic
@@ -100,15 +100,15 @@ The Z-statistic selection metric is calculated as follows (for three parameter d
 
 7. Choose the distribution with the *smallest* Z-statistic.
 
-## Handling Non-Stationarity
+## Handling Nonstationarity
 
-There are three non-stationary scenarios that can be identified during EDA:
+There are three nonstationary scenarios that can be identified during EDA:
 
 1. `10`/`100`: Significant trend in the mean only.
 2. `01`/`010`: Significant trend in the variance only.
 3. `11`/`110`: Significant trend in both the mean and variance.
 
-To determine the best probability distribution for non-stationary data, we *decompose* the data into stationary and non-stationary components and then use one of the methods described above.
+To determine the best probability distribution for nonstationary data, we *decompose* the data into stationary and nonstationary components and then use one of the methods described above.
 
 ### Decomposition (Scenario 1)
 

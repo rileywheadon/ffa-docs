@@ -12,4 +12,8 @@ The [original version](https://zenodo.org/records/8012096) of this software was 
 
 You may also be interested in our [goals](goals.md), [roadmap](roadmap.md), or [release notes](release-notes.md).
 
+---
+
 <div style="color: red;"><b>Warning</b>: The FFA Framework is currently under development. Code and documentation may change frequently and drastically. Use at your own risk.</div> 
+
+

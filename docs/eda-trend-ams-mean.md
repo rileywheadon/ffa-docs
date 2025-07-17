@@ -25,7 +25,7 @@ To carry out the BB-MK test, we rely on the results of the MK test and Spearman 
 The **KPSS Test** is used to identify if an autoregressive time series has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
 
 - Null hypothesis: The time series does not have a unit root and is _trend-stationary_.
-- Alternative hypothesis: The time series has a unit root and is _non-stationary_.
+- Alternative hypothesis: The time series has a unit root and is _nonstationary_.
 
 Precisely, the autoregressive time series shown below has unit root if $\sigma_{v}^2 > 0$:
 
@@ -42,9 +42,9 @@ Here is what each term in this formulation represents:
 - $\mu_{t}$ is the _drift_, or the deviation of $y_{t}$ from $0$.
   Under the null hypothesis, $\mu_{t}$ is constant (since $v_{t}$ is constant).
   Under the alternative hypothesis, $\mu_t$ is a stochastic process with unit root.
-- $\beta t$ is a _linear trend_, which represents deterministic non-stationarity (i.e. climate change).
+- $\beta t$ is a _linear trend_, which represents deterministic nonstationarity (i.e. climate change).
 - $\epsilon_{t}$ is _stationary noise_, corresponding to reversible fluctuations in $y_{t}$.
-  In hydrology, $\epsilon_{t}$ represents fluctuations in streamflow due to random events (i.e. weather).
+  In hydrology, $\epsilon_{t}$ represents fluctuations in annual maxima due to random events (i.e. weather).
 - $v_{t}$ is _random walk innovation_, or irreversible fluctuations in $\mu_{t}$.
   In hydrology, $v_{t}$ could represent randomness in industrial activity causing climate change.
 
@@ -133,7 +133,7 @@ For a two-sided test, we reject the null hypothesis if $|Z_{MK}| \geq Z_{1 - (\a
 
 The **Phillips-Perron (PP) Test** is used to identify if an autoregressive time series $y_t$ has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
 
-- Null hypothesis: $y_{t}$ has a _unit root_ and is thus _non-stationary_.
+- Null hypothesis: $y_{t}$ has a _unit root_ and is thus _nonstationary_.
 - Alternative hypothesis: $y_{t}$ does not have a unit root and is _trend-stationary_.
 
 Precisely, let $x_{t}$ be an [AR(1)](https://en.wikipedia.org/wiki/Autoregressive_model) model.
@@ -206,7 +206,7 @@ Therefore, p-values below $0.01$ will be truncated and it is required that $0.01
 ## Runs Test
 
 After computing the regression line using [Sen's trend estimator](#sens-trend-estimator), we use the **Runs Test** to determine whether the residuals from the regression are random.
-If the Runs test identifies non-randomness in the residuals, it is a strong indication that the non-stationarity in the data is not linear.
+If the Runs test identifies non-randomness in the residuals, it is a strong indication that the nonstationarity in the data is not linear.
 
 - Null hypothesis: The residuals are distributed randomly.
 - Alternative hypothesis: The residuals _are not_ distributed randomly.

@@ -8,6 +8,7 @@ nav:
   - R Package:
     - Installation instructions: r-installation-instructions.md
     - User Manual: r-user-manual.pdf
+    - Cheat Sheet: cheat-sheet.pdf
     - Vignettes:
       - "Introduction": vignettes/introduction.html
       - "Change Point Detection": vignettes/change-points.html
@@ -26,7 +27,7 @@ nav:
     - Parameter Estimation: parameter-estimation.md
     - Uncertainty Quantification: uncertainty-quantification.md
     - Model Assessment: model-assessment.md
-  - About:
+  - Other:
     - Goals: goals.md
     - Roadmap: roadmap.md
     - Release Notes: release-notes.md

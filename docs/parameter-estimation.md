@@ -15,7 +15,7 @@ The parameter estimation methods used in the framework are based on [these](http
 
 **Warning**: L-moments parameter estimation can yield distributions which do not have support at small values.
 This is generally not an issue, since we are only interested in the higher quantiles of the distribution.
-However, it is important to remember that the probability distributions produced by L-moments *should not* be used to predict future streamflow maxima in general.
+However, it is important to remember that the probability distributions produced by L-moments *should not* be used to predict future annual maxima in general.
 
 ## Maximum Likelihood (MLE)
 

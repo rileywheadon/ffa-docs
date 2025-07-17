@@ -55,12 +55,16 @@ $$y_{i} = \beta_{0} + \beta_{1} x_{i} + \epsilon_{i}$$
 
 2. Compute the squared residuals:
 
-$${\hat{r}}_{i}^{2} = (y_{i} - \hat{y}_{i})^{2}$$
+$$
+\hat{r}_i^2 = \left(y_i - \hat{y}_i\right)^2
+$$
 
-3. Fit an auxillary regression model to the squared residuals.This model includes each regressor, the square of each regressor, and the cross products between all regressors.
+3. Fit an auxiliary regression model to the squared residuals. This model includes each regressor, the square of each regressor, and the cross products between all regressors.
 Since $x$ is the only regressor, the regression model is simply:
 
-$${\hat{r}}_{i}^{2} = \alpha_{0} + \alpha_{1}x_{i} + \alpha_{2}x_{i}^{2} + u_{i}$$
+$$
+\hat{r}_i^2 = \alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + u_i
+$$
 
 4. Compute the [coefficient of determination](https://en.wikipedia.org/wiki/Coefficient_of_determination) $R^2$ for the auxillary model.
 

@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -113,7 +103,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -151,11 +141,12 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="change-point-detection">Change Point Detection</h1>
+<p>The EDA module of the FFA Framework includes two statistical tests for detecting change points in the annual maximum series (AMS): the <strong>Mann-Kendall-Sneyers (MKS) test</strong> and the <strong>Pettitt test</strong>. These help identify changes in trends and abrupt changes in the AMS.</p>
 <h2 id="mann-kendall-sneyers-test">Mann-Kendall-Sneyers Test</h2>
-<p>The <strong>Mann-Kendall-Sneyers (MKS) Test</strong> is used to identify the beginning of a trend in a time series:</p>
+<p>The <strong>Mann-Kendall-Sneyers (MKS) test</strong> detects the beginning of a trend in a time series:</p>
 <ul>
-<li>Null hypothesis: There are no change points in the time series.</li>
-<li>Alternative hypothesis: There are <em>one or more</em> change points in the time series.</li>
+<li>Null hypothesis: There are no change points.</li>
+<li>Alternative hypothesis: There are <em>one or more</em> change points.</li>
 </ul>
 <p>Define <span class="arithmatex">\(\mathbb{I}(y_{i} &gt; y_{j})\)</span> to be <span class="arithmatex">\(1\)</span> if <span class="arithmatex">\(y_{i} &gt; y_{j}\)</span> and <span class="arithmatex">\(0\)</span> otherwise.</p>
 <p>Given a time series <span class="arithmatex">\(y_{1}, \dots, y_{n}\)</span>, we compute the <em>progressive series</em> <span class="arithmatex">\(S^{F}_{t}\)</span>:</p>
@@ -173,7 +164,7 @@ S^{B}_{t} = \text{rev}\left( \sum_{i=i}^{t} \sum_{j=1}^{i-1} \mathbb{I}(y'_{i} &
 UF_{t} = \frac{S^{F}_{t} - \mathbb{E}[S^{F}_{t}]}{\sqrt{\text{Var}\,(S^{F}_{t})}}, \quad
 UB_{t} = \frac{S^{B}_{t} - \mathbb{E}[S^{B}_{t}]}{\sqrt{\text{Var}\,(S^{B}_{t})}}
 \]</div>
-<p>For both the progressive and regressive series, the expectation and variance is as follows:</p>
+<p>For both the progressive and regressive series, the expectation and variance are as follows:</p>
 <div class="arithmatex">\[
 \mathbb{E}[S^{F}_{t}] = \mathbb{E}[S^{B}_{t}] = \frac{t(t-1)}{4}, \quad
 \text{Var}(S^{F}_{t}) = \text{Var}(S^{B}_{t}) = \frac{t(t-1)(2t+5)}{72}
@@ -183,10 +174,10 @@ A crossing point between <span class="arithmatex">\(UF_{t}\)</span> and <span cl
 <h3 id="example-plot">Example Plot</h3>
 <p><img alt="" src="../img/plot-mks.png" /></p>
 <h2 id="pettitt-test">Pettitt Test</h2>
-<p>The <strong>Pettitt Test</strong> is used to identify abrupt changes in the mean of a time series.</p>
+<p>The <strong>Pettitt test</strong> detects abrupt changes in the mean of a time series.</p>
 <ul>
-<li>Null hypothesis: There are no abrupt changes in the time series mean.</li>
-<li>Alternative hypothesis: There is <em>one</em> abrupt change in the time series mean.</li>
+<li>Null hypothesis: There are no abrupt changes.</li>
+<li>Alternative hypothesis: There is <em>one</em> abrupt change.</li>
 </ul>
 <p>Define <span class="arithmatex">\(\text{sign}(x)\)</span> to be <span class="arithmatex">\(1\)</span> if <span class="arithmatex">\(x &gt; 0\)</span>, <span class="arithmatex">\(0\)</span> if <span class="arithmatex">\(x = 0\)</span>, and <span class="arithmatex">\(-1\)</span> otherwise.</p>
 <p>Given a time series <span class="arithmatex">\(y_{1}, \dots, y_{n}\)</span>, compute the following test statistic:</p>

@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -83,24 +73,38 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#bb-mk-test">BB-MK Test</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#steps">Steps</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#example-plot">Example Plot</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#kpss-test">KPSS Test</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#steps_1">Steps</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#mann-kendall-test">Mann-Kendall Test</a>
+        </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#phillips-perron-test">Phillips-Perron Test</a>
+    <li class="toctree-l2"><a class="reference internal" href="#mann-kendall-mk-test">Mann-Kendall (MK) Test</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#phillips-perron-pp-test">Phillips-Perron (PP) Test</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#steps_2">Steps</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#runs-test">Runs Test</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#steps_3">Steps</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#example-plot_1">Example Plot</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#sens-trend-estimator">Sen's Trend Estimator</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#steps_4">Steps</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#example-plot_2">Example Plot</a>
     </li>
         </ul>
@@ -131,7 +135,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -168,31 +172,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="identifying-trends-in-the-ams-mean">Identifying Trends in the AMS Mean</h1>
+                <h1 id="detecting-trends-in-the-ams-mean-and-their-nature">Detecting Trends in the AMS Mean and their nature</h1>
+<p>This section describes the statistical tests (listed in alphabetical order) used to detect significant trends in the mean of the annual maximum series (AMS) and characterize their nature (if any trend). These tests help determine whether the data contains a trend, whether is autocorrelated and also contains a trend on top of that, and whether trends are deterministic or stochastic and linear or non-linear (if any).</p>
+<hr />
+<p><strong>Note</strong>: Statistical tests are listed in <em>alphabetical order</em>.</p>
 <h2 id="bb-mk-test">BB-MK Test</h2>
-<p>The <strong>Block Bootstrap Mann-Kendall (BB-MK) Test</strong> is used to assess whether there is a statistically significant monotonic trend in a time series. The BB-MK test is insensitive to <a href="https://en.wikipedia.org/wiki/Autocorrelation">autocorrelation</a>, which is known to produce false positives in the <a href="#mann-kendall-test">MK test</a>.</p>
+<p>The <strong>Block Bootstrap Mann-Kendall (BB-MK) Test</strong> assesses the presence of a statistically significant monotonic trend in a time series.
+The BB-MK test is insensitive to <a href="https://en.wikipedia.org/wiki/Autocorrelation">autocorrelation</a>, which is known to produce false positives in the <a href="#mann-kendall-mk-test">MK test</a>.</p>
 <ul>
-<li>Null hypothesis: There is no monotonic trend.</li>
-<li>Alternative hypothesis: There is a monotonic upwards or downwards trend.</li>
+<li>Null hypothesis: No monotonic trend.</li>
+<li>Alternative hypothesis: A monotonic upward or downward trend exists.</li>
 </ul>
-<p>To carry out the BB-MK test, we rely on the results of the MK test and Spearman test.</p>
+<p>To conduct the BB-MK test, we rely on the results of the MK test and the Spearman auto-correlation test.</p>
+<h3 id="steps">Steps</h3>
 <ol>
-<li>Compute the MK test statistic.</li>
-<li>Find the least insignificant lag <span class="arithmatex">\(k\)</span> using the Spearman test.</li>
-<li>Resample from the original time series in blocks of size <span class="arithmatex">\(k+1\)</span> without replacement.</li>
-<li>Estimate the MK test statistic for each bootstrapped sample.</li>
+<li>Compute the MK test statistic (see below).</li>
+<li>Use the Spearman test (see below) to identify the least insignificant lag <span class="arithmatex">\(k\)</span>.</li>
+<li>Resample the time series in blocks of size <span class="arithmatex">\(k+1\)</span> without replacement</li>
+<li>Compute the MK test statistic for each bootstrapped sample.</li>
 <li>Derive the empirical distribution of the MK test statistic from the bootstrapped statistics.</li>
 <li>Estimate the significance of the observed test statistic using the empirical distribution.</li>
 </ol>
 <h3 id="example-plot">Example Plot</h3>
 <p><img alt="" src="../img/plot-bbmk.png" /></p>
+<hr />
 <h2 id="kpss-test">KPSS Test</h2>
-<p>The <strong>KPSS Test</strong> is used to identify if an autoregressive time series has a <a href="https://en.wikipedia.org/wiki/Unit_root">unit root</a>.</p>
+<p>The <strong>KPSS Test</strong> determines whether an autoregressive time series has a <a href="https://en.wikipedia.org/wiki/Unit_root">unit root</a>.
+This test helps assess if the time series has a deterministic linear trend.</p>
 <ul>
-<li>Null hypothesis: The time series does not have a unit root and is <em>trend-stationary</em>.</li>
-<li>Alternative hypothesis: The time series has a unit root and is <em>non-stationary</em>.</li>
+<li>Null hypothesis: The time series has a deterministic linear trend.</li>
+<li>Alternative hypothesis: The time series has a unit root.</li>
 </ul>
-<p>Precisely, the autoregressive time series shown below has unit root if <span class="arithmatex">\(\sigma_{v}^2 &gt; 0\)</span>:</p>
+<p>The autoregressive time series shown below has a unit root if <span class="arithmatex">\(\sigma_{v}^2 &gt; 0\)</span>:</p>
 <div class="arithmatex">\[
 \begin{align}
 y_{t} &amp;= \mu_{t} + \beta t +  \epsilon_{t} \\[5pt]
@@ -200,49 +211,51 @@ y_{t} &amp;= \mu_{t} + \beta t +  \epsilon_{t} \\[5pt]
 v_{t} &amp;\sim \mathcal{N}(0, \sigma_{v}^2)
 \end{align}
 \]</div>
-<p>Here is what each term in this formulation represents:</p>
+<p>where:</p>
 <ul>
 <li><span class="arithmatex">\(\mu_{t}\)</span> is the <em>drift</em>, or the deviation of <span class="arithmatex">\(y_{t}\)</span> from <span class="arithmatex">\(0\)</span>.
   Under the null hypothesis, <span class="arithmatex">\(\mu_{t}\)</span> is constant (since <span class="arithmatex">\(v_{t}\)</span> is constant).
   Under the alternative hypothesis, <span class="arithmatex">\(\mu_t\)</span> is a stochastic process with unit root.</li>
-<li><span class="arithmatex">\(\beta t\)</span> is a <em>linear trend</em>, which represents deterministic non-stationarity (i.e. climate change).</li>
+<li><span class="arithmatex">\(\beta t\)</span> is a <em>linear trend</em>, which represents deterministic nonstationarity (e.g., climate change).</li>
 <li><span class="arithmatex">\(\epsilon_{t}\)</span> is <em>stationary noise</em>, corresponding to reversible fluctuations in <span class="arithmatex">\(y_{t}\)</span>.
-  In hydrology, <span class="arithmatex">\(\epsilon_{t}\)</span> represents fluctuations in streamflow due to random events (i.e. weather).</li>
-<li><span class="arithmatex">\(v_{t}\)</span> is <em>random walk innovation</em>, or irreversible fluctuations in <span class="arithmatex">\(\mu_{t}\)</span>.
-  In hydrology, <span class="arithmatex">\(v_{t}\)</span> could represent randomness in industrial activity causing climate change.</li>
+  In hydrology, <span class="arithmatex">\(\epsilon_{t}\)</span> represents fluctuations in streamflow due to natural variability.</li>
+<li><span class="arithmatex">\(v_{t}\)</span> is <em>random walk innovation</em>, or irreversible fluctuations in <span class="arithmatex">\(\mu_{t}\)</span>.</li>
 </ul>
-<p>To conduct the test, we fit a linear model to <span class="arithmatex">\(y_{t}\)</span> and get the residuals <span class="arithmatex">\(\hat{r}_{t}\)</span>.
-Then, we compute the cumulative partial-sum statistics <span class="arithmatex">\(S_{k}\)</span> using the following formula:</p>
+<h3 id="steps_1">Steps</h3>
+<ol>
+<li>Fit a linear model to <span class="arithmatex">\(y_{t}\)</span> and get the residuals <span class="arithmatex">\(\hat{r}_{t}\)</span>.</li>
+<li>
+<p>Compute the cumulative partial-sum statistics <span class="arithmatex">\(S_{k}\)</span> using the following formula:</p>
 <div class="arithmatex">\[
 S_{k} = \sum_{t=1}^{k} \hat{r}_{t}
 \]</div>
 <p>Under the null hypothesis, <span class="arithmatex">\(S_{k}\)</span> will behave like a random walk with finite variance.
 If <span class="arithmatex">\(y_{t}\)</span> has a unit root, then the sums will "drift" too much.</p>
-<p>Next, we estimate the long-run variance of the time series while adjusting for autocovariance.
-To do this, we require the sample autocovariances <span class="arithmatex">\(\gamma_{j}\)</span> for up to <span class="arithmatex">\(q\)</span> lags, where:</p>
+</li>
+<li>
+<p>Estimate the long-run variance of the time series using a <a href="https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator">Newey-West estimator</a>: </p>
+</li>
+</ol>
+<p>$$
+   \hat{\lambda}^2 = \hat{\gamma}<em>0 + 2 \sum</em>{j=1}^{q} \left(1 - \frac{j}{q+1} \right) \hat{\gamma}_j
+   $$</p>
+<p>Where <span class="arithmatex">\(q = \left\lfloor \frac{3\sqrt{n}}{13} \right\rfloor\)</span> and each autocovariance <span class="arithmatex">\(\hat{\gamma}_j\)</span> is:</p>
+<p>$$
+   \hat{\gamma}<em>j = \frac{1}{n} \sum</em>{t = j+1}^{n} \hat{r}<em>t \hat{r}</em>{t-j}
+   $$</p>
+<ol>
+<li>Compute the test statistic <span class="arithmatex">\(z_{\text{KPSS}}\)</span>:</li>
+</ol>
 <div class="arithmatex">\[
-q = \left\lfloor \frac{3\sqrt{n}}{13} \right\rfloor
+z_{K} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
 \]</div>
-<p>The sample autocovariance <span class="arithmatex">\(\gamma_{j}\)</span> is a measure of the correlation between the time series <span class="arithmatex">\(y_{t}\)</span> and the shifted time series <span class="arithmatex">\(y_{t-j}\)</span>.
-Each sample autocovariance <span class="arithmatex">\(\gamma_{j}\)</span> for <span class="arithmatex">\(j = 0, 1, \dots, q\)</span> is computed as follows:</p>
-<div class="arithmatex">\[
-\hat{\gamma}_{j} = \frac{1}{n} \sum_{t = j + 1}^{n} \hat{r}_{t}\hat{r}_{t-j}
-\]</div>
-<p>Finally, we estimate the long-run variance <span class="arithmatex">\(\hat{\lambda}^2\)</span> using a <a href="https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator">Newey-West</a> style estimator.
-This estimator corrects for the additional variability in <span class="arithmatex">\(\epsilon_{t}\)</span> caused by autocorrelation and heteroskedasticity.</p>
-<div class="arithmatex">\[
-\hat{\lambda}^2 = \hat{\gamma}_{0} + 2\sum_{j=1}^{q} \left(1 - \frac{j}{q + 1} \right)  \gamma_{j}
-\]</div>
-<p>Then, we compute the test statistic <span class="arithmatex">\(z_{\text{KPSS}}\)</span> using the following formula:</p>
-<div class="arithmatex">\[
-z_{\text{KPSS}} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
-\]</div>
-<p>The test statistic <span class="arithmatex">\(z_{\text{KPSS}}\)</span> is not normally distributed.
-Instead, we compute the p-value by interpolating the table of quantiles from <a href="https://doi.org/10.1111/j.1467-9574.2004.00272.x">Hobjin et al. (2004)</a> shown below.</p>
+<ol>
+<li>Since the test statistic <span class="arithmatex">\(z_{\text{KPSS}}\)</span> is non-normally distributed, we compute the p-value by interpolating the table of quantiles from <a href="https://doi.org/10.1111/j.1467-9574.2004.00272.x">Hobjin et al. (2004)</a> shown below.</li>
+</ol>
 <table>
 <thead>
 <tr>
-<th>Probability</th>
+<th><span class="arithmatex">\(q\)</span></th>
 <th>0.90</th>
 <th>0.95</th>
 <th>0.975</th>
@@ -251,7 +264,7 @@ Instead, we compute the p-value by interpolating the table of quantiles from <a 
 </thead>
 <tbody>
 <tr>
-<td>Quantile</td>
+<td>Statistic</td>
 <td>0.119</td>
 <td>0.146</td>
 <td>0.176</td>
@@ -259,15 +272,12 @@ Instead, we compute the p-value by interpolating the table of quantiles from <a 
 </tr>
 </tbody>
 </table>
-<p><strong>Warning</strong>: The interpolation procedure discussed above only works for <span class="arithmatex">\(0.01 &lt; p &lt; 0.10\)</span>.
-Therefore, p-values below <span class="arithmatex">\(0.01\)</span> and above <span class="arithmatex">\(0.10\)</span> will be truncated.
-It is also required that the significance level <span class="arithmatex">\(\alpha\)</span> is between <span class="arithmatex">\(0.01\)</span> and <span class="arithmatex">\(0.10\)</span>.</p>
-<h2 id="mann-kendall-test">Mann-Kendall Test</h2>
-<p>The <strong>Mann-Kendall Test</strong> is used to assess whether there is a statistically significant monotonic trend in a time series.
-The test requires that when no trend is present, the data is independent and identically distributed.</p>
+<p><strong>Warning</strong>: The interpolation only works for <span class="arithmatex">\(0.01 &lt; p &lt; 0.10\)</span> (p-values below <span class="arithmatex">\(0.01\)</span> and above <span class="arithmatex">\(0.10\)</span> will be truncated) and significance levels <span class="arithmatex">\(\alpha\)</span> between <span class="arithmatex">\(0.01\)</span> and <span class="arithmatex">\(0.10\)</span>.</p>
+<h2 id="mann-kendall-mk-test">Mann-Kendall (MK) Test</h2>
+<p>The <strong>MK test</strong> detects statistically significant monotonic trends in a time series assuming independence.</p>
 <ul>
-<li>Null hypothesis: There is no monotonic trend.</li>
-<li>Alternative hypothesis: There is a monotonic upwards or downwards trend.</li>
+<li>Null hypothesis: No monotonic trend.</li>
+<li>Alternative hypothesis: A monotonic trend exists (upward or downward).</li>
 </ul>
 <p>Define <span class="arithmatex">\(\text{sign} (x)\)</span> to be <span class="arithmatex">\(1\)</span> if <span class="arithmatex">\(x &gt; 0\)</span>, <span class="arithmatex">\(0\)</span> if <span class="arithmatex">\(x = 0\)</span>, and <span class="arithmatex">\(-1\)</span> otherwise.</p>
 <p>The test statistic <span class="arithmatex">\(S\)</span> is defined as follows:</p>
@@ -281,16 +291,17 @@ Let <span class="arithmatex">\(g\)</span> be the number of tied groups and <span
 <div class="arithmatex">\[
 Z_{MK} = \begin{cases}
 \frac{S-1}{\sqrt{\text{Var}(S)}} &amp;\text{if } S &gt; 0 \\
-0 &amp;\text{if }  S = 0 \\[4pt]
+0 &amp;\text{if }  S = 0 \\
 \frac{S+1}{\sqrt{\text{Var}(S)}} &amp;\text{if } S &lt; 0
 \end{cases}
 \]</div>
-<p>For a two-sided test, we reject the null hypothesis if <span class="arithmatex">\(|Z_{MK}| \geq Z_{1 - (\alpha/2) }\)</span> and conclude that there is a statistically significant monotonic trend in the data. For more information, see <a href="https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm">here</a>.</p>
-<h2 id="phillips-perron-test">Phillips-Perron Test</h2>
-<p>The <strong>Phillips-Perron (PP) Test</strong> is used to identify if an autoregressive time series <span class="arithmatex">\(y_t\)</span> has a <a href="https://en.wikipedia.org/wiki/Unit_root">unit root</a>.</p>
+<p>For a two-sided test, we reject the null hypothesis if <span class="arithmatex">\(|Z_{MK}| \geq Z_{1 - (\alpha/2) }\)</span> and conclude that there is a statistically significant monotonic trend in the data.
+For more information, see <a href="https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm">here</a>.</p>
+<h2 id="phillips-perron-pp-test">Phillips-Perron (PP) Test</h2>
+<p>The <strong>PP test</strong> identifies if an autoregressive time series has a <a href="https://en.wikipedia.org/wiki/Unit_root">unit root</a>.</p>
 <ul>
-<li>Null hypothesis: <span class="arithmatex">\(y_{t}\)</span> has a <em>unit root</em> and is thus <em>non-stationary</em>.</li>
-<li>Alternative hypothesis: <span class="arithmatex">\(y_{t}\)</span> does not have a unit root and is <em>trend-stationary</em>.</li>
+<li>Null hypothesis: The time series has a unit root.</li>
+<li>Alternative hypothesis: The time series has a deterministic trend.</li>
 </ul>
 <p>Precisely, let <span class="arithmatex">\(x_{t}\)</span> be an <a href="https://en.wikipedia.org/wiki/Autoregressive_model">AR(1)</a> model.
 Let <span class="arithmatex">\(y_{t}\)</span> be a function of <span class="arithmatex">\(x_{t}\)</span> with drift <span class="arithmatex">\(\beta_{0}\)</span> and trend <span class="arithmatex">\(\beta_{1} t\)</span>.</p>
@@ -304,35 +315,40 @@ x_{t} &amp;= \rho x_{t-1} + \epsilon_{t}
 <li>If <span class="arithmatex">\(\rho = 1\)</span>, then <span class="arithmatex">\(x_t\)</span> and hence <span class="arithmatex">\(y_t\)</span> has a <em>unit root</em> (null hypothesis).</li>
 <li>If <span class="arithmatex">\(\rho &lt; 1\)</span>, then <span class="arithmatex">\(y_t\)</span> is <em>trend stationary</em> (alternative hypothesis).</li>
 </ul>
-<p>To perform the test, we begin by fitting an autoregressive linear model to <span class="arithmatex">\(y_{t}\)</span>.
-Let <span class="arithmatex">\(\hat{r}_{t}\)</span> be the residuals of this model.
-From this model, we can determine <span class="arithmatex">\(\hat{\rho}\)</span> (the estimated coefficient on <span class="arithmatex">\(y_{t-1}\)</span>) and <span class="arithmatex">\(\text{SE}(\hat{\rho})\)</span> (its standard error).
-Let <span class="arithmatex">\(\hat{\sigma}^2\)</span> be the variance of the residuals, computed using the following formula:</p>
+<h3 id="steps_2">Steps</h3>
+<ol>
+<li>Fit an autoregressive linear model to the time series <span class="arithmatex">\(y_{t}\)</span>. Let <span class="arithmatex">\(\hat{r}_{t}\)</span> be the residuals of this model. From this model, we can determine <span class="arithmatex">\(\hat{\rho}\)</span> (the estimated coefficient on <span class="arithmatex">\(y_{t-1}\)</span>) and <span class="arithmatex">\(\text{SE}(\hat{\rho})\)</span> (its standard error).</li>
+<li>Estimate the variance of the residuals <span class="arithmatex">\(\hat{\sigma}^2\)</span>:</li>
+</ol>
 <div class="arithmatex">\[
 \hat{\sigma^2} = \frac{1}{n - 3} \sum_{t=1}^{n} \hat{r}_{t}^2
 \]</div>
-<p>In the equation above, <span class="arithmatex">\(n\)</span> is the number of data points in the sample.
-We have <span class="arithmatex">\(n-3\)</span> degrees of freedom since there are three parameters in the autoregressive model (<span class="arithmatex">\(\beta_{0}\)</span>, <span class="arithmatex">\(\beta_{1}\)</span>, and <span class="arithmatex">\(\rho\)</span>).</p>
-<p>Next, we compute the sample autocovariances <span class="arithmatex">\(\gamma_{j}\)</span> for up to <span class="arithmatex">\(q\)</span> lags, where:</p>
-<div class="arithmatex">\[
-q = \left\lfloor \sqrt[4]{\frac{n}{25}}\right\rfloor
-\]</div>
-<p>The sample autocovariance <span class="arithmatex">\(\gamma_{j}\)</span> is a measure of the correlation between the time series <span class="arithmatex">\(y_{t}\)</span> and the shifted time series <span class="arithmatex">\(y_{t-j}\)</span>.
-Each sample autocovariance <span class="arithmatex">\(\gamma_{j}\)</span> for <span class="arithmatex">\(j = 0, 1, \dots, q\)</span> is computed as follows:</p>
+<p>where <span class="arithmatex">\(n\)</span> is the number of data points in the sample. We have <span class="arithmatex">\(n-3\)</span> degrees of freedom since there are three parameters in the autoregressive model (<span class="arithmatex">\(\beta_{0}\)</span>, <span class="arithmatex">\(\beta_{1}\)</span>, and <span class="arithmatex">\(\rho\)</span>).</p>
+<ol>
+<li>Compute the sample autocovariances <span class="arithmatex">\(\gamma_{j}\)</span> for up to <span class="arithmatex">\(q\)</span> lags:</li>
+</ol>
 <div class="arithmatex">\[
 \hat{\gamma}_{j} = \frac{1}{n} \sum_{t = j + 1}^{n} \hat{r}_{t}\hat{r}_{t-j}
 \]</div>
-<p>Finally, we estimate the long-run variance <span class="arithmatex">\(\hat{\lambda}^2\)</span> using a <a href="https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator">Newey-West</a> style estimator.
-This estimator corrects for the additional variability in <span class="arithmatex">\(\epsilon_{t}\)</span> caused by autocorrelation and heteroskedasticity.</p>
+<p>where:</p>
+<div class="arithmatex">\[
+q = \left\lfloor \sqrt[4]{\frac{n}{25}}\right\rfloor
+\]</div>
+<p>The sample autocovariance <span class="arithmatex">\(\gamma_{j}\)</span> measures the correlation between the time series <span class="arithmatex">\(y_{t}\)</span> and the shifted time series <span class="arithmatex">\(y_{t-j}\)</span>.</p>
+<ol>
+<li>Estimate the long-run variance <span class="arithmatex">\(\hat{\lambda}^2\)</span> using a <a href="https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator">Newey-West</a> style estimator.
+This estimator corrects for the additional variability in <span class="arithmatex">\(\epsilon_{t}\)</span> caused by autocorrelation and heteroskedasticity.</li>
+</ol>
 <div class="arithmatex">\[
 \hat{\lambda}^2 = \hat{\gamma}_{0} + 2\sum_{j=1}^{q} \left(1 - \frac{j}{q + 1} \right)  \gamma_{j}
 \]</div>
-<p>Then, we compute the test statistic <span class="arithmatex">\(z_{\rho}\)</span> using the following formula:</p>
+<ol>
+<li>Compute the test statistic <span class="arithmatex">\(z_{\rho}\)</span> using the following formula:</li>
+</ol>
 <div class="arithmatex">\[
 z_{\rho } = n(\hat{\rho} - 1) - \frac{n^2 \text{SE}(\hat{\rho})^2}{2 \hat{\sigma}^2}(\hat{\lambda }^2 - \hat{\gamma}_{0})
 \]</div>
-<p>The test statistic <span class="arithmatex">\(z_{\rho}\)</span> is not normally distributed.
-Instead, we compute the p-value by interpolating a table from Fuller, W. A. (1996).
+<p>The test statistic <span class="arithmatex">\(z_{\rho}\)</span> is not normally distributed. Instead, we compute the p-value by interpolating a table from Fuller, W. A. (1996).
 This table is shown below for sample sizes <span class="arithmatex">\(n\)</span> and probabilities <span class="arithmatex">\(p\)</span>:</p>
 <table>
 <thead>
@@ -424,18 +440,20 @@ This table is shown below for sample sizes <span class="arithmatex">\(n\)</span>
 </tr>
 </tbody>
 </table>
-<p><strong>Warning</strong>: The interpolation procedure discussed above only works for <span class="arithmatex">\(0.01 &lt; p\)</span>.
-Therefore, p-values below <span class="arithmatex">\(0.01\)</span> will be truncated and it is required that <span class="arithmatex">\(0.01 &lt; \alpha\)</span>.</p>
+<p><strong>Warning</strong>: The interpolation only works for <span class="arithmatex">\(0.01 &lt; p\)</span> (p-values below <span class="arithmatex">\(0.01\)</span> will be truncated) and <span class="arithmatex">\(0.01 &lt; \alpha\)</span>.</p>
+<hr />
 <h2 id="runs-test">Runs Test</h2>
-<p>After computing the regression line using <a href="#sens-trend-estimator">Sen's trend estimator</a>, we use the <strong>Runs Test</strong> to determine whether the residuals from the regression are random.
-If the Runs test identifies non-randomness in the residuals, it is a strong indication that the non-stationarity in the data is not linear.</p>
+<p>The <strong>Runs Test</strong> checks whether the residuals of a regression (e.g., trend approximation from <a href="#sens-trend-estimator">Sen's estimator</a>) are randomly distributed.
+If the Runs test identifies non-randomness in the residuals, it is a strong indication that the nonstationarity in the data is non-linear.</p>
 <ul>
-<li>Null hypothesis: The residuals are distributed randomly.</li>
-<li>Alternative hypothesis: The residuals <em>are not</em> distributed randomly.</li>
+<li>Null hypothesis: Residuals are distributed randomly.</li>
+<li>Alternative hypothesis: Residuals <em>are not</em> distributed randomly (e.g., due to nonlinearity).</li>
 </ul>
-<p>Prior to applying the Runs test, the data is categorized based on whether it is above (<span class="arithmatex">\(+\)</span>) or below <span class="arithmatex">\((-)\)</span> the median.
-Any data points equal to the median are removed.
-Then, we compute the number of contiguous blocks of <span class="arithmatex">\(+\)</span> or <span class="arithmatex">\(-\)</span> (known as <em>runs</em>) in the data.</p>
+<h3 id="steps_3">Steps</h3>
+<ol>
+<li>Classify the data based on whether it is above (<span class="arithmatex">\(+\)</span>) or below <span class="arithmatex">\((-)\)</span> the median. Any data points equal to the median are removed.</li>
+<li>Compute the number of contiguous blocks of <span class="arithmatex">\(+\)</span> or <span class="arithmatex">\(-\)</span> (known as <em>runs</em>) in the data.</li>
+</ol>
 <blockquote>
 <p><strong>Example</strong>: Suppose that after categorization, the sequence of data is as follows:</p>
 <div class="arithmatex">\[
@@ -443,28 +461,35 @@ Then, we compute the number of contiguous blocks of <span class="arithmatex">\(+
 \]</div>
 <p>This sequence has six runs with length <span class="arithmatex">\((3, 2, 3, 1,1, 1)\)</span>.</p>
 </blockquote>
-<p>Let <span class="arithmatex">\(R\)</span> be the number of runs in <span class="arithmatex">\(N\)</span> data points (with category counts <span class="arithmatex">\(N_{+}\)</span> and <span class="arithmatex">\(N_{-}\)</span>).</p>
-<p>Then, under the null hypothesis, <span class="arithmatex">\(R\)</span> is asymptotically normal with:</p>
+<ol>
+<li>Let <span class="arithmatex">\(R\)</span> be the number of runs in <span class="arithmatex">\(N\)</span> data points (with category counts <span class="arithmatex">\(N_{+}\)</span> and <span class="arithmatex">\(N_{-}\)</span>). Then, under the null hypothesis, <span class="arithmatex">\(R\)</span> is asymptotically normal with:</li>
+</ol>
 <div class="arithmatex">\[
 \mathbb{E}[R] = \frac{2N_{+}N_{-}}{N} + 1, \quad
 \text{Var}(R) = \frac{2N_{+}N_{-}(2N_{+}N_{-} - N)}{N^2(N - 1)}
 \]</div>
 <h3 id="example-plot_1">Example Plot</h3>
 <p><img alt="" src="../img/plot-runs.png" /></p>
+<hr />
 <h2 id="sens-trend-estimator">Sen's Trend Estimator</h2>
-<p><strong>Sen's Trend Estimator</strong> is used to estimate the slope of a regression line.
-Unlike <a href="https://en.wikipedia.org/wiki/Least_squares">Least Squares</a>, Sen's trend estimator uses a non-parametric approach which makes it robust to outliers.</p>
-<p>To compute Sen's trend estimator we use the following procedure:</p>
+<p>The <strong>Sen's trend estimator</strong> approximates the slope of a regression line.
+Unlike <a href="https://en.wikipedia.org/wiki/Least_squares">Least Squares</a>, the Sen's trend estimator uses a non-parametric approach, which makes it robust to outliers.</p>
+<h3 id="steps_4">Steps</h3>
 <ol>
-<li>Iterate over all pairs of data points <span class="arithmatex">\((x_{i}, y_{i})\)</span> and <span class="arithmatex">\((x_{j}, y_{j})\)</span>.</li>
-<li>If <span class="arithmatex">\(x_{i} \neq  x_{j}\)</span>, compute the slope <span class="arithmatex">\((y_{j} - y_{i})/(x_{j} - x_{i})\)</span> and add it to a list <span class="arithmatex">\(S\)</span>.</li>
-<li>Sen's trend estimator <span class="arithmatex">\(\hat{m}\)</span> is the median of <span class="arithmatex">\(S\)</span>.</li>
+<li>For all pairs <span class="arithmatex">\((x_i, y_i)\)</span> and <span class="arithmatex">\((x_j, y_j)\)</span> where <span class="arithmatex">\(x_i \neq x_j\)</span>, compute slopes:</li>
 </ol>
-<p>After computing <span class="arithmatex">\(\hat{m}\)</span>, we can estimate the <span class="arithmatex">\(y\)</span>-intercept <span class="arithmatex">\(b\)</span> by the median of <span class="arithmatex">\(y_{i} - \hat{m}x_{i}\)</span> for all <span class="arithmatex">\(i\)</span>.</p>
+<p>$$
+   m_{ij} = \frac{y_j - y_i}{x_j - x_i}
+   $$</p>
+<ol>
+<li>Take the median of all slopes: <span class="arithmatex">\(\hat{m}\)</span>.</li>
+<li>Estimate the <span class="arithmatex">\(y\)</span>-intercept <span class="arithmatex">\(b\)</span> as the median of <span class="arithmatex">\(y_{i} - \hat{m}x_{i}\)</span> for all <span class="arithmatex">\(i\)</span>.</li>
+</ol>
 <h3 id="example-plot_2">Example Plot</h3>
 <p><img alt="" src="../img/plot-sens.png" /></p>
+<hr />
 <h2 id="spearman-test">Spearman Test</h2>
-<p>The <strong>Spearman Test</strong> is used to identify autocorrelation in a time series <span class="arithmatex">\(y_{t}\)</span>.
+<p>The <strong>Spearman test</strong> identifies autocorrelation in a time series <span class="arithmatex">\(y_{t}\)</span>. 
 A <em>significant lag</em> is a number <span class="arithmatex">\(i\)</span> such that the correlation between <span class="arithmatex">\(y_{t}\)</span> and <span class="arithmatex">\(y_{t-i}\)</span> is statistically significant.
 The <em>least insignificant lag</em> is the largest <span class="arithmatex">\(i\)</span> such that all <span class="arithmatex">\(j &lt; i\)</span> are significant lags.</p>
 <ul>
@@ -474,15 +499,13 @@ The <em>least insignificant lag</em> is the largest <span class="arithmatex">\(i
 <p>To carry out the Spearman test, we use the following procedure:</p>
 <ol>
 <li>Compute Spearman's correlation coefficient <span class="arithmatex">\(\rho_{i}\)</span> for <span class="arithmatex">\(y_{t}\)</span> and <span class="arithmatex">\(y_{t-i}\)</span> for all <span class="arithmatex">\(0 \leq  i &lt;  n\)</span>.</li>
-<li>Determine the <span class="arithmatex">\(p\)</span>-value <span class="arithmatex">\(p_{i}\)</span> for each correlation coefficient <span class="arithmatex">\(\rho _{i}\)</span>.</li>
-<li>Iterate through <span class="arithmatex">\(p_{i}\)</span> to find the largest <span class="arithmatex">\(i\)</span> such that <span class="arithmatex">\(p_{j} \leq  \alpha\)</span> for all <span class="arithmatex">\(j \leq i\)</span>.</li>
-<li>The value of <span class="arithmatex">\(i\)</span> found in (3) is the least insignificant lag at confidence level <span class="arithmatex">\(\alpha\)</span>.</li>
-</ol>
-<p><strong>Remark</strong>: To compute the <span class="arithmatex">\(p\)</span>-value of a correlation coefficient <span class="arithmatex">\(\rho _{i}\)</span>, first compute:</p>
-<div class="arithmatex">\[
+<li>Compute the <span class="arithmatex">\(p\)</span>-value <span class="arithmatex">\(p_{i}\)</span> for each correlation coefficient <span class="arithmatex">\(\rho _{i}\)</span> using:
+$$
 t_{i}= \rho_{i} \sqrt{\frac{n-2}{1 - \rho _{i}^2}}
-\]</div>
-<p>Then, the test statistic <span class="arithmatex">\(t_{i}\)</span> has the <span class="arithmatex">\(t\)</span>-distribution with <span class="arithmatex">\(n-2\)</span> degrees of freedom.</p>
+$$
+The test statistic <span class="arithmatex">\(t_{i}\)</span> has the <span class="arithmatex">\(t\)</span>-distribution with <span class="arithmatex">\(n-2\)</span> degrees of freedom.</li>
+<li>Find the largest <span class="arithmatex">\(i\)</span> such that <span class="arithmatex">\(p_{j} \leq  \alpha\)</span> for all <span class="arithmatex">\(j \leq i\)</span>. The value of <span class="arithmatex">\(i\)</span> is the least insignificant lag at confidence level <span class="arithmatex">\(\alpha\)</span>.</li>
+</ol>
 <p>For more information, see the Wikipedia pages on <a href="https://en.wikipedia.org/wiki/Autocorrelation">Autocorrelation</a> and <a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient">Spearman's Rho</a>.</p>
 <h3 id="example-plot_3">Example Plot</h3>
 <p><img alt="" src="../img/plot-spearman.png" /></p>

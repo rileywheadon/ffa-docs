@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -94,27 +84,33 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#an-introduction-to-l-moments">An Introduction to L-Moments</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sample-l-moments-from-pwms-and-l-moment-ratios">Sample L-Moments (from PWMs) and L-Moment Ratios</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#example-plot">Example Plot</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#selection-metrics">Selection Metrics</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#l-distance">L-Distance</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-l-distance">1. L-Distance</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#l-kurtosis">L-Kurtosis</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2-l-kurtosis">2. L-Kurtosis</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#z-statistic">Z-statistic</a>
+    <li class="toctree-l3"><a class="reference internal" href="#3-z-statistic">3. Z-statistic</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#handling-non-stationarity">Handling Non-Stationarity</a>
+    <li class="toctree-l2"><a class="reference internal" href="#handling-nonstationarity">Handling Nonstationarity</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#decomposition-scenario-1">Decomposition (Scenario 1)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#decomposition-steps">Decomposition Steps</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#scenario-1-trend-in-mean">Scenario 1: Trend in mean</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#decomposition-scenario-2">Decomposition (Scenario 2)</a>
+    <li class="toctree-l4"><a class="reference internal" href="#scenario-2-trend-in-standard-deviation">Scenario 2: Trend in standard deviation</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#decomposition-scenario-3">Decomposition (Scenario 3)</a>
+    <li class="toctree-l4"><a class="reference internal" href="#scenario-3-trend-in-both-mean-and-standard-deviation">Scenario 3: Trend in both mean and standard deviation</a>
+    </li>
+        </ul>
     </li>
         </ul>
     </li>
@@ -127,7 +123,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -165,15 +161,21 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="model-selection">Model Selection</h1>
-<p>Our framework uses the method of L-moment ratios to choose a suitable probability model for frequency analysis.
-This technique involves comparing the L-moments of the data with the known L-moments of various probability distributions.</p>
+<p>This module selects a statistical model for S-FFA or NS-FFA based on the annual maximum series.</p>
+<ul>
+<li><strong>S-FFA</strong>: A time-invariant probability distribution is selected from the candidate distributions.</li>
+<li><strong>NS-FFA</strong>: A distribution is chosen along with a nonstationary structure to capture its evolution over time. In piecewise NS-FFA, the series is segmented into sub-periods, each modelled with either time-invariant or time-varying distributions.</li>
+</ul>
+<p>The framework uses the <strong>L-moment ratio method</strong> to identify the best-fit distribution family by comparing sample L-moments with those of various distribution families.</p>
+<p>For NS-FFA, the series is decomposed to isolate its stationary component following <a href="https://doi.org/10.1016/j.jhydrol.2022.128186">Vidrio-Sahagún and He (2022)</a>.
+This decomposed sample is then used for distribution selection, as in S-FFA.</p>
 <h2 id="an-introduction-to-l-moments">An Introduction to L-Moments</h2>
-<p><strong>Definition</strong>: The <strong><span class="arithmatex">\(k\)</span>-th Order Statistic</strong> of a statistical sample is its <span class="arithmatex">\(k\)</span>-th smallest value.</p>
-<p><strong>Definition</strong>: The <strong><span class="arithmatex">\(r\)</span>-th Population L-moment</strong> <span class="arithmatex">\(\lambda_{r}\)</span> is a linear combination of the expectation of the order statistics. Let <span class="arithmatex">\(X_{k:n}\)</span> be the <span class="arithmatex">\(k\)</span>-th order statistic from a sample of size <span class="arithmatex">\(n\)</span>. Then,</p>
+<p><strong>Definition 1</strong>: The <strong><span class="arithmatex">\(k\)</span>-th Order Statistic</strong> of a statistical sample is its <span class="arithmatex">\(k\)</span>-th smallest value.</p>
+<p><strong>Definition 2</strong>: The <strong><span class="arithmatex">\(r\)</span>-th Population L-moment</strong> <span class="arithmatex">\(\lambda_{r}\)</span> is a linear combination of the expectation of the order statistics. Let <span class="arithmatex">\(X_{k:n}\)</span> be the <span class="arithmatex">\(k\)</span>-th order statistic from a sample of size <span class="arithmatex">\(n\)</span>. Then,</p>
 <div class="arithmatex">\[
 \lambda_{r} = \frac{1}{r} \sum_{k=0}^{r-1} (-1)^{k} \binom{r-1}{k} \mathbb{E}[X_{r-k:r}]
 \]</div>
-<p><strong>Definition</strong>: A <strong>Probability Weighted Moment</strong> (PWM) encodes information about a value's position on the cumulative distribution function. The <span class="arithmatex">\(r\)</span>-th PWM, denoted <span class="arithmatex">\(\beta_{r}\)</span>, is:</p>
+<p><strong>Definition 3</strong>: A <strong>Probability Weighted Moment</strong> (PWM) encodes information about a value's position on the cumulative distribution function. The <span class="arithmatex">\(r\)</span>-th PWM, denoted <span class="arithmatex">\(\beta_{r}\)</span>, is:</p>
 <div class="arithmatex">\[
 \beta_{r} = \mathbb{E}[X \cdot  F(X)^{r}]
 \]</div>
@@ -181,7 +183,8 @@ This technique involves comparing the L-moments of the data with the known L-mom
 <div class="arithmatex">\[
 b_{r} = \frac{1}{n} \sum_{i=1}^{r} x_{i:n} \left(\frac{i-1}{n-1}\right) ^{r}
 \]</div>
-<p><strong>Remark</strong>: The first four sample L-moments can be computed as linear combinations of the PWMs:</p>
+<h3 id="sample-l-moments-from-pwms-and-l-moment-ratios">Sample L-Moments (from PWMs) and L-Moment Ratios</h3>
+<p>The first four sample L-moments can be computed as linear combinations of the PWMs:</p>
 <div class="arithmatex">\[
 \begin{aligned}
 l_{1} &amp;= b_{0} \\
@@ -209,17 +212,17 @@ This example uses the "L-distance" selection metric.
 The zoomed-in region shows that the GEV distribution is most similar to the sample L-moments.</p>
 <p><img alt="" src="../img/plot-lmom.png" /></p>
 <h2 id="selection-metrics">Selection Metrics</h2>
-<h3 id="l-distance">L-Distance</h3>
-<p>Compare the euclidean distance between the sample L-skewness and sample L-kurtosis <span class="arithmatex">\((t_{3}, t_{4})\)</span> and the known L-moment ratios <span class="arithmatex">\((\tau_{3}, \tau_{4})\)</span> for each candidate distribution.
-For probability distributions with three parameters, we use the <em>minimum distance</em> between the L-moment ratio curve <span class="arithmatex">\((\tau _{3}(\kappa ), \tau _{4}(\kappa ))\)</span>and the L-moment ratios of the sample <span class="arithmatex">\((t_{3}, t_{4})\)</span>.</p>
-<h3 id="l-kurtosis">L-Kurtosis</h3>
-<p>For two-parameter probability distributions, simply compare the difference between the sample L-kurtosis and the theoretical L-kurtosis using the metric <span class="arithmatex">\(|\tau_{4} - t_{4} |\)</span>.
-For three-parameter distributions, we first identify the shape parameter <span class="arithmatex">\(\kappa^{*}\)</span> such that <span class="arithmatex">\(t_{3} = \tau _{3}(\kappa ^{*})\)</span>.
+<h3 id="1-l-distance">1. L-Distance</h3>
+<p>It is the Euclidean distance between the sample <span class="arithmatex">\((t_3, t_4)\)</span> and theoretical <span class="arithmatex">\((\tau_3, \tau_4)\)</span> for each candidate distribution.
+For 3-parameter distributions, this is the <strong>minimum</strong> distance along their L-moment ratio curve.</p>
+<h3 id="2-l-kurtosis">2. L-Kurtosis</h3>
+<p>The L-kurtosis method is only used for three-parameter probability distributions.
+First, identify the shape parameter <span class="arithmatex">\(\kappa^{*}\)</span> such that <span class="arithmatex">\(t_{3} = \tau _{3}(\kappa ^{*})\)</span>.
 Then, compare the difference between the sample L-kurtosis and the theoretical L-kurtosis using the metric <span class="arithmatex">\(|\tau_{4}(\kappa ^{*}) - t_{4} |\)</span>.</p>
-<h3 id="z-statistic">Z-statistic</h3>
-<p>The Z-statistic selection metric is calculated as follows (for three parameter distributions):</p>
+<h3 id="3-z-statistic">3. Z-statistic</h3>
+<p>The Z-statistic selection metric is calculated as follows (for three-parameter distributions):</p>
 <ol>
-<li>Fit the four-parameter Kappa (K4D) distribution to the data using <span class="arithmatex">\(t_{2}\)</span>, <span class="arithmatex">\(t_{3}\)</span>, and <span class="arithmatex">\(t_{4}\)</span>.</li>
+<li>Fit the four-parameter Kappa (K4D) distribution to the sample using <span class="arithmatex">\(t_{2}\)</span>, <span class="arithmatex">\(t_{3}\)</span>, and <span class="arithmatex">\(t_{4}\)</span>.</li>
 <li>Generate <span class="arithmatex">\(N_{\text{sim}}\)</span> bootstrap samples from the fitted K4D distribution.</li>
 <li>Calculate the sample L-kurtosis <span class="arithmatex">\(t_{4}^{[i]}\)</span> of each synthetic dataset.</li>
 <li>
@@ -235,7 +238,7 @@ B_{4} = N_{\text{sim} }^{-1} \sum_{i = 1}^{N_{\text{sim} }} \left(t_{4}^{[i]} - 
 <p>Identify the shape parameter <span class="arithmatex">\(\kappa^{*}\)</span> such that <span class="arithmatex">\(t_{3} = \tau _{3}(\kappa ^{*})\)</span>.</p>
 </li>
 <li>
-<p>Use bootstrap distribution to compute the Z-statistic for each distribution:</p>
+<p>Use the bootstrap distribution to compute the Z-statistic for each distribution:</p>
 <div class="arithmatex">\[
 z = \frac{\tau_{4} (\kappa ^{*}) - t_{4} + B_{4} }{ \sigma _{4}}
 \]</div>
@@ -244,24 +247,24 @@ z = \frac{\tau_{4} (\kappa ^{*}) - t_{4} + B_{4} }{ \sigma _{4}}
 <p>Choose the distribution with the <em>smallest</em> Z-statistic.</p>
 </li>
 </ol>
-<h2 id="handling-non-stationarity">Handling Non-Stationarity</h2>
-<p>There are three non-stationary scenarios that can be identified during EDA:</p>
+<h2 id="handling-nonstationarity">Handling Nonstationarity</h2>
+<p>When nonstationarity is detected, the annual maximum series is decomposed before model selection. We consider three nonstationary scenarios that can be identified in EDA:</p>
 <ol>
-<li><code>10</code>/<code>100</code>: Significant trend in the mean only.</li>
-<li><code>01</code>/<code>010</code>: Significant trend in the variance only.</li>
-<li><code>11</code>/<code>110</code>: Significant trend in both the mean and variance.</li>
+<li>Trend in mean only</li>
+<li>Trend in standard deviation only</li>
+<li>Trend in both mean and standard deviation</li>
 </ol>
-<p>To determine the best probability distribution for non-stationary data, we <em>decompose</em> the data into stationary and non-stationary components and then use one of the methods described above.</p>
-<h3 id="decomposition-scenario-1">Decomposition (Scenario 1)</h3>
+<h3 id="decomposition-steps">Decomposition Steps</h3>
+<h4 id="scenario-1-trend-in-mean">Scenario 1: Trend in mean</h4>
 <ol>
-<li>Use <a href="../eda-trend-ams-mean/#sens-trend-estimator">Sen's Trend Estimator</a> to identify the slope <span class="arithmatex">\(b_{1}\)</span> and intercept <span class="arithmatex">\(b_{0}\)</span> of the trend. </li>
-<li>Detrend the data by subtracting the linear function <span class="arithmatex">\((b_{1} \cdot \text{Covariate})\)</span> from the data, where the <em>covariate</em> is a value between <span class="arithmatex">\([0, 1]\)</span> derived from the index.</li>
-<li>If necessary, enforce positivity by adding a constant such that <span class="arithmatex">\(\min(\text{data}) = 1\)</span> .</li>
+<li>Use <a href="../eda-trend-ams-mean/#sens-trend-estimator">Sen's Trend Estimator</a> to approximate the slope <span class="arithmatex">\(b_1\)</span> and intercept <span class="arithmatex">\(b_0\)</span>.</li>
+<li>Detrend: subtract the linear function <span class="arithmatex">\((b_{1} \cdot \text{Covariate})\)</span> from the time series, where the <em>covariate</em> is a time index calculated using the formula <span class="arithmatex">\((\text{Years} - 1900) / 100\)</span>.</li>
+<li>Ensure positivity: if necessary, shift series by adding a constant such that <span class="arithmatex">\(\min(\text{data}) = 1\)</span>.</li>
 </ol>
-<h3 id="decomposition-scenario-2">Decomposition (Scenario 2)</h3>
+<h4 id="scenario-2-trend-in-standard-deviation">Scenario 2: Trend in standard deviation</h4>
 <ol>
-<li>Use a moving-window algorithm to compute the variance of the data. </li>
-<li>Use <a href="../eda-trend-ams-mean/#sens-trend-estimator">Sen's Trend Estimator</a> to identify the slope <span class="arithmatex">\(c_{1}\)</span> and intercept <span class="arithmatex">\(c_{0}\)</span> of the trend in the variance. </li>
+<li>Generate a time series of standard deviations using the moving windows method.</li>
+<li>Use <a href="../eda-trend-ams-variability/#sens-trend-estimator">Sen's Trend Estimator</a> to identify the slope <span class="arithmatex">\(c_{1}\)</span> and intercept <span class="arithmatex">\(c_{0}\)</span> of the trend in the standard deviations.</li>
 <li>
 <p>Normalize the data to have mean <span class="arithmatex">\(0\)</span>, then divide out the scale factor <span class="arithmatex">\(g_{t}\)</span>.</p>
 <div class="arithmatex">\[
@@ -272,10 +275,10 @@ g_{t} = \frac{(c_{1} \cdot  \text{Covariate} ) + c_{0}}{c_{0}}
 <p>Add back the long-term mean <span class="arithmatex">\(\mu\)</span>, and then ensure positivity as in Scenario 1.</p>
 </li>
 </ol>
-<h3 id="decomposition-scenario-3">Decomposition (Scenario 3)</h3>
+<h4 id="scenario-3-trend-in-both-mean-and-standard-deviation">Scenario 3: Trend in both mean and standard deviation</h4>
 <ol>
-<li>Remove the linear (additive) trend exactly as in Scenario 1.</li>
-<li>On that detrended series, compute a rolling‐window STD series and fit its trend.</li>
+<li>Remove the linear trend in mean exactly as in Scenario 1.</li>
+<li>On that detrended series, generate a rolling‐window STD series and fit its trend.</li>
 <li>Divide the detrended data by the time-varying scale factor <span class="arithmatex">\(g_{t}\)</span> (as in Scenario 2).</li>
 <li>Shift to preserve the series mean and ensure positivity.</li>
 </ol>

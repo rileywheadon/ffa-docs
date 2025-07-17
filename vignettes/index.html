@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Installation instructions - FFA Framework</title>
+    <title>Vignettes - FFA Framework</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Installation instructions";
-        var mkdocs_page_input_path = "r-installation-instructions.md";
+        var mkdocs_page_name = "Vignettes";
+        var mkdocs_page_input_path = "vignettes.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -54,15 +54,15 @@
               </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Installation instructions</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Vignettes</a>
+    <ul class="current">
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -119,7 +119,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">R Package</li>
-      <li class="breadcrumb-item active">Installation instructions</li>
+      <li class="breadcrumb-item active">Vignettes</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -128,36 +128,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="installing-the-ffaframework-package">Installing the <code>ffaframework</code> Package</h1>
-<ol>
-<li>Open a shell (terminal) and navigate to the directory where you want to install the package.</li>
-<li>
-<p>Clone the Github repository by running the following command in a shell:</p>
-<pre><code>git clone https://github.com/rileywheadon/ffa-package.git
-</code></pre>
-</li>
-<li>
-<p>Open a command prompt with <code>R</code>. Install and load the <code>devtools</code> package (if not already installed): </p>
-<pre><code>install.packages("devtools")
-library(devtools)
-</code></pre>
-</li>
-<li>
-<p>Install the package by specifying the correct path: </p>
-<pre><code>devtools::install("~/path/to/ffa-package")
-</code></pre>
-</li>
-</ol>
-<p>Replace <code>~/path/to/ffa-package</code> with the actual path to the cloned directory.</p>
-<ol>
-<li>Exit the command prompt with <code>q()</code>. The package is now installed and ready to use.</li>
-</ol>
+                <h1 id="vignettes">Vignettes</h1>
+<p><strong>View as HTML</strong>:</p>
+<ul>
+<li><a href="introduction.html">Introduction</a></li>
+<li><a href="change-points.html">Change Point Detection</a></li>
+<li><a href="trend-mean.html">Trend Identification (Mean)</a></li>
+<li><a href="trend-variability.html">Trend Identification (Variability)</a></li>
+<li><a href="stationary-ffa.html">Stationary FFA</a></li>
+<li><a href="non-stationary-ffa.html">Nonstationary FFA</a></li>
+</ul>
+<p><strong>Download as a <code>.R</code> script</strong>:</p>
+<ul>
+<li><a href="introduction.R">Introduction</a></li>
+<li><a href="change-points.R">Change Point Detection</a></li>
+<li><a href="trend-mean.R">Trend Identification (Mean)</a></li>
+<li><a href="trend-variability.R">Trend Identification (Variability)</a></li>
+<li><a href="stationary-ffa.R">Stationary FFA</a></li>
+<li><a href="non-stationary-ffa.R">Nonstationary FFA</a></li>
+</ul>
+<p><strong>Download as a <code>.Rmd</code> file</strong>:</p>
+<ul>
+<li><a href="introduction.Rmd">Introduction</a></li>
+<li><a href="change-points.Rmd">Change Point Detection</a></li>
+<li><a href="trend-mean.Rmd">Trend Identification (Mean)</a></li>
+<li><a href="trend-variability.Rmd">Trend Identification (Variability)</a></li>
+<li><a href="stationary-ffa.Rmd">Stationary FFA</a></li>
+<li><a href="non-stationary-ffa.Rmd">Nonstationary FFA</a></li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../cli-user-manual/" class="btn btn-neutral float-left" title="User Manual"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../r-user-manual.pdf" class="btn btn-neutral float-right" title="User Manual">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../cheat-sheet.pdf" class="btn btn-neutral float-left" title="Cheat Sheet"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../eda-introduction/" class="btn btn-neutral float-right" title="Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -180,10 +184,10 @@ library(devtools)
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../cli-user-manual/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../cheat-sheet.pdf" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../r-user-manual.pdf" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../eda-introduction/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

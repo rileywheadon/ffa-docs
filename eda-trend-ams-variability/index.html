@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -83,13 +73,21 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Trends in AMS Variability</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#mw-mk-test">MW-MK Test</a>
+    <li class="toctree-l2"><a class="reference internal" href="#moving-window-mann-kendall-mw-mk-test">Moving Window Mann-Kendall (MW-MK) Test</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#steps">Steps</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#sens-trend-estimator">Sen's Trend Estimator</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#runs-test">Runs Test</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#white-test">White Test</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#steps_1">Steps</a>
+    </li>
+        </ul>
     </li>
     </ul>
                   </li>
@@ -109,7 +107,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -146,44 +144,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="identifying-trends-in-the-ams-variability">Identifying Trends in the AMS Variability</h1>
-<h2 id="mw-mk-test">MW-MK Test</h2>
-<p>The <strong>Moving Window Mann-Kendall (MW-MK) Test</strong> is used to identify a statistically significant monotonic trend in the variances of an AMS time series.</p>
+                <h1 id="detecting-trends-in-the-ams-variability">Detecting Trends in the AMS Variability</h1>
+<p>This section describes the methods used to detect trends or changes in the <strong>variability</strong> (e.g., variance or standard deviation) of the Annual Maximum Series (AMS).</p>
+<h2 id="moving-window-mann-kendall-mw-mk-test">Moving Window Mann-Kendall (MW-MK) Test</h2>
+<p>The <strong>MW-MK test</strong> detects statistically significant monotonic trends in the standard deviation of an AMS time series.</p>
 <ul>
-<li>Null hypothesis: There is no significant trend in the variance of the AMS.</li>
-<li>Alternative hypothesis: There is a significant trend in the variance of the AMS.</li>
+<li>Null hypothesis: No significant trend in the standard deviation.</li>
+<li>Alternative hypothesis: Significant trend in the standard deviation.</li>
 </ul>
-<p>To compute the AMS variances we use a moving window algorithm:</p>
+<h3 id="steps">Steps</h3>
+<p>To compute the AMS standard deviations, we use a moving window algorithm. Let <span class="arithmatex">\(w\)</span> be the length of the moving window and <span class="arithmatex">\(s\)</span> be the step size:</p>
 <ol>
-<li>Let <span class="arithmatex">\(w\)</span> be the length of the moving window and <span class="arithmatex">\(s\)</span> be the step size.</li>
 <li>Initialize the moving window at indices <span class="arithmatex">\([1, w]\)</span>.</li>
-<li>Compute the sample standard deviation within the moving window.</li>
-<li>Move the window forward by <span class="arithmatex">\(s\)</span> indices.</li>
-<li>Check if last index in the window is greater than the length of the data. If it is, all moving window variances have been computed. Otherwise, go to step (3).</li>
+<li>Compute the sample standard deviation within the window.</li>
+<li>Move the window forward by <span class="arithmatex">\(s\)</span> steps.</li>
+<li>Repeat steps 2 and 3 until the window exceeds the data length.</li>
 </ol>
-<p>Then, we perform the Mann-Kendall Test on the time series of variances.</p>
-<p>For more information about the Mann-Kendall test, see <a href="../eda-trend-ams-mean/#mann-kendall-test">here</a>.</p>
+<p>This produces a time series of moving-window standard deviations. 
+Then, apply the Mann-Kendall Test to this series to test for monotonic trends.</p>
+<p>For more information about the Mann-Kendall test, see <a href="../eda-trend-ams-mean/#mann-kendall-mk-test">here</a>.</p>
 <h2 id="sens-trend-estimator">Sen's Trend Estimator</h2>
-<p>See <a href="../eda-trend-ams-mean/#sens-trend-estimator">here</a>.</p>
+<p>Used to estimate the slope of a trend in the standard deviations' time series.<br />
+See <a href="../eda-trend-ams-mean/#sens-trend-estimator">here</a>.</p>
 <h2 id="runs-test">Runs Test</h2>
-<p>See <a href="../eda-trend-ams-mean/#runs-test">here</a>.</p>
+<p>Used to evaluate the randomness of residuals from a fitted trend in the standard deviations' time series.<br />
+See <a href="../eda-trend-ams-mean/#runs-test">here</a>.</p>
 <h2 id="white-test">White Test</h2>
-<p>The <strong>White Test</strong> is used to detect changes in the variance of a time series.</p>
+<p>The <strong>White Test</strong> detects time-varying variance (heteroskedasticity) in a time series.</p>
 <ul>
-<li>Null hypothesis: The variance of the time series is constant (homoskedasticity).</li>
-<li>Alternative hypothesis: The variance of the time series is time-dependent (heteroskedasticity).</li>
+<li>Null hypothesis: Constant variance (homoskedasticity).</li>
+<li>Alternative hypothesis: Time-dependent variance (heteroskedasticity).</li>
 </ul>
-<p>Consider a simple linear regression model:</p>
+<h3 id="steps_1">Steps</h3>
+<ol>
+<li>Fit a simple linear regression model using ordinary least squares:</li>
+</ol>
 <div class="arithmatex">\[y_{i} = \beta_{0} + \beta_{1} x_{i} + \epsilon_{i}\]</div>
-<p>Use ordinary least squares to fit the model. Then compute the squared residuals:</p>
-<div class="arithmatex">\[{\hat{r}}_{i}^{2} = (y_{i} - \hat{y}_{i})^{2}\]</div>
-<p>Next, fit an auxillary regression model to the squared residuals.
-This model includes each regressor, the square of each regressor, and the cross products between all regressors.
-Since <span class="arithmatex">\(x\)</span> is the only regressor, the regression model is simply:</p>
-<div class="arithmatex">\[{\hat{r}}_{i}^{2} = \alpha_{0} + \alpha_{1}x_{i} + \alpha_{2}x_{i}^{2} + u_{i}\]</div>
-<p>Next, we compute the <a href="https://en.wikipedia.org/wiki/Coefficient_of_determination">coefficient of determination</a> <span class="arithmatex">\(R^2\)</span> for the auxillary model.
-The test statistic is <span class="arithmatex">\(nR^2 \sim \chi_{d}^2\)</span>, where <span class="arithmatex">\(n\)</span> is the number of observations and <span class="arithmatex">\(d = 2\)</span> is the number of regressors, excluding the intercept.
-If <span class="arithmatex">\(nR^2 &gt; \chi^2_{1-\alpha, d}\)</span>, we reject the null hypothesis and conclude that the time series exhibits heteroskedasticity.</p>
+<ol>
+<li>Compute the squared residuals:</li>
+</ol>
+<div class="arithmatex">\[
+\hat{r}_i^2 = \left(y_i - \hat{y}_i\right)^2
+\]</div>
+<ol>
+<li>Fit an auxiliary regression model to the squared residuals. This model includes each regressor, the square of each regressor, and the cross products between all regressors.
+Since <span class="arithmatex">\(x\)</span> is the only regressor, the regression model is simply:</li>
+</ol>
+<div class="arithmatex">\[
+\hat{r}_i^2 = \alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + u_i
+\]</div>
+<ol>
+<li>
+<p>Compute the <a href="https://en.wikipedia.org/wiki/Coefficient_of_determination">coefficient of determination</a> <span class="arithmatex">\(R^2\)</span> for the auxillary model.</p>
+</li>
+<li>
+<p>Compute the test statistic:
+$$
+nR^2 \sim \chi_{d}^2$
+$$
+where <span class="arithmatex">\(n\)</span> is the number of observations and <span class="arithmatex">\(d = 2\)</span> is the number of regressors, excluding the intercept.</p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(nR^2 &gt; \chi^2_{1-\alpha, d}\)</span>, we reject the null hypothesis and conclude that the time series exhibits heteroskedasticity.</p>
+</li>
+</ol>
               
             </div>
           </div><footer>

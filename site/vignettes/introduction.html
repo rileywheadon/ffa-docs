@@ -365,13 +365,13 @@ display: none;
 </div>
 
 
-<p>This package provides tools for stationary and non-stationary flood
-frequency analysis (FFA) based on annual maximum streamflow (AMS) data.
-The package supports flexible workflows with the following core
+<p>This package provides tools for stationary and nonstationary flood
+frequency analysis (FFA) of annual maximum series (AMS) data. The
+package supports flexible workflows with the following core
 components:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Explore</strong> AMS data using the <code>eda_*</code>
-methods:
+<li><strong>Explore</strong> AMS data for approach selection (S-FFA or
+NS-FFA) using the <code>eda_*</code> methods:
 <ul>
 <li>Detect change points.</li>
 <li>Identify trends in the <em>mean</em> and <em>variance</em>.</li>
@@ -395,11 +395,11 @@ series.</li>
 <li><code>quantile_*</code>, <code>loglik_*</code>, and
 <code>lmom_*</code> implement distribution-specific computation.</li>
 </ul>
-<p>This package assumes familiarity with modern statistical techniques
-used in FFA, including L-moments, maximum likelihood estimation, and
-bootstrapping. For an explanation of these concepts, see the <a href="https://rileywheadon.github.io/ffa-docs/">FFA Framework wiki</a>.
+<p>This package assumes familiarity with statistical techniques used in
+FFA, including L-moments, maximum likelihood estimation, and parametric
+bootstrap. For an explanation of these methods, see the <a href="https://rileywheadon.github.io/ffa-docs/">FFA Framework wiki</a>.
 For examples, see the accompanying vignettes on exploratory data
-analysis, change point detection, and flood frequency analysis.</p>
+analysis and flood frequency analysis.</p>
 
 
 

@@ -122,14 +122,14 @@ When nonstationarity is detected, the annual maximum series is decomposed before
 
 #### Scenario 1: Trend in mean
 
-1. Use [Sen's Trend Estimator](eda.md#sens-trend-estimator) to approximate the slope $b_1$ and intercept $b_0$.
+1. Use [Sen's Trend Estimator](eda-trend-ams-mean.md#sens-trend-estimator) to approximate the slope $b_1$ and intercept $b_0$.
 2. Detrend: subtract the linear function $(b_{1} \cdot \text{Covariate})$ from the time series, where the *covariate* is a time index calculated using the formula $(\text{Years} - 1900) / 100$.
 3. Ensure positivity: if necessary, shift series by adding a constant such that $\min(\text{data}) = 1$.
 
 #### Scenario 2: Trend in standard deviation
 
 1. Generate a time series of standard deviations using the moving windows method.
-2. Use [Sen's Trend Estimator](eda.md#sens-trend-estimator) to identify the slope $c_{1}$ and intercept $c_{0}$ of the trend in the standard deviations.
+2. Use [Sen's Trend Estimator](eda-trend-ams-variability.md#sens-trend-estimator) to identify the slope $c_{1}$ and intercept $c_{0}$ of the trend in the standard deviations.
 3. Normalize the data to have mean $0$, then divide out the scale factor $g_{t}$.
 
     $$

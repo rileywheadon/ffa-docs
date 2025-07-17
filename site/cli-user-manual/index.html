@@ -80,19 +80,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -121,7 +111,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -199,7 +189,7 @@ Some stations may have little or no data.</p>
 <li><code>"MLE"</code>: Maximum likelihood estimation.</li>
 <li><code>"GMLE"</code>: Generalized maximum likelihood estimation (GEV distribution only).</li>
 </ul>
-<p><strong><code>ns_estimation</code></strong>: Character (1); parameter estimation method for non-stationary models:</p>
+<p><strong><code>ns_estimation</code></strong>: Character (1); parameter estimation method for nonstationary models:</p>
 <ul>
 <li><code>"MLE"</code>: Maximum likelihood estimation.</li>
 <li><code>"GMLE"</code>: Generalized maximum likelihood estimation (GEV distribution only).</li>
@@ -208,18 +198,18 @@ Some stations may have little or no data.</p>
 <h3 id="uncertainty-quantification">Uncertainty Quantification</h3>
 <p><strong><code>s_uncertainty</code></strong>: Character (1); <a href="../uncertainty-quantification/">uncertainty quantification</a> method for stationary models:</p>
 <ul>
-<li><code>"S-bootstrap"</code>: Sample bootstrap method.</li>
+<li><code>"Bootstrap"</code>: Parametric bootstrap method.</li>
 <li><code>"RFPL"</code>: Regula-falsi profile likelihood (MLE estimation only).</li>
 <li><code>"RFGPL"</code>: Generalized regula-falsi profile likelihood (GMLE estimation only).</li>
 </ul>
-<p><strong><code>ns_uncertainty</code></strong>: Character (1); uncertainty quantification method for non-stationary models:</p>
+<p><strong><code>ns_uncertainty</code></strong>: Character (1); uncertainty quantification method for nonstationary models:</p>
 <ul>
-<li><code>"S-bootstrap"</code>: Sample bootstrap method.</li>
+<li><code>"Bootstrap"</code>: Parametric bootstrap method.</li>
 <li><code>"RFPL"</code>: Regula-falsi profile likelihood (MLE estimation only).</li>
 <li><code>"RFGPL"</code>: Generalized regula-falsi profile likelihood (GMLE estimation only).</li>
 </ul>
 <p><strong><code>return_periods</code></strong>: Numeric; list of return periods (in years) for estimating return levels.</p>
-<p><strong><code>sb_samples</code></strong>: Integer (1); number of samples for <a href="../uncertainty-quantification/#sample-bootstrap">bootstrap uncertainty quantification</a>.</p>
+<p><strong><code>sb_samples</code></strong>: Integer (1); number of samples for <a href="../uncertainty-quantification/#parametric-bootstrap">bootstrap uncertainty quantification</a>.</p>
 <p><strong><code>rfpl_tolerance</code></strong>: Numeric (1); log-likelihood tolerance for <a href="../uncertainty-quantification/#regula-falsi-profile-likelihood-rfpl">RFPL uncertainty quantification</a>.</p>
 <h3 id="model-assessment">Model Assessment</h3>
 <p><strong><code>pp_formula</code></strong>: Character (1); plotting position formula for <a href="../model-assessment/">model assessment</a>. Must be one of: </p>
@@ -232,7 +222,7 @@ Some stations may have little or no data.</p>
 </ul>
 <h3 id="plot-generation">Plot Generation</h3>
 <p><strong><code>show_trend</code></strong>: Boolean (1); if <code>true</code>, add a trend line through the AMS data where applicable. </p>
-<p><strong><code>slices</code></strong>: Integer; years used to estimate return levels for non-stationary models. Slices outside of the dataset (or trend-stationary partition) will be ignored.</p>
+<p><strong><code>slices</code></strong>: Integer; years used to estimate return levels for nonstationary models. Slices outside of the dataset (or trend-stationary partition) will be ignored.</p>
 <h3 id="report-generation">Report Generation</h3>
 <p><strong><code>generate_report</code></strong>: Boolean (1); if <code>true</code>, generate a report in <code>.html</code> format.</p>
               

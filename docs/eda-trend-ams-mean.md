@@ -9,7 +9,7 @@ This section describes the statistical tests (listed in alphabetical order) used
 ## BB-MK Test
 
 The **Block Bootstrap Mann-Kendall (BB-MK) Test** assesses the presence of a statistically significant monotonic trend in a time series.
-The BB-MK test is insensitive to [autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation), which is known to produce false positives in the [MK test](#mann-kendall-test).
+The BB-MK test is insensitive to [autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation), which is known to produce false positives in the [MK test](#mann-kendall-mk-test).
 
 - Null hypothesis: No monotonic trend.
 - Alternative hypothesis: A monotonic upward or downward trend exists.

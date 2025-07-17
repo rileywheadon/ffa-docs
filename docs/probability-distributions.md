@@ -48,7 +48,7 @@ Shown below is a table summarizing these three models:
 | Shape $\kappa$       | $\kappa$ (constant) | $\kappa$ (constant) | $\kappa$ (constant)    | $\kappa$ (constant)    |
 | Number of Parameters | 3                   | 4                   | 4                      | 5                      |
 
-The FFA framework also uses the four-parameter Kappa distribution (KAP) for the [Z-statistic](model-selection.md#z-statistic) selection metric. The Kappa distribution generalizes the nine distributions listed above.
+The FFA framework also uses the four-parameter Kappa distribution (KAP) for the [Z-statistic](model-selection.md#3-z-statistic) selection metric. The Kappa distribution generalizes the nine distributions listed above.
 
 ---
 

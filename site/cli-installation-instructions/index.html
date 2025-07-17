@@ -51,11 +51,15 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#a-note-for-windows-users">A Note for Windows Users</a>
+    <li class="toctree-l3"><a class="reference internal" href="#note-for-windows-users">Note for Windows Users</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#instructions">Instructions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#step-by-step-guide">Step-by-Step Guide</a>
+    </li>
+        </ul>
     </li>
     </ul>
                   </li>
@@ -68,19 +72,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -109,7 +103,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -149,42 +143,46 @@
                 <h1 id="installing-the-cli">Installing the CLI</h1>
 <h2 id="prerequisites">Prerequisites</h2>
 <ol>
-<li>Install Git from <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a>. </li>
-<li>Check that Git is installed by executing <code>git --version</code> in a shell.</li>
-<li>Install R from <a href="https://www.r-project.org/">https://www.r-project.org/</a>. Version 4.5.0 is recommended.</li>
-<li>Check that R is installed by executing <code>R --version</code> in  a shell.  </li>
-<li>Install the latest version of Pandoc from <a href="https://pandoc.org/">https://pandoc.org/</a>.</li>
-<li>Check that Pandoc is installed by executing <code>pandoc --version</code> in a shell.</li>
+<li><strong>Install Git</strong>: <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a>. </li>
+<li><strong>Install R</strong> (v4.5.0 recommended): <a href="https://www.r-project.org/">https://www.r-project.org/</a>.</li>
+<li><strong>Install Pandoc</strong>: <a href="https://pandoc.org/">https://pandoc.org/</a>.</li>
 </ol>
-<h3 id="a-note-for-windows-users">A Note for Windows Users</h3>
-<p>You may need to add Git, R and Pandoc to your path in order to run them from the command line.
-To do this, you will need to edit your system environment variables from the settings menu.
+<p>Verify that the installations were successful by executing the following commands in a shell:</p>
+<ol>
+<li><code>git --version</code></li>
+<li><code>R --version</code></li>
+<li><code>pandoc --version</code></li>
+</ol>
+<h3 id="note-for-windows-users">Note for Windows Users</h3>
+<p>You may need to add Git, R and Pandoc to your <code>PATH</code> to run them from the command line.
 The default paths for Git, R and Pandoc are:</p>
 <pre><code>C:\Program Files\Git\bin
 C:\Program Files\R\R-4.5.0\bin
 C:\Program Files\Pandoc
 </code></pre>
+<p>To update your <code>PATH</code>, edit your system environment variables from the settings menu.</p>
 <h2 id="instructions">Instructions</h2>
-<p>First, you will need to install the <a href="https://github.com/rileywheadon/ffa-package">R package</a>.
-See <a href="../r-installation-instructions/">here</a> for installation instructions.</p>
+<p>First, install the <a href="https://github.com/rileywheadon/ffa-package">FFA Framework R package</a>.
+For details, see the <a href="../r-installation-instructions/">R package installation guide</a>.</p>
+<h3 id="step-by-step-guide">Step-by-Step Guide</h3>
 <ol>
-<li>Open a shell and navigate to the directory where you would like to install the framework.</li>
+<li>Open a shell (terminal) and navigate to the directory where you want to install the framework.</li>
 <li>
-<p>Clone the Github repository by running the following command in a shell:</p>
+<p>Clone the GitHub FFA Framework repository by running the following command in a shell:</p>
 <pre><code>git clone https://github.com/rileywheadon/ffa-framework.git
 </code></pre>
 </li>
 <li>
-<p>Navigate to the <code>ffa-framework</code> directory. This directory contains a <code>renv.lock</code> file.</p>
+<p>Navigate to the <code>ffa-framework</code> directory (e.g., <code>cd ffa-framework</code>). This directory contains a <code>renv.lock</code> file, which is used to manage R package dependencies.</p>
 </li>
-<li>Open a command prompt with <code>R</code>. The <code>renv</code> package may install itself automatically. 
+<li>Launch a command prompt with R. The <code>renv</code> package may install itself automatically.
     If it does not, run <code>install.packages("renv")</code> to install it manually.</li>
 <li>Load libraries from the <code>renv.lock</code> file by executing <code>renv::restore()</code>.</li>
-<li>Install the R package using <code>devtools.install("...")</code>. You will need to replace <code>"..."</code> with the path to the R package (which you should have installed already).</li>
+<li>Install the FFA Framework R package using <code>devtools.install("path/to/ffa-package")</code>. You will need to replace <code>"path/to/ffa-package"</code> with the actual path to the package directory.</li>
 <li>Exit the command prompt with <code>q()</code>.</li>
 </ol>
 <hr />
-<p>This guide has been tested on Linux, Windows, and MacOS. </p>
+<p>This guide has been tested on Linux, Windows, and MacOS.</p>
 <p>Please submit a <a href="https://github.com/rileywheadon/ffa-framework/issues">Github Issue</a> if you have any problems.</p>
               
             </div>

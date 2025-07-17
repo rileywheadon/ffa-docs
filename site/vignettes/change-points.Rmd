@@ -16,8 +16,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-A *change point* is a structural shift in the data, such as a jump in mean or a change in trend.
-Before conducting flood frequency analysis, we recommend splitting the data at change points to ensure each segment is approximately *trend-stationarity*.
+A change point is an abrupt shift or a temporal pattern switch (e.g., beginning of a trend) in the time series.
+In FFA, change points indicate inhomogeneous periods, meaning a single model may not represent the entire record adequately.
+Instead, piecewise analysis should be applied to each homogeneous sub-period.
 The FFA framework provides two statistical tests for change point detection: 
 
 - The Pettitt test, for sudden changes in the mean.
@@ -25,16 +26,22 @@ The FFA framework provides two statistical tests for change point detection:
 
 This vignette will demonstrate how these statistical tests can be used together to robustly identify change points in the data.
 
-## Setup 
+## Case Study
 
-```{r setup}
+This vignette will explore the Kootenai River at Porthill (08NH021) station, located on the border of British Columbia and Idaho.
+The Porthill station is also downstream of the Libby Dam, which finished construction in 1972.
+Data for this station is provided as `Application_2.csv` in the `ffaframework` package.
+
+```{r, fig.width = 10, fig.height = 8, fig.align = "center", out.width = "100%"}
 library(ffaframework)
 
 csv_path <- system.file("extdata", "Application_2.csv", package = "ffaframework")
-df <- read.csv(csv_path)
+df <- read.csv(csv_path, comment.char = "#")
 df <- subset(df, !is.na(max)) # Remove missing values
 
 head(df)
+
+plot_ams_data(df$max, df$year, title = "Kootenai River at Porthill (08NH021)")
 ```
 
 ## The Pettitt Test
@@ -44,7 +51,7 @@ The null hypothesis assumes no change point.
 
 Use the `eda_pettitt_test` function to perform the test. It requires two arguments: 
 
-- `data`: numeric vector of streamflow measurements
+- `data`: the annual maximum series (AMS)
 - `years`: corresponding numeric vector of years
 
 ```{r, fig.width = 10, fig.height = 8, fig.align = "center", out.width = "100%"}
@@ -57,7 +64,7 @@ print(pettitt_test$change_year)
 plot_pettitt_test(pettitt_test)
 ```
 
-**Conclusion**: A p-value of 0 provides strong evidence of a change point in the year 1972.
+**Conclusion**: A p-value of <0.001 provides strong evidence of a change point in the year 1972.
 
 ## The MKS Test
 
@@ -85,7 +92,6 @@ In this example, the Pettitt and MKS tests both suggest structural changes in th
 
 Consider the following guidelines when choosing where to split the data:
 
-1. **Incorporate domain knowledge**. For example, if we knew that a dam was built in 1972, this would support the Pettitt test result.
-2. **Avoid overpartitioning**. The Pettitt and MKS tests operate independently and may detect the same change point independently.
+1. **Incorporate domain knowledge and case-specific understanding**. For example, if we knew that a water regulation structure was built in 1972 (the Libby dam, for this dataset), this would support the Pettitt test result.
+2. **Avoid overpartitioning**. The Pettitt and MKS tests operate independently and may detect multiple change points. To reduce sample size issues and uncertainty, retain only significant change points with physical justification.
 3. **Prioritize based on p-value**. Lower p-values indicate stronger evidence and should be given more weight.
-4. **Conduct recursive analysis**. After splitting the series, consider reapplying the tests to each segment to detect secondary change points. For example, after splitting at 1972, reapply the MKS test to 1928–1971 and 1972–2020.

@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -99,7 +89,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -107,6 +97,8 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Release Notes</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#v021">v0.2.1</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#v020">v0.2.0</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#v010">v0.1.0</a>
@@ -138,7 +130,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">About</li>
+          <li class="breadcrumb-item">Other</li>
       <li class="breadcrumb-item active">Release Notes</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -149,11 +141,41 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="changelog">Changelog</h1>
+<h2 id="v021">v0.2.1</h2>
+<p>July 17th, 2025</p>
+<p>Changes to the CLI:</p>
+<ul>
+<li>Fix <code>load_data</code> to better handle missing entries.</li>
+<li>Add Mission Creek (<code>Application_5.csv</code>) and Lake Louise (<code>Application_4.csv</code>) datasets.</li>
+<li>Add station information to the top of each CSV file.</li>
+<li>Add support for manual trend selection.</li>
+<li>Add support for batch processing of multiple datasets.</li>
+<li>Add support for three more report types (markdown, PDF, and JSON)</li>
+</ul>
+<p>Changes to the package:</p>
+<ul>
+<li>Report error producing unreasonably wide confidence interval in <code>uncertainty_bootstrap</code>.</li>
+<li>Report numerical stability errors in <code>uncertainty_rfpl</code>.</li>
+<li>Add function <code>plot_ams_data</code> for plotting raw AMS data.</li>
+<li>Add an option to plot a trend in the variance when using <code>plot_sens_trend</code>.</li>
+<li>Modify <code>select_lkurtosis</code> to only recommend 3-parameter distributions.</li>
+</ul>
+<p>Changes to the vignettes:</p>
+<ul>
+<li>Provide information about each station and a plot of the data at the start of each vignette.</li>
+<li>Split the trend identification vignette into two (one for mean, one for variability).</li>
+<li>Replace the Okanagan River dataset with Mission Creek for the trend in variability vignette.</li>
+</ul>
+<p>Changes to the documentation website:</p>
+<ul>
+<li>Add a cheat sheet for the R package.</li>
+<li>Small changes to formatting and clarity.</li>
+</ul>
 <h2 id="v020">v0.2.0</h2>
 <p>July 14th, 2025</p>
 <ul>
 <li>The first version of the <a href="../cli-installation-instructions/">CLI</a> is here!<ul>
-<li>Perform stationary and non-stationary flood frequency analysis</li>
+<li>Perform stationary and nonstationary flood frequency analysis</li>
 <li>Configure the framework using the <code>config.yml</code> file</li>
 <li>Generate HTML reports using <code>knitr</code> and <code>rmarkdown</code></li>
 </ul>
@@ -173,7 +195,7 @@
 <h2 id="v003">v0.0.3</h2>
 <p>May 22nd, 2025</p>
 <ul>
-<li>Return information about non-stationary structure(s) at the end of EDA.</li>
+<li>Return information about nonstationary structure(s) at the end of EDA.</li>
 <li>Use the <code>/data</code> and <code>/reports</code> directories as defaults in <code>config.yml</code>.</li>
 <li>Refactor code for batching EDA in <code>stats.R</code>, <code>eda.R</code>.</li>
 <li>Implement support for PDF reports using a custom <span class="arithmatex">\(\LaTeX\)</span> template.</li>
@@ -190,7 +212,7 @@
 <ul>
 <li>Execute individual statistical tests using <code>stats.R</code>.</li>
 <li>Run a suite of unit tests using <code>tests.R</code>.</li>
-<li>Run the entire EDA pipeline (without data spliting) using <code>eda.R</code>.</li>
+<li>Run the entire EDA pipeline (without data splitting) using <code>eda.R</code>.</li>
 </ul>
               
             </div>

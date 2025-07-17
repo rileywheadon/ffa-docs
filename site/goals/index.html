@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -99,24 +89,10 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Goals</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#cran-package">CRAN Package</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#command-line-interface">Command Line Interface</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#plumber-api">Plumber API</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#web-app">Web App</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#non-goals">Non-Goals</a>
-    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../roadmap/">Roadmap</a>
@@ -142,7 +118,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">About</li>
+          <li class="breadcrumb-item">Other</li>
       <li class="breadcrumb-item active">Goals</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -169,29 +145,6 @@
 <li><strong>Clarity</strong>: The source code is easy to read and understand without confusing tricks.</li>
 <li><strong>Robustness</strong>: The framework can handle datasets with small sample sizes or missing values.</li>
 <li><strong>Speed</strong>: The framework is fast enough to handle batch processing of many datasets.</li>
-</ul>
-<h2 id="architecture">Architecture</h2>
-<p>We believe the following architecture will allow us to achieve the goals listed above: </p>
-<p><img alt="Architecture diagram." src="../img/ffa-architecture.png" /></p>
-<h3 id="cran-package">CRAN Package</h3>
-<p>Our CRAN package will contain a suite of statistical tests, distribution selection mechanisms, and probability distributions for FFA.
-Many of the statistical tests used in our framework are sparsely documented, so providing an implementation of these tests in R will benefit the statistical community at large.</p>
-<h3 id="command-line-interface">Command Line Interface</h3>
-<p>The command line interface (CLI) will allow technical users to programmatically generate reports and run statistical models.
-Additionally, the CLI will make it possible to run each component of the FFA framework separately.
-This will allow advanced users to design custom analysis pipelines. </p>
-<h3 id="plumber-api">Plumber API</h3>
-<p>An API (built with <a href="https://www.rplumber.io/">plumber.R</a>) will provide programmatic access to our framework.</p>
-<h3 id="web-app">Web App</h3>
-<p>Finally, we will a develop a web application on top of the Plumber API which will give new users a simple GUI interface for accessing our framework. 
-We hope that this web application will make it easier for beginner modellers to learn about FFA.</p>
-<h2 id="non-goals">Non-Goals</h2>
-<p><strong>Warning</strong>: This list is not final and will be updated as development continues.</p>
-<p>This software <em>will not</em> support the following features:</p>
-<ul>
-<li>Explanations of FFA itself. We assume the modeller is familiar with basic hydrological concepts. </li>
-<li>Handling different time periods (i.e. monthly maximum streamflow data).</li>
-<li>Transforming the AMS data in any way (i.e. removing serial correlation, removing trends).</li>
 </ul>
               
             </div>

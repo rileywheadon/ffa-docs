@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -107,7 +97,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -145,30 +135,29 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="parameter-estimation">Parameter Estimation</h1>
-<p>The FFA framework implements three methods for parameter estimation:</p>
+<p>This module estimates parameters for both S-FFA and NS-FFA models. In NS-FFA, it involves estimating regression coefficients for time-varying parameters and constants.</p>
+<p>The framework supports three estimation methods:</p>
 <ol>
 <li>L-moments</li>
-<li>Maximum likelihood (MLE)</li>
-<li>Generalized maximum likelihood (GMLE)</li>
+<li>Maximum Likelihood (MLE)</li>
+<li>Generalized Maximum Likelihood (GMLE)</li>
 </ol>
+<p><strong>Note</strong>: We adopt the GEV distribution convention from Coles (2001)<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, where a <strong>positive</strong> shape parameter <span class="arithmatex">\(\kappa\)</span> indicates a heavy tail.
+This differs from the sign convention in some other sources.</p>
 <h2 id="l-moments">L-Moments</h2>
-<p>The method estimates parameter values based on the sample L-moments <span class="arithmatex">\(l_{1}\)</span>, <span class="arithmatex">\(l_{2}\)</span> and the sample L-moment ratios <span class="arithmatex">\(t_{3}\)</span>, <span class="arithmatex">\(t_{4}\)</span>.
-For more information about L-moments, see <a href="../model-selection/#an-introduction-to-l-moments">here</a>.
-For a information about distribution-specific parameter estimation with L-moments, see <a href="../probability-distributions/">here</a>.
-The parameter estimation methods used in the framework are based on <a href="https://lib.stat.cmu.edu/general/lmoments">these</a> Fortran routines by J.R.M. Hosking.</p>
-<p><strong>Warning</strong>: L-moments parameter estimation can yield distributions which do not have support at small values.
-This is generally not an issue, since we are only interested in the higher quantiles of the distribution.
-However, it is important to remember that the probability distributions produced by L-moments <em>should not</em> be used to predict future streamflow maxima in general.</p>
+<p>The L-moments method is implemented for parameter estimation for all distributions in S-FFA.
+This method uses the sample L-moments (<span class="arithmatex">\(l_1\)</span>, <span class="arithmatex">\(l_2\)</span>) and L-moment ratios (<span class="arithmatex">\(t_3\)</span>, <span class="arithmatex">\(t_4\)</span>) to estimate parameters.
+For more information about L-moments, see <a href="../model-selection/#an-introduction-to-l-moments">here</a>.</p>
+<p><strong>Warning</strong>: L-moment-based estimates can yield distributions which do not have support at small values, although this is typically not an issue for quantile estimation in the range of mid- to high-return periods.</p>
 <h2 id="maximum-likelihood-mle">Maximum Likelihood (MLE)</h2>
+<p>MLE is implemented for all statistical models in S-FFA (for all distributions) and NS-FFA (for all distributions with time-varying location and/or scale parameters).</p>
 <p>Maximum likelihood estimation aims to maximize the log-likelihood function <span class="arithmatex">\(\ell(x : \theta)\)</span> of the data <span class="arithmatex">\(x = x_{1}, \dots , x_{n}\)</span> given the parameters <span class="arithmatex">\(\theta\)</span>.
 The log-likelihood functions for each distribution are defined <a href="../probability-distributions/">here</a>.
-To find the optimal parameters <span class="arithmatex">\(\hat{\theta}\)</span>, we use the <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/nlminb"><code>nlminb</code></a> function from the <code>stats</code> library.
+To find the optimal parameters, we use the <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/nlminb"><code>nlminb</code></a> function from the <code>stats</code> library.
 This function implements the "L-BFGS-B" algorithm for constrained optimization.</p>
 <h2 id="generalized-maximum-likelihood-gmle">Generalized Maximum Likelihood (GMLE)</h2>
-<p>The generalized maximum likelihood (GMLE) parameter estimation method is used to determine the parameters of the <a href="../probability-distributions/#generalized-extreme-value-gev-distribution">generalized extreme value (GEV) distribution</a> given a prior distribution for the shape parameter <span class="arithmatex">\(\kappa\)</span>.
-This method uses <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation">maximum a posteriori estimation</a>, which maximizes the product of the likelihood and the prior distribution.</p>
-<p>Suppose that <span class="arithmatex">\(\kappa\)</span> is drawn from a random variable <span class="arithmatex">\(K \sim \text{Beta}(p, q)\)</span> where <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(q\)</span> are determined using prior knowledge. 
-The prior PDF <span class="arithmatex">\(f_{K}(\kappa)\)</span> is shown below, where <span class="arithmatex">\(B(p, q)\)</span> is the <a href="https://en.wikipedia.org/wiki/Beta_function">Beta function</a>.</p>
+<p>GMLE is used for GEV models when incorporating <strong>prior knowledge</strong> of the shape parameter <span class="arithmatex">\(\kappa\)</span> using Bayesian reasoning via <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation">maximum a posteriori estimation</a>, which maximizes the product of the likelihood and the prior distribution.</p>
+<p>Suppose that <span class="arithmatex">\(\kappa\)</span> is drawn from <span class="arithmatex">\(K \sim \text{Beta}(p, q)\)</span> where <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(q\)</span> are determined using prior knowledge. The prior PDF <span class="arithmatex">\(f_{K}(\kappa)\)</span> is shown below, where <span class="arithmatex">\(B(p, q)\)</span> is the <a href="https://en.wikipedia.org/wiki/Beta_function">Beta function</a>.</p>
 <div class="arithmatex">\[
 f_{K}(\kappa) = \frac{\kappa ^{p - 1}(1 - \kappa)^{q-1}}{B(p, q)}
 \]</div>
@@ -177,7 +166,7 @@ f_{K}(\kappa) = \frac{\kappa ^{p - 1}(1 - \kappa)^{q-1}}{B(p, q)}
 f_{X}(x : \mu, \sigma, \kappa) =\prod_{i=1}^{n} \frac{1}{\sigma}t_{i}^{-1 - (1/\kappa)} \exp (-t_{i}^{-1/\kappa}), \quad
 t_{i} = 1 + \kappa \left(\frac{x_{i} - \mu }{\sigma } \right)
 \]</div>
-<p>As mentioned previously, we want to maximize the product <span class="arithmatex">\(\mathcal{L} = f_{K}(\kappa)f_{X}(x:\mu ,\sigma ,\kappa)\)</span>. 
+<p>As mentioned previously, we want to maximize the product <span class="arithmatex">\(\mathcal{L} = f_{K}(\kappa)f_{X}(x:\mu ,\sigma ,\kappa)\)</span>.
 To ensure numerical stability, we will maximize <span class="arithmatex">\(\ln  (\mathcal{L})\)</span> instead, which has the following form:</p>
 <div class="arithmatex">\[
 \begin{aligned}
@@ -186,6 +175,14 @@ To ensure numerical stability, we will maximize <span class="arithmatex">\(\ln  
 \ln(f_{X}(x:\mu ,\sigma ,\kappa )) &amp;= \sum_{i=1}^{n} \left[-\ln \sigma - \left(1 + \frac{1}{\kappa }\right) \ln t_{i} - t_{i}^{-1/\kappa}\right]
 \end{aligned}
 \]</div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Coles, S. (2001). <em>An introduction to statistical modeling of extreme values</em>. Springer.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
               
             </div>
           </div><footer>

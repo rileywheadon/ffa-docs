@@ -21,7 +21,7 @@ To compute the AMS standard deviations, we use a moving window algorithm. Let $w
 This produces a time series of moving-window standard deviations. 
 Then, apply the Mann-Kendall Test to this series to test for monotonic trends.
 
-For more information about the Mann-Kendall test, see [here](eda-trend-ams-mean.md#mann-kendall-test).
+For more information about the Mann-Kendall test, see [here](eda-trend-ams-mean.md#mann-kendall-mk-test).
 
 ## Sen's Trend Estimator 
 

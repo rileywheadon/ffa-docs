@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -98,7 +88,7 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Model Assessment</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#non-parametric-models">Non-Parametric Models</a>
+    <li class="toctree-l2"><a class="reference internal" href="#nonparametric-models">Nonparametric Models</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#accuracy-statistics">Accuracy Statistics</a>
         <ul>
@@ -125,7 +115,7 @@
     </ul>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -163,7 +153,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="model-assessment">Model Assessment</h1>
-<h2 id="non-parametric-models">Non-Parametric Models</h2>
+<h2 id="nonparametric-models">Nonparametric Models</h2>
 <p>A <strong>Plotting Position</strong> is a non-parametric estimator used to derive empirical exceedance probabilities. By using the plotting position, we can evaluate the quality of our parametric model. To compute the plotting position, arrange the sample observations in descending order of magnitude: <span class="arithmatex">\(x_{n:n} \geq  \dots  \geq  x_{1:n}\)</span>. Then, the empirical exceedance probabilities are given by the following formula:</p>
 <div class="arithmatex">\[
 p_{i:n} = \frac{i-a}{n+1 - 2a}, \quad i \in \{1, \dots , n\}
@@ -208,13 +198,13 @@ p_{i:n} = \frac{i-a}{n+1 - 2a}, \quad i \in \{1, \dots , n\}
 <p>By default, the FFA framework uses the Weibull formula, which is unbiased.</p>
 <h2 id="accuracy-statistics">Accuracy Statistics</h2>
 <h3 id="r2-coefficient-of-determination"><span class="arithmatex">\(R^2\)</span> - Coefficient of Determination</h3>
-<p>To compute the <span class="arithmatex">\(R^2\)</span> statistic, we perform a linear regression of the streamflow data against the predictions of the parametric model at the plotting positions.
-The <span class="arithmatex">\(R^2\)</span> statistic describes how well the parametric model captures variance in the streamflow data. 
+<p>To compute the <span class="arithmatex">\(R^2\)</span> statistic, we perform a linear regression of the annual maximum series data against the predictions of the parametric model at the plotting positions.
+The <span class="arithmatex">\(R^2\)</span> statistic describes how well the parametric model captures variance in the data. 
 Higher is better.</p>
 <p>The plot below shows the deviation of the estimated quantiles (red dots), from the data (black line).</p>
 <p><img alt="" src="../img/plot-assessment.png" /></p>
 <h3 id="rmse-root-mean-squared-error">RMSE - Root-Mean Squared Error</h3>
-<p>The <code>RMSE</code> statistic describes the average <em>squared</em> difference between the streamflow data and the predictions of the parametric model.
+<p>The <code>RMSE</code> statistic describes the average <em>squared</em> difference between the data and the predictions of the parametric model.
 Lower is better.</p>
 <h3 id="bias">Bias</h3>
 <p>The <code>Bias</code> statistic describes the average difference between the data and the predictions of the parametric model.

@@ -44,7 +44,7 @@ Some stations may have little or no data.
 
 **`distribution_name`**: Character (1); name of the [probability distributions](probability-distributions.md) to use.
 
-**`z_samples`**: Integer (1); number of bootstrap samples for [Z-statistic selection](model-selection.md#z-statistic).
+**`z_samples`**: Integer (1); number of bootstrap samples for [Z-statistic selection](model-selection.md#3-z-statistic).
 
 ### Parameter Estimation
 

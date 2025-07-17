@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -101,7 +91,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -138,23 +128,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="introduction-to-eda">Introduction to EDA</h1>
-<p>The exploratory data analysis (EDA) module of the flood frequency analysis (FFA) framework contains a collection of statistical tests for annual maximum streamflow (AMS) data.
-These tests are performed in a specific order to accomplish the four goals listed below:</p>
+                <h1 id="introduction-to-exploratory-data-analysis-eda">Introduction to Exploratory Data Analysis (EDA)</h1>
+<p>The EDA module in the FFA Framework helps evaluate whether the available evidence supports the assumption of stationarity.
+EDA detects statistically significant nonstationary signatures in a given annual maximum series (AMS). 
+EDA applies a structured sequence of statistical tests on AMS data to achieve four key objectives:</p>
 <ol>
-<li>Identify change points ("jumps" or "kinks") in the AMS data.</li>
-<li>Identify <a href="https://en.wikipedia.org/wiki/Autocorrelation">autocorrelation</a> in the AMS data.</li>
-<li>Identify trends in the mean value of the AMS data.</li>
-<li>Identify trends in the variance of the AMS data.</li>
+<li>Detect <strong>change points</strong> (i.e., abrupt shifts or trend changes).</li>
+<li>Detect <strong>trends in the mean and their nature</strong> (deterministic vs stochastic, linear vs non-linear, if any).</li>
+<li>Detect <strong>trends in the variability</strong> (i.e., heteroskedasticity and trends in standard deviation).</li>
 </ol>
-<p><strong><em>Ultimately the goal of EDA is to choose between stationary and non-stationary FFA.</em></strong></p>
-<p>A diagram showing the current EDA framework is shown below:</p>
+<p><strong><em>The primary goal of EDA is to inform the selection between stationary and nonstationary FFA.</em></strong></p>
+<p>The EDA workflow is illustrated below:</p>
 <p><img alt="Diagram showing current EDA framework." src="../img/fig-eda-current.png" /></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../vignettes/non-stationary-ffa.html" class="btn btn-neutral float-left" title="Non-Stationary FFA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../vignettes/" class="btn btn-neutral float-left" title="Vignettes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../eda-change-points/" class="btn btn-neutral float-right" title="Change Points">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -178,7 +168,7 @@ These tests are performed in a specific order to accomplish the four goals liste
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../vignettes/non-stationary-ffa.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../vignettes/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../eda-change-points/" style="color: #fcfcfc">Next &raquo;</a></span>

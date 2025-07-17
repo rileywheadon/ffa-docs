@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -127,7 +117,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -164,8 +154,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="probability-distributions">Probability Distributions</h1>
-<p>The FFA framework uses the <span class="arithmatex">\(9\)</span> probability distributions listed below:</p>
+                <h1 id="candidate-probability-distributions">Candidate Probability Distributions</h1>
+<p>The FFA framework considers nine candidate probability distributions:</p>
 <table>
 <thead>
 <tr>
@@ -222,7 +212,7 @@
 </tr>
 </tbody>
 </table>
-<p>Each distribution also has two non-stationary variants which we denote by adding a "signature" to the model abbreviation.
+<p>Each distribution also has two nonstationary variants, which we denote by adding a <strong>nonstationary structure</strong> to the model abbreviation.
 For two-parameter distributions (<code>GUM</code>, <code>NOR</code>, <code>LNO</code>):</p>
 <ol>
 <li><code>XXX</code> is the standard, stationary model.</li>
@@ -245,16 +235,16 @@ For two-parameter distributions (<code>GUM</code>, <code>NOR</code>, <code>LNO</
 <tr>
 <td>Location <span class="arithmatex">\(\mu\)</span></td>
 <td><span class="arithmatex">\(\mu\)</span> (constant)</td>
-<td><span class="arithmatex">\(\mu_0 + \mu_1z\)</span></td>
+<td><span class="arithmatex">\(\mu_t = \mu_0 + \mu_1z\)</span></td>
 <td><span class="arithmatex">\(\mu\)</span> (constant)</td>
-<td><span class="arithmatex">\(\mu_0 + \mu_1z\)</span></td>
+<td><span class="arithmatex">\(\mu_t = \mu_0 + \mu_1z\)</span></td>
 </tr>
 <tr>
 <td>Scale <span class="arithmatex">\(\sigma\)</span></td>
 <td><span class="arithmatex">\(\sigma\)</span> (constant)</td>
 <td><span class="arithmatex">\(\sigma\)</span> (constant)</td>
-<td><span class="arithmatex">\(\sigma_0 + \sigma_1z\)</span></td>
-<td><span class="arithmatex">\(\sigma_0 + \sigma_1z\)</span></td>
+<td><span class="arithmatex">\(\sigma_t = \sigma_0 + \sigma_1z\)</span></td>
+<td><span class="arithmatex">\(\sigma_t = \sigma_0 + \sigma_1z\)</span></td>
 </tr>
 <tr>
 <td>Number of Parameters</td>
@@ -265,6 +255,7 @@ For two-parameter distributions (<code>GUM</code>, <code>NOR</code>, <code>LNO</
 </tr>
 </tbody>
 </table>
+<p>where <span class="arithmatex">\(z\)</span> is the covariate.</p>
 <p>For three-parameter distributions (<code>GEV</code>, <code>GLO</code>, <code>GNO</code>, <code>PE3</code>, <code>LP3</code>, <code>WEI</code>):</p>
 <ol>
 <li><code>XXX</code> is the standard, stationary model.</li>
@@ -287,16 +278,16 @@ For two-parameter distributions (<code>GUM</code>, <code>NOR</code>, <code>LNO</
 <tr>
 <td>Location <span class="arithmatex">\(\mu\)</span></td>
 <td><span class="arithmatex">\(\mu\)</span> (constant)</td>
-<td><span class="arithmatex">\(\mu_0 + \mu_1z\)</span></td>
+<td><span class="arithmatex">\(\mu_t = \mu_0 + \mu_1z\)</span></td>
 <td><span class="arithmatex">\(\mu\)</span> (constant)</td>
-<td><span class="arithmatex">\(\mu_0 + \mu_1z\)</span></td>
+<td><span class="arithmatex">\(\mu_t = \mu_0 + \mu_1z\)</span></td>
 </tr>
 <tr>
 <td>Scale <span class="arithmatex">\(\sigma\)</span></td>
 <td><span class="arithmatex">\(\sigma\)</span> (constant)</td>
 <td><span class="arithmatex">\(\sigma\)</span> (constant)</td>
-<td><span class="arithmatex">\(\sigma_0 + \sigma_1z\)</span></td>
-<td><span class="arithmatex">\(\sigma_0 + \sigma_1z\)</span></td>
+<td><span class="arithmatex">\(\sigma_t = \sigma_0 + \sigma_1z\)</span></td>
+<td><span class="arithmatex">\(\sigma_t = \sigma_0 + \sigma_1z\)</span></td>
 </tr>
 <tr>
 <td>Shape <span class="arithmatex">\(\kappa\)</span></td>
@@ -314,7 +305,8 @@ For two-parameter distributions (<code>GUM</code>, <code>NOR</code>, <code>LNO</
 </tr>
 </tbody>
 </table>
-<p>The FFA framework also uses the four-parameter Kappa distribution (KAP) for the <a href="../model-selection/#z-statistic">Z-statistic</a> selection metric. The Kappa distribution generalizes the <span class="arithmatex">\(9\)</span> distributions listed above.</p>
+<p>The FFA framework also uses the four-parameter Kappa distribution (KAP) for the <a href="../model-selection/#z-statistic">Z-statistic</a> selection metric. The Kappa distribution generalizes the nine distributions listed above.</p>
+<hr />
 <h2 id="list-of-distributions">List of Distributions<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
 <h3 id="gumbel-gum-distribution">Gumbel (GUM) Distribution</h3>
 <p><strong>Support</strong></p>
@@ -322,12 +314,12 @@ For two-parameter distributions (<code>GUM</code>, <code>NOR</code>, <code>LNO</
 <p><strong>Quantiles</strong></p>
 <p><span class="arithmatex">\(x(F) = \mu - \sigma \log (-\log F)\)</span></p>
 <p><strong>Likelihood Function</strong></p>
-<p>The probability density function (PDF) of the Gumbel distribution is given below:</p>
+<p>Its probability density function (PDF) is:</p>
 <div class="arithmatex">\[
 f(x_{i} : \mu, \sigma) = \frac{1}{\sigma} \exp \left(-z_{i} - e^{-z_{i}}\right) , \quad
 z_{i} = \frac{x_{i} - \mu}{\sigma }
 \]</div>
-<p>Therefore, the Log-likelihood function is defined as follows:</p>
+<p>Therefore, is Log-likelihood function is:</p>
 <div class="arithmatex">\[
 \ell(x:\mu, \sigma) = \sum_{i=1}^{n} \left[-\ln \sigma - z_{i} - e^{-z_{i}} \right]
 \]</div>
@@ -350,12 +342,12 @@ z_{i} = \frac{x_{i} - \mu}{\sigma }
 <p><strong>Quantiles</strong></p>
 <p><span class="arithmatex">\(x(F) = \mu  + \sigma \Phi^{-1}(F)\)</span></p>
 <p><strong>Likelihood Function</strong></p>
-<p>The probability density function (PDF) of the Normal distribution is given below:</p>
+<p>Its probability density function (PDF) is:</p>
 <div class="arithmatex">\[
 f(x_{i} : \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi }}e^{-z_{i}^2/2} , \quad
 z_{i} = \frac{x_{i} - \mu}{\sigma }
 \]</div>
-<p>Therefore, the Log-likelihood function is defined as follows:</p>
+<p>Therefore, its Log-likelihood function is:</p>
 <div class="arithmatex">\[
 \ell(x:\mu, \sigma) = \sum_{i=1}^{n} \left[-\ln (\sigma \sqrt{2\pi }) - \frac{z_{i}^2}{2} \right]
 \]</div>
@@ -377,7 +369,7 @@ z_{i} = \frac{x_{i} - \mu}{\sigma }
 <p><strong>Quantiles</strong></p>
 <p><span class="arithmatex">\(x(F) = \exp(\mu + \sigma \Phi^{-1}(F))\)</span></p>
 <p><strong>Likelihood Function</strong></p>
-<p>To derive the likleihood of the LNO distribution, we use the fact that:</p>
+<p>To derive its likelihood, we use the fact that:</p>
 <div class="arithmatex">\[
 \text{Data} \sim \text{LNO} \Leftrightarrow \ln (\text{Data}) \sim \text{NOR}
 \]</div>
@@ -406,12 +398,12 @@ x(F) = \begin{dcases}
 \end{dcases}
 \]</div>
 <p><strong>Likelihood Function</strong></p>
-<p>The probability density function (PDF) of the GEV distribution is given below (assume <span class="arithmatex">\(t_{i} &gt; 0)\)</span>:</p>
+<p>Its probability density function (PDF) is (assume <span class="arithmatex">\(t_{i} &gt; 0)\)</span>:</p>
 <div class="arithmatex">\[
 f(x_{i} : \mu, \sigma, \kappa) = \frac{1}{\sigma}t_{i}^{-1 - (1/\kappa)} \exp (-t_{i}^{-1/\kappa}), \quad
 t_{i} = 1 + \kappa \left(\frac{x_{i} - \mu }{\sigma } \right)
 \]</div>
-<p>Therefore, the Log-likelihood function is defined as follows:</p>
+<p>Therefore, its Log-likelihood is:</p>
 <div class="arithmatex">\[
 \ell(x:\mu, \sigma, \kappa) = \sum_{i=1}^{n} \left[-\ln \sigma - \left(1 + \frac{1}{\kappa }\right) \ln t_{i} - t_{i}^{-1/\kappa}\right]
 \]</div>
@@ -435,8 +427,7 @@ c = \frac{2}{3 + \tau_{3}} - \frac{\log 2}{\log 3}
 \mu \approx \lambda_{1} - \sigma (1 - \Gamma (1 + \kappa )) / \kappa
 \end{cases}
 \]</div>
-<p><strong>Note</strong>: Other sources often use a different parameterization for the GEV distribution in which the sign of the shape parameter <span class="arithmatex">\(\kappa\)</span> is flipped.
- w</p>
+<p><strong>Note</strong>: Other sources often use a different notation for the GEV distribution in which the sign of the shape parameter <span class="arithmatex">\(\kappa\)</span> is flipped.</p>
 <h3 id="generalized-logistic-glo-distribution">Generalized Logistic (GLO) Distribution</h3>
 <p><strong>Support</strong></p>
 <div class="arithmatex">\[
@@ -454,12 +445,12 @@ x(F) = \begin{cases}
 \end{cases}
 \]</div>
 <p><strong>Likelihood Function</strong></p>
-<p>The probability density function (PDF) of the GLO distribution is given below (assume <span class="arithmatex">\(t_{i} &gt; 0)\)</span>:</p>
+<p>Its probability density function (PDF) is (assume <span class="arithmatex">\(t_{i} &gt; 0)\)</span>:</p>
 <div class="arithmatex">\[
 f(x_{i} : \mu , \sigma , \kappa ) = \frac{1}{\sigma }t_{i}^{(1/\kappa) - 1} \left[1 + t_{i}^{1/\kappa}\right]^{-2}, \quad
 t_{i} = 1 - \kappa \left(\frac{x_{i} - \mu }{\sigma }\right)
 \]</div>
-<p>Therefore, the Log-likelihood function is defined as follows:</p>
+<p>Therefore, its Log-likelihood function is:</p>
 <div class="arithmatex">\[
 \ell(x:\mu, \sigma, \kappa) = \sum_{i=1}^{n} \left[-\ln \sigma + \left(\frac{1}{\kappa }-1\right) \ln t_{i} - 2 \ln \left(1 + t_{i}^{1/\kappa }\right) \right]
 \]</div>
@@ -543,14 +534,14 @@ x(F) = \begin{cases}
 \mu  + \alpha \beta  - q(1 - F, \alpha, \beta) &amp;\kappa &lt; 0
 \end{cases}
 \]</div>
-<p>In the equations above, <span class="arithmatex">\(q\)</span> is the quantile function of the Gamma distribution with with shape <span class="arithmatex">\(\alpha\)</span> and scale <span class="arithmatex">\(\beta\)</span>. <span class="arithmatex">\(q\)</span> is defined below, where <span class="arithmatex">\(\gamma\)</span> is the <em>lower incomplete Gamma function</em>.</p>
+<p>In the equations above, <span class="arithmatex">\(q\)</span> is the quantile function of the Gamma distribution with shape <span class="arithmatex">\(\alpha\)</span> and scale <span class="arithmatex">\(\beta\)</span>. <span class="arithmatex">\(q\)</span> is defined below, where <span class="arithmatex">\(\gamma\)</span> is the <em>lower incomplete Gamma function</em>.</p>
 <div class="arithmatex">\[q(F, \alpha, \beta) = \beta \gamma ^{-1}(\alpha, p \Gamma (\alpha))\]</div>
 <p><strong>Likelihood Function</strong></p>
 <p>The probability density function (PDF) of the PE3 distribution is given below:</p>
 <div class="arithmatex">\[
 f(x_{i} : \mu , \sigma , \kappa ) = \frac{(x_{i} - \xi)^{\alpha  - 1}e^{-(x_{i} - \xi )/\beta }}{\beta ^{\alpha } \Gamma (\alpha )}
 \]</div>
-<p>Therefore, the Log-likelihood function is defined as follows:</p>
+<p>Therefore, its Log-likelihood function is:</p>
 <div class="arithmatex">\[
 \ell(x:\mu, \sigma, \kappa) = \sum_{i=1}^{n} \left[(\alpha  - 1) \ln |x_{i} - \xi | - \frac{|x_{i} - \xi  |}{\beta } - \alpha \ln\beta  - \ln \Gamma (\alpha )\right]
 \]</div>
@@ -570,7 +561,7 @@ The first two L-moments are defined as follows:</p>
 \tau_{4} &amp;\approx \frac{C_{0} + C_{1}\alpha^{-1} + C_{2}\alpha ^{-2} +C_{3}\alpha ^{-3}}{1 + D_{1}\alpha ^{-1} + D_{2}\alpha ^{-2}}
 \end{aligned}
 \]</div>
-<p>If <span class="arithmatex">\(\alpha &lt; 1\)</span> we use a different set of coefficients:</p>
+<p>If <span class="arithmatex">\(\alpha &lt; 1\)</span>, we use a different set of coefficients:</p>
 <div class="arithmatex">\[
 \begin{aligned}
 \tau_{3} &amp;\approx \frac{1 + E_{1}\alpha  + E_{2}\alpha ^2 + E_{3}\alpha ^3}{1 + F_{1}\alpha  + F_{2}\alpha ^2 + F_{3}\alpha ^3} \\[5pt]
@@ -619,7 +610,7 @@ To estimate parameters from the L-moments, we use one of two approximations for 
 <p><strong>L-Moments</strong></p>
 <p>Same as the <a href="#pearson-type-iii-pe3-distribution">PE3 distribution</a>.</p>
 <h3 id="weibull-wei-distribution">Weibull (WEI) Distribution</h3>
-<p>The Weibull distribution is a reparameterized version of the generalized extreme value distribution:</p>
+<p>The Weibull distribution is implemented as a reparameterized version of the generalized extreme value distribution:</p>
 <div class="arithmatex">\[
 \begin{aligned}
 \kappa &amp;= 1 / \kappa_{\text{GEV}} \\[5pt]
@@ -633,16 +624,16 @@ To estimate parameters from the L-moments, we use one of two approximations for 
 <p><strong>Quantiles</strong></p>
 <p><span class="arithmatex">\(x(F) = \mu + \sigma (-\log (1 - F))^{1/\kappa}\)</span></p>
 <p><strong>Likelihood Function</strong></p>
-<p>The probability density function (PDF) of the Weibull distribution is given below for <span class="arithmatex">\(x_{i} &gt; \mu\)</span>:</p>
+<p>Its probability density function (PDF) is given below for <span class="arithmatex">\(x_{i} &gt; \mu\)</span>:</p>
 <div class="arithmatex">\[
 f(x_{i} : \mu, \sigma, \kappa) = \frac{\kappa}{\sigma }\left(\frac{x_{i} - \mu}{\sigma }\right)^{\kappa -1} \exp \left( - \left(\frac{x_{i} - \mu}{\sigma }\right)^{\kappa } \right)
 \]</div>
-<p>Therefore, the Log-likelihood function is defined as follows:</p>
+<p>Therefore, its Log-likelihood function is:</p>
 <div class="arithmatex">\[
 \ell(x:\mu, \sigma, \kappa) = \sum_{i=1}^{n} \left[\ln \kappa - \kappa \ln \sigma +(\kappa -1)\ln (x_{i}-\mu ) - \left(\frac{x_{i} - \mu }{\sigma }\right) ^{\kappa } \right]
 \]</div>
 <p><strong>L-Moments</strong></p>
-<p>First, reparameterize the Weibull distribution and to recover the GEV parameters:</p>
+<p>First, reparameterize the Weibull distribution to recover the GEV parameters:</p>
 <div class="arithmatex">\[
 \begin{aligned}
 \kappa_{\text{GEV}} &amp;= 1 / \kappa \\[5pt]

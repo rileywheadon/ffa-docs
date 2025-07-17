@@ -58,19 +58,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" >Vignettes</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/introduction.html">Introduction</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/change-points.html">Change Point Detection</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/trend-identification.html">Trend Identification</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/stationary-ffa.html">Stationary FFA</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../vignettes/non-stationary-ffa.html">Non-Stationary FFA</a>
-                </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Exploratory Data Analysis</span></p>
@@ -96,7 +86,7 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Uncertainty Quantification</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#sample-bootstrap">Sample Bootstrap</a>
+    <li class="toctree-l2"><a class="reference internal" href="#parametric-bootstrap">Parametric Bootstrap</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#regula-falsi-profile-likelihood-rfpl">Regula-Falsi Profile Likelihood (RFPL)</a>
         <ul>
@@ -110,14 +100,14 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#regula-falsi-generalized-profile-likelihood-rfgpl">Regula-Falsi Generalized Profile Likelihood (RFGPL)</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#handling-non-stationarity">Handling Non-Stationarity</a>
+    <li class="toctree-l2"><a class="reference internal" href="#handling-nonstationarity">Handling Nonstationarity</a>
     </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../model-assessment/">Model Assessment</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">About</span></p>
+              <p class="caption"><span class="caption-text">Other</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../goals/">Goals</a>
                   </li>
@@ -157,18 +147,20 @@
                 <h1 id="uncertainty-quantification">Uncertainty Quantification</h1>
 <p>The FFA framework implements three methods for uncertainty quantification: </p>
 <ol>
-<li>Sample bootstrap</li>
+<li>Parametric bootstrap</li>
 <li>Regula-falsi profile likelihood (RFPL)</li>
 <li>Regula-falsi generalized profile likelihood (RFGPL)</li>
 </ol>
-<h2 id="sample-bootstrap">Sample Bootstrap</h2>
-<p>The sample bootstrap is a flexible method for uncertainty quantification that works with all probability models and parameter estimation methods. Let <span class="arithmatex">\(n\)</span> be the size of the original dataset.</p>
+<h2 id="parametric-bootstrap">Parametric Bootstrap</h2>
+<p>The parametric bootstrap is a flexible method for uncertainty quantification that works with all probability models and parameter estimation methods. Let <span class="arithmatex">\(n\)</span> be the size of the original dataset.</p>
 <ol>
 <li>Draw <span class="arithmatex">\(N_{\text{sim}}\)</span> bootstrap samples of size <span class="arithmatex">\(n\)</span> from the selected probability distribution.</li>
 <li>Fit a probability distribution to each bootstrap sample using the same <a href="../model-selection/">model selection method</a> and <a href="../parameter-estimation/">parameter estimation method</a> that was used to generate the original distribution.</li>
 <li>Compute the quantiles for each of the bootstrapped distributions. </li>
 <li>Generate confidence intervals using the mean and variance of the bootstrapped quantiles.</li>
 </ol>
+<p><strong>Warning</strong>: The parametric bootstrap is known to give unreasonably wide confidence intervals for small datasets. 
+If the FFA framework detects a confidence interval that is 5+ times wider than the return levels themselves, it will return an error and recommend RFPL uncertainty quantification<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
 <h2 id="regula-falsi-profile-likelihood-rfpl">Regula-Falsi Profile Likelihood (RFPL)</h2>
 <p>Consider a statistical model with parameters <span class="arithmatex">\((\theta, \psi_{1}, \dots, \psi_{n})\)</span>.
 The <strong>Profile Likelihood</strong> for the scalar parameter <span class="arithmatex">\(\theta\)</span> and vector of nuisance parameters <span class="arithmatex">\(\psi\)</span> is defined as:</p>
@@ -187,7 +179,7 @@ f(\theta) = \ell_{p}(\theta) - \left[\ell_{p}(\hat{\theta}) - \frac{\chi_{1;1-\a
 \]</div>
 <p>In the FFA framework, we compute the profile likelihood of each quantile <span class="arithmatex">\(y\)</span> by reparameterizing the location parameter <span class="arithmatex">\(\mu\)</span>.
 Let <span class="arithmatex">\(q(p, \mu, \psi)\)</span> be a function that takes an exceedance probability <span class="arithmatex">\(p\)</span>, location parameter <span class="arithmatex">\(\mu\)</span> and nuisance parameters <span class="arithmatex">\(\psi\)</span> and returns a quantile <span class="arithmatex">\(y\)</span>.
-All quantile functions[^1] satisfy: </p>
+All quantile functions<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup> satisfy: </p>
 <div class="arithmatex">\[
 y = q(p, \mu, \psi) = \mu + q(p, 0, \psi)
 \]</div>
@@ -196,6 +188,8 @@ y = q(p, \mu, \psi) = \mu + q(p, 0, \psi)
 \mu = y - q(p, 0, \psi)
 \]</div>
 <p>We use this relationship to find the profile likelihood <span class="arithmatex">\(\ell_{p}(y)\)</span> by evaluating <span class="arithmatex">\(\mu(p, y, \psi)\)</span> and substituting it into the log-likelihood functions listed <a href="../parameter-estimation/#maximum-likelihood-mle">here</a>.</p>
+<p><strong>Warning</strong>: RFPL uncertainty quantification can be numerically unstable for some datasets. 
+If the FFA framework encounters an issue, it will return an error and recommend the parametric bootstrap.</p>
 <h3 id="handling-the-weibull-distribution">Handling the Weibull Distribution</h3>
 <p>Due to support issues, we use a different reparameterization for the Weibull distribution:</p>
 <div class="arithmatex">\[
@@ -229,13 +223,23 @@ c_{i} = \frac{a_{i-1}f(b_{i-1}) - b_{i-1}f(a_{i-1})}{f(b_{i-1}) - f(a_{i-1})}
 <h2 id="regula-falsi-generalized-profile-likelihood-rfgpl">Regula-Falsi Generalized Profile Likelihood (RFGPL)</h2>
 <p>The regula-falsi generalized profile likelihood (RFGPL) method performs the regula-falsi algorithm shown above on the GEV distributions with a <span class="arithmatex">\(\text{Beta}(p, q)\)</span> prior for the shape parameter <span class="arithmatex">\(\kappa\)</span>.
 For more information about generalized parameter estimation, see <a href="../parameter-estimation/#generalized-maximum-likelihood-gmle">here</a>.</p>
-<h2 id="handling-non-stationarity">Handling Non-Stationarity</h2>
-<p>If the selected probability distribution is non-stationary, the quantiles (and hence confidence intervals) for the bootstrapped distributions change in time.
-See <a href="../ffa-introduction/#handling-non-stationarity">here</a> for a more detailed discussion of this idea.
+<h2 id="handling-nonstationarity">Handling Nonstationarity</h2>
+<p>If the selected probability distribution is nonstationary, the quantiles (and hence confidence intervals) for the bootstrapped distributions change in time.
+See <a href="../ffa-introduction/#handling-nonstationarity">here</a> for a more detailed discussion of this idea.
 By default, the FFA framework anchors uncertainty analysis at the <em>last</em> year of the dataset. 
 However, <a href="../model-assessment/">model assessment</a> requires confidence intervals for <em>every</em> year in the dataset.</p>
-<p><strong>Note</strong>: The sample bootstrap algorithm is the fastest algorithm for computing confidence intervals on all years in a dataset because the probabilities used to generate the bootstrapped samples can be reused.
-The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.</p>
+<p><strong>Note</strong>: The parametric bootstrap algorithm is the fastest algorithm for computing confidence intervals on all years in a dataset because the probabilities used to generate the bootstrapped samples can be reused.
+The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>For more information, please see the following references:</p>
+<p>Vidrio-Sahagún, C.T., He, J. Enhanced profile likelihood method for the nonstationary hydrological frequency analysis, Advances in Water Resources 161, 10451 (2022). <a href="https://doi.org/10.1016/j.advwatres.2022.104151">https://doi.org/10.1016/j.advwatres.2022.104151</a></p>
+<p>Vidrio-Sahagún, C.T., He, J. &amp; Pietroniro, A. Multi-distribution regula-falsi profile likelihood method for nonstationary hydrological frequency analysis. Stoch Environ Res Risk Assess 38, 843–867 (2024). <a href="https://doi.org/10.1007/s00477-023-02603-0">https://doi.org/10.1007/s00477-023-02603-0</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
               
             </div>
           </div><footer>

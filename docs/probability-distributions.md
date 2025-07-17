@@ -26,9 +26,11 @@ Shown below is a table summarizing these three models:
 
 | Feature              | `XXX`               | `XXX10`             | `XXX01`                | `XXX11`                |
 | -------------------- | ------------------- | ------------------- | ---------------------- | ---------------------- |
-| Location $\mu$       | $\mu$ (constant)    | $\mu_0 + \mu_1z$    | $\mu$ (constant)       | $\mu_0 + \mu_1z$       |
-| Scale $\sigma$       | $\sigma$ (constant) | $\sigma$ (constant) | $\sigma_0 + \sigma_1z$ | $\sigma_0 + \sigma_1z$ |
+| Location $\mu$       | $\mu$ (constant)    | $\mu_t = \mu_0 + \mu_1z$    | $\mu$ (constant)       | $\mu_t = \mu_0 + \mu_1z$       |
+| Scale $\sigma$       | $\sigma$ (constant) | $\sigma$ (constant) | $\sigma_t = \sigma_0 + \sigma_1z$ | $\sigma_t = \sigma_0 + \sigma_1z$ |
 | Number of Parameters | 2                   | 3                   | 3                      | 4                      |
+
+where $z$ is the covariate.
 
 For three-parameter distributions (`GEV`, `GLO`, `GNO`, `PE3`, `LP3`, `WEI`):
 
@@ -41,8 +43,8 @@ Shown below is a table summarizing these three models:
 
 | Feature              | `XXX`               | `XXX100`            | `XXX010`               | `XXX110`               |
 | -------------------- | ------------------- | ------------------- | ---------------------- | ---------------------- |
-| Location $\mu$       | $\mu$ (constant)    | $\mu_0 + \mu_1z$    | $\mu$ (constant)       | $\mu_0 + \mu_1z$       |
-| Scale $\sigma$       | $\sigma$ (constant) | $\sigma$ (constant) | $\sigma_0 + \sigma_1z$ | $\sigma_0 + \sigma_1z$ |
+| Location $\mu$       | $\mu$ (constant)    | $\mu_t = \mu_0 + \mu_1z$    | $\mu$ (constant)       | $\mu_t = \mu_0 + \mu_1z$       |
+| Scale $\sigma$       | $\sigma$ (constant) | $\sigma$ (constant) | $\sigma_t = \sigma_0 + \sigma_1z$ | $\sigma_t = \sigma_0 + \sigma_1z$ |
 | Shape $\kappa$       | $\kappa$ (constant) | $\kappa$ (constant) | $\kappa$ (constant)    | $\kappa$ (constant)    |
 | Number of Parameters | 3                   | 4                   | 4                      | 5                      |
 

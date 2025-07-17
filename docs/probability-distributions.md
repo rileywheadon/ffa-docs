@@ -1,6 +1,6 @@
-# Probability Distributions
+# Candidate Probability Distributions
 
-The FFA framework uses the $9$ probability distributions listed below:
+The FFA framework considers nine candidate probability distributions:
 
 | Distribution               | Abbreviation | Parameters                                           |
 | -------------------------- | ------------ | ---------------------------------------------------- |
@@ -14,7 +14,7 @@ The FFA framework uses the $9$ probability distributions listed below:
 | Log-Pearson Type III       | `LP3`        | $\mu$ (location), $\sigma$ (scale), $\kappa$ (shape) |
 | Weibull                    | `WEI`        | $\mu$ (location), $\sigma$ (scale), $\kappa$ (shape) |
 
-Each distribution also has two non-stationary variants which we denote by adding a "signature" to the model abbreviation.
+Each distribution also has two nonstationary variants, which we denote by adding a **nonstationary structure** to the model abbreviation.
 For two-parameter distributions (`GUM`, `NOR`, `LNO`):
 
 1. `XXX` is the standard, stationary model.
@@ -46,7 +46,10 @@ Shown below is a table summarizing these three models:
 | Shape $\kappa$       | $\kappa$ (constant) | $\kappa$ (constant) | $\kappa$ (constant)    | $\kappa$ (constant)    |
 | Number of Parameters | 3                   | 4                   | 4                      | 5                      |
 
-The FFA framework also uses the four-parameter Kappa distribution (KAP) for the [Z-statistic](model-selection.md#z-statistic) selection metric. The Kappa distribution generalizes the $9$ distributions listed above.
+The FFA framework also uses the four-parameter Kappa distribution (KAP) for the [Z-statistic](model-selection.md#z-statistic) selection metric. The Kappa distribution generalizes the nine distributions listed above.
+
+---
+
 
 ## List of Distributions[^1]
 
@@ -62,14 +65,14 @@ $x(F) = \mu - \sigma \log (-\log F)$
 
 **Likelihood Function**
 
-The probability density function (PDF) of the Gumbel distribution is given below:
+Its probability density function (PDF) is:
 
 $$
 f(x_{i} : \mu, \sigma) = \frac{1}{\sigma} \exp \left(-z_{i} - e^{-z_{i}}\right) , \quad
 z_{i} = \frac{x_{i} - \mu}{\sigma }
 $$
 
-Therefore, the Log-likelihood function is defined as follows:
+Therefore, is Log-likelihood function is:
 
 $$
 \ell(x:\mu, \sigma) = \sum_{i=1}^{n} \left[-\ln \sigma - z_{i} - e^{-z_{i}} \right]
@@ -101,14 +104,14 @@ $x(F) = \mu  + \sigma \Phi^{-1}(F)$
 
 **Likelihood Function**
 
-The probability density function (PDF) of the Normal distribution is given below:
+Its probability density function (PDF) is:
 
 $$
 f(x_{i} : \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi }}e^{-z_{i}^2/2} , \quad
 z_{i} = \frac{x_{i} - \mu}{\sigma }
 $$
 
-Therefore, the Log-likelihood function is defined as follows:
+Therefore, its Log-likelihood function is:
 
 $$
 \ell(x:\mu, \sigma) = \sum_{i=1}^{n} \left[-\ln (\sigma \sqrt{2\pi }) - \frac{z_{i}^2}{2} \right]
@@ -138,7 +141,7 @@ $x(F) = \exp(\mu + \sigma \Phi^{-1}(F))$
 
 **Likelihood Function**
 
-To derive the likleihood of the LNO distribution, we use the fact that:
+To derive its likelihood, we use the fact that:
 
 $$
 \text{Data} \sim \text{LNO} \Leftrightarrow \ln (\text{Data}) \sim \text{NOR}
@@ -179,14 +182,14 @@ $$
 
 **Likelihood Function**
 
-The probability density function (PDF) of the GEV distribution is given below (assume $t_{i} > 0)$:
+Its probability density function (PDF) is (assume $t_{i} > 0)$:
 
 $$
 f(x_{i} : \mu, \sigma, \kappa) = \frac{1}{\sigma}t_{i}^{-1 - (1/\kappa)} \exp (-t_{i}^{-1/\kappa}), \quad
 t_{i} = 1 + \kappa \left(\frac{x_{i} - \mu }{\sigma } \right)
 $$
 
-Therefore, the Log-likelihood function is defined as follows:
+Therefore, its Log-likelihood is:
 
 $$
 \ell(x:\mu, \sigma, \kappa) = \sum_{i=1}^{n} \left[-\ln \sigma - \left(1 + \frac{1}{\kappa }\right) \ln t_{i} - t_{i}^{-1/\kappa}\right]
@@ -217,8 +220,9 @@ $$
 \end{cases}
 $$
 
-**Note**: Other sources often use a different parameterization for the GEV distribution in which the sign of the shape parameter $\kappa$ is flipped.
- w
+**Note**: Other sources often use a different notation for the GEV distribution in which the sign of the shape parameter $\kappa$ is flipped.
+
+
 ### Generalized Logistic (GLO) Distribution
 
 **Support**
@@ -242,14 +246,14 @@ $$
 
 **Likelihood Function**
 
-The probability density function (PDF) of the GLO distribution is given below (assume $t_{i} > 0)$:
+Its probability density function (PDF) is (assume $t_{i} > 0)$:
 
 $$
 f(x_{i} : \mu , \sigma , \kappa ) = \frac{1}{\sigma }t_{i}^{(1/\kappa) - 1} \left[1 + t_{i}^{1/\kappa}\right]^{-2}, \quad
 t_{i} = 1 - \kappa \left(\frac{x_{i} - \mu }{\sigma }\right)
 $$
 
-Therefore, the Log-likelihood function is defined as follows:
+Therefore, its Log-likelihood function is:
 
 $$
 \ell(x:\mu, \sigma, \kappa) = \sum_{i=1}^{n} \left[-\ln \sigma + \left(\frac{1}{\kappa }-1\right) \ln t_{i} - 2 \ln \left(1 + t_{i}^{1/\kappa }\right) \right]
@@ -357,7 +361,7 @@ x(F) = \begin{cases}
 \end{cases}
 $$
 
-In the equations above, $q$ is the quantile function of the Gamma distribution with with shape $\alpha$ and scale $\beta$. $q$ is defined below, where $\gamma$ is the _lower incomplete Gamma function_.
+In the equations above, $q$ is the quantile function of the Gamma distribution with shape $\alpha$ and scale $\beta$. $q$ is defined below, where $\gamma$ is the _lower incomplete Gamma function_.
 
 $$q(F, \alpha, \beta) = \beta \gamma ^{-1}(\alpha, p \Gamma (\alpha))$$
 
@@ -369,7 +373,7 @@ $$
 f(x_{i} : \mu , \sigma , \kappa ) = \frac{(x_{i} - \xi)^{\alpha  - 1}e^{-(x_{i} - \xi )/\beta }}{\beta ^{\alpha } \Gamma (\alpha )}
 $$
 
-Therefore, the Log-likelihood function is defined as follows:
+Therefore, its Log-likelihood function is:
 
 $$
 \ell(x:\mu, \sigma, \kappa) = \sum_{i=1}^{n} \left[(\alpha  - 1) \ln |x_{i} - \xi | - \frac{|x_{i} - \xi  |}{\beta } - \alpha \ln\beta  - \ln \Gamma (\alpha )\right]
@@ -394,7 +398,7 @@ $$
 \end{aligned}
 $$
 
-If $\alpha < 1$ we use a different set of coefficients:
+If $\alpha < 1$, we use a different set of coefficients:
 
 $$
 \begin{aligned}
@@ -463,7 +467,7 @@ Same as the [PE3 distribution](#pearson-type-iii-pe3-distribution).
 
 ### Weibull (WEI) Distribution
 
-The Weibull distribution is a reparameterized version of the generalized extreme value distribution:
+The Weibull distribution is implemented as a reparameterized version of the generalized extreme value distribution:
 
 $$
 \begin{aligned}
@@ -485,13 +489,13 @@ $x(F) = \mu + \sigma (-\log (1 - F))^{1/\kappa}$
 
 **Likelihood Function**
 
-The probability density function (PDF) of the Weibull distribution is given below for $x_{i} > \mu$:
+Its probability density function (PDF) is given below for $x_{i} > \mu$:
 
 $$
 f(x_{i} : \mu, \sigma, \kappa) = \frac{\kappa}{\sigma }\left(\frac{x_{i} - \mu}{\sigma }\right)^{\kappa -1} \exp \left( - \left(\frac{x_{i} - \mu}{\sigma }\right)^{\kappa } \right)
 $$
 
-Therefore, the Log-likelihood function is defined as follows:
+Therefore, its Log-likelihood function is:
 
 $$
 \ell(x:\mu, \sigma, \kappa) = \sum_{i=1}^{n} \left[\ln \kappa - \kappa \ln \sigma +(\kappa -1)\ln (x_{i}-\mu ) - \left(\frac{x_{i} - \mu }{\sigma }\right) ^{\kappa } \right]
@@ -499,7 +503,7 @@ $$
 
 **L-Moments**
 
-First, reparameterize the Weibull distribution and to recover the GEV parameters:
+First, reparameterize the Weibull distribution to recover the GEV parameters:
 
 $$
 \begin{aligned}

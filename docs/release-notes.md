@@ -1,11 +1,43 @@
 # Changelog
 
+## v0.2.1
+
+July 17th, 2025
+
+Changes to the CLI:
+
+- Fix `load_data` to better handle missing entries.
+- Add Mission Creek (`Application_5.csv`) and Lake Louise (`Application_4.csv`) datasets.
+- Add station information to the top of each CSV file.
+- Add support for manual trend selection.
+- Add support for batch processing of multiple datasets.
+- Add support for three more report types (markdown, PDF, and JSON)
+
+Changes to the package:
+
+- Report error producing unreasonably wide confidence interval in `uncertainty_bootstrap`.
+- Report numerical stability errors in `uncertainty_rfpl`.
+- Add function `plot_ams_data` for plotting raw AMS data.
+- Add an option to plot a trend in the variance when using `plot_sens_trend`.
+- Modify `select_lkurtosis` to only recommend 3-parameter distributions.
+
+Changes to the vignettes:
+
+- Provide information about each station and a plot of the data at the start of each vignette.
+- Split the trend identification vignette into two (one for mean, one for variability).
+- Replace the Okanagan River dataset with Mission Creek for the trend in variability vignette.
+
+Changes to the documentation website:
+
+- Add a cheat sheet for the R package.
+- Small changes to formatting and clarity.
+
 ## v0.2.0
 
 July 14th, 2025
 
 - The first version of the [CLI](cli-installation-instructions.md) is here!
-    - Perform stationary and non-stationary flood frequency analysis
+    - Perform stationary and nonstationary flood frequency analysis
     - Configure the framework using the `config.yml` file
     - Generate HTML reports using `knitr` and `rmarkdown`
 
@@ -23,7 +55,7 @@ July 9th, 2025
 
 May 22nd, 2025
 
-- Return information about non-stationary structure(s) at the end of EDA.
+- Return information about nonstationary structure(s) at the end of EDA.
 - Use the `/data` and `/reports` directories as defaults in `config.yml`.
 - Refactor code for batching EDA in `stats.R`, `eda.R`.
 - Implement support for PDF reports using a custom $\LaTeX$ template.
@@ -42,4 +74,4 @@ May 16th, 2025
 
 - Execute individual statistical tests using `stats.R`.
 - Run a suite of unit tests using `tests.R`.
-- Run the entire EDA pipeline (without data spliting) using `eda.R`.
+- Run the entire EDA pipeline (without data splitting) using `eda.R`.

@@ -1,6 +1,6 @@
 # Model Assessment
 
-## Non-Parametric Models
+## Nonparametric Models
 
 A **Plotting Position** is a non-parametric estimator used to derive empirical exceedance probabilities. By using the plotting position, we can evaluate the quality of our parametric model. To compute the plotting position, arrange the sample observations in descending order of magnitude: $x_{n:n} \geq  \dots  \geq  x_{1:n}$. Then, the empirical exceedance probabilities are given by the following formula:
 
@@ -24,8 +24,8 @@ By default, the FFA framework uses the Weibull formula, which is unbiased.
 
 ### $R^2$ - Coefficient of Determination
 
-To compute the $R^2$ statistic, we perform a linear regression of the streamflow data against the predictions of the parametric model at the plotting positions.
-The $R^2$ statistic describes how well the parametric model captures variance in the streamflow data. 
+To compute the $R^2$ statistic, we perform a linear regression of the annual maximum series data against the predictions of the parametric model at the plotting positions.
+The $R^2$ statistic describes how well the parametric model captures variance in the data. 
 Higher is better.
 
 The plot below shows the deviation of the estimated quantiles (red dots), from the data (black line).
@@ -34,7 +34,7 @@ The plot below shows the deviation of the estimated quantiles (red dots), from t
 
 ### RMSE - Root-Mean Squared Error
 
-The `RMSE` statistic describes the average *squared* difference between the streamflow data and the predictions of the parametric model.
+The `RMSE` statistic describes the average *squared* difference between the data and the predictions of the parametric model.
 Lower is better.
 
 ### Bias

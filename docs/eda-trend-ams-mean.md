@@ -4,16 +4,20 @@ This section describes the statistical tests (listed in alphabetical order) used
 
 ---
 
+**Note**: Statistical tests are listed in *alphabetical order*.
+
 ## BB-MK Test
 
-The **Block Bootstrap Mann-Kendall (BB-MK) Test** assesses the presence of a statistically significant monotonic trend in a time series. The BB-MK test is insensitive to [autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation), which is known to produce false positives in the [MK test](#mann-kendall-test).
+The **Block Bootstrap Mann-Kendall (BB-MK) Test** assesses the presence of a statistically significant monotonic trend in a time series.
+The BB-MK test is insensitive to [autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation), which is known to produce false positives in the [MK test](#mann-kendall-test).
 
 - Null hypothesis: No monotonic trend.
 - Alternative hypothesis: A monotonic upward or downward trend exists.
 
-To conduct the BB-MK test, we rely on the results of the MK test and the Spearman test.
+To conduct the BB-MK test, we rely on the results of the MK test and the Spearman auto-correlation test.
 
-### Procedure
+### Steps
+
 1. Compute the MK test statistic (see below).
 2. Use the Spearman test (see below) to identify the least insignificant lag $k$.
 3. Resample the time series in blocks of size $k+1$ without replacement
@@ -29,12 +33,13 @@ To conduct the BB-MK test, we rely on the results of the MK test and the Spearma
 
 ## KPSS Test
 
-The **KPSS Test** determines whether an autoregressive time series exhibits a [unit root](https://en.wikipedia.org/wiki/Unit_root). This test helps assess if the time series has a deterministic linear trend.
+The **KPSS Test** determines whether an autoregressive time series has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
+This test helps assess if the time series has a deterministic linear trend.
 
 - Null hypothesis: The time series has a deterministic linear trend.
 - Alternative hypothesis: The time series has a unit root.
 
-Precisely, the autoregressive time series shown below has a unit root if $\sigma_{v}^2 > 0$:
+The autoregressive time series shown below has a unit root if $\sigma_{v}^2 > 0$:
 
 $$
 \begin{align}
@@ -44,7 +49,7 @@ v_{t} &\sim \mathcal{N}(0, \sigma_{v}^2)
 \end{align}
 $$
 
-Here is what each term in this formulation represents:
+where:
 
 - $\mu_{t}$ is the _drift_, or the deviation of $y_{t}$ from $0$.
   Under the null hypothesis, $\mu_{t}$ is constant (since $v_{t}$ is constant).
@@ -54,21 +59,21 @@ Here is what each term in this formulation represents:
   In hydrology, $\epsilon_{t}$ represents fluctuations in streamflow due to natural variability.
 - $v_{t}$ is _random walk innovation_, or irreversible fluctuations in $\mu_{t}$.
 
-### Steps
+### Steps 
 
 1. Fit a linear model to $y_{t}$ and get the residuals $\hat{r}_{t}$.
 2. Compute the cumulative partial-sum statistics $S_{k}$ using the following formula:
 
-$$
-S_{k} = \sum_{t=1}^{k} \hat{r}_{t}
-$$
+    $$
+    S_{k} = \sum_{t=1}^{k} \hat{r}_{t}
+    $$
 
-Under the null hypothesis, $S_{k}$ will behave like a random walk with finite variance.
-If $y_{t}$ has a unit root, then the sums will "drift" too much.
+    Under the null hypothesis, $S_{k}$ will behave like a random walk with finite variance.
+    If $y_{t}$ has a unit root, then the sums will "drift" too much.
 
 3. Estimate the long-run variance of the time series using a [Newey-West estimator](https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator): 
 
-$$
+   $$
    \hat{\lambda}^2 = \hat{\gamma}_0 + 2 \sum_{j=1}^{q} \left(1 - \frac{j}{q+1} \right) \hat{\gamma}_j
    $$
 
@@ -81,18 +86,16 @@ $$
 4. Compute the test statistic $z_{\text{KPSS}}$:
 
 $$
-z_{\text{KPSS}} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
+z_{K} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
 $$
 
 5. Since the test statistic $z_{\text{KPSS}}$ is non-normally distributed, we compute the p-value by interpolating the table of quantiles from [Hobjin et al. (2004)](https://doi.org/10.1111/j.1467-9574.2004.00272.x) shown below.
 
-| Probability       | 0.90  | 0.95  | 0.975 | 0.99  |
+| $q$       | 0.90  | 0.95  | 0.975 | 0.99  |
 | --------- | ----- | ----- | ----- | ----- |
-| Quantile | 0.119 | 0.146 | 0.176 | 0.216 |
+| Statistic | 0.119 | 0.146 | 0.176 | 0.216 |
 
 **Warning**: The interpolation only works for $0.01 < p < 0.10$ (p-values below $0.01$ and above $0.10$ will be truncated) and significance levels $\alpha$ between $0.01$ and $0.10$.
-
----
 
 ## Mann-Kendall (MK) Test
 
@@ -119,18 +122,17 @@ Then, compute the MK test statistic, $Z_{MK}$, as follows:
 $$
 Z_{MK} = \begin{cases}
 \frac{S-1}{\sqrt{\text{Var}(S)}} &\text{if } S > 0 \\
-0 &\text{if }  S = 0 \\[4pt]
+0 &\text{if }  S = 0 \\
 \frac{S+1}{\sqrt{\text{Var}(S)}} &\text{if } S < 0
 \end{cases}
 $$
 
-For a two-sided test, we reject the null hypothesis if $|Z_{MK}| \geq Z_{1 - (\alpha/2) }$ and conclude that there is a statistically significant monotonic trend in the data. For more information, see [here](https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm).
-
----
+For a two-sided test, we reject the null hypothesis if $|Z_{MK}| \geq Z_{1 - (\alpha/2) }$ and conclude that there is a statistically significant monotonic trend in the data.
+For more information, see [here](https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm).
 
 ## Phillips-Perron (PP) Test
 
-The **PP test** is used to identify if an autoregressive time series has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
+The **PP test** identifies if an autoregressive time series has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
 
 - Null hypothesis: The time series has a unit root.
 - Alternative hypothesis: The time series has a deterministic trend.
@@ -238,7 +240,8 @@ $$
 
 ## Sen's Trend Estimator
 
-The **Sen's trend estimator** approximates the slope of a regression line. Unlike [Least Squares](https://en.wikipedia.org/wiki/Least_squares), the Sen's trend estimator uses a non-parametric approach, which makes it robust to outliers.
+The **Sen's trend estimator** approximates the slope of a regression line.
+Unlike [Least Squares](https://en.wikipedia.org/wiki/Least_squares), the Sen's trend estimator uses a non-parametric approach, which makes it robust to outliers.
 
 ### Steps
 

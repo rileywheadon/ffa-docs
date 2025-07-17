@@ -4,7 +4,7 @@
 
 **Known Issues**:
 
-- Sample bootstrap yields unusually large CIs for non-stationary models
+- Sample bootstrap yields unusually large CIs for nonstationary models
 - RFPL breaks on some stations (i.e. Lake Louise, station ID `05BA001`)
 
 ## Command Line Interface
@@ -25,11 +25,3 @@
 - Secondary change point analysis
 - Option to set trend signatures prior to analysis
 - Option to export reports to formats other than `.html`
-
-## API Development
-
-Starting soon.
-
-## Web App
-
-Starting soon.

@@ -2,8 +2,6 @@
 
 This section describes the methods used to detect trends or changes in the **variability** (e.g., variance or standard deviation) of the Annual Maximum Series (AMS).
 
----
-
 ## Moving Window Mann-Kendall (MW-MK) Test
 
 The **MW-MK test** detects statistically significant monotonic trends in the standard deviation of an AMS time series.
@@ -12,6 +10,7 @@ The **MW-MK test** detects statistically significant monotonic trends in the sta
 - Alternative hypothesis: Significant trend in the standard deviation.
 
 ### Steps
+
 To compute the AMS standard deviations, we use a moving window algorithm. Let $w$ be the length of the moving window and $s$ be the step size:
 
 1. Initialize the moving window at indices $[1, w]$.
@@ -24,21 +23,15 @@ Then, apply the Mann-Kendall Test to this series to test for monotonic trends.
 
 For more information about the Mann-Kendall test, see [here](eda-trend-ams-mean.md#mann-kendall-test).
 
----
-
 ## Sen's Trend Estimator 
 
 Used to estimate the slope of a trend in the standard deviations' time series.  
 See [here](eda-trend-ams-mean.md#sens-trend-estimator).
 
----
-
 ## Runs Test
 
 Used to evaluate the randomness of residuals from a fitted trend in the standard deviations' time series.  
 See [here](eda-trend-ams-mean.md#runs-test).
-
----
 
 ## White Test
 

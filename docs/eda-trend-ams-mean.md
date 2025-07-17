@@ -2,9 +2,9 @@
 
 This section describes the statistical tests (listed in alphabetical order) used to detect significant trends in the mean of the annual maximum series (AMS) and characterize their nature (if any trend). These tests help determine whether the data contains a trend, whether is autocorrelated and also contains a trend on top of that, and whether trends are deterministic or stochastic and linear or non-linear (if any).
 
----
-
 **Note**: Statistical tests are listed in *alphabetical order*.
+
+---
 
 ## BB-MK Test
 
@@ -69,25 +69,26 @@ where:
     $$
 
     Under the null hypothesis, $S_{k}$ will behave like a random walk with finite variance.
+
     If $y_{t}$ has a unit root, then the sums will "drift" too much.
 
 3. Estimate the long-run variance of the time series using a [Newey-West estimator](https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator): 
 
-   $$
-   \hat{\lambda}^2 = \hat{\gamma}_0 + 2 \sum_{j=1}^{q} \left(1 - \frac{j}{q+1} \right) \hat{\gamma}_j
-   $$
+    $$
+    \hat{\lambda}^2 = \hat{\gamma}_0 + 2 \sum_{j=1}^{q} \left(1 - \frac{j}{q+1} \right) \hat{\gamma}_j
+    $$
 
-   Where $q = \left\lfloor \frac{3\sqrt{n}}{13} \right\rfloor$ and each autocovariance $\hat{\gamma}_j$ is:
+    Where $q = \left\lfloor \frac{3\sqrt{n}}{13} \right\rfloor$ and each autocovariance $\hat{\gamma}_j$ is:
 
-   $$
-   \hat{\gamma}_j = \frac{1}{n} \sum_{t = j+1}^{n} \hat{r}_t \hat{r}_{t-j}
-   $$
+    $$
+    \hat{\gamma}_j = \frac{1}{n} \sum_{t = j+1}^{n} \hat{r}_t \hat{r}_{t-j}
+    $$
 
 4. Compute the test statistic $z_{\text{KPSS}}$:
 
-$$
-z_{K} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
-$$
+    $$
+    z_{K} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
+    $$
 
 5. Since the test statistic $z_{\text{KPSS}}$ is non-normally distributed, we compute the p-value by interpolating the table of quantiles from [Hobjin et al. (2004)](https://doi.org/10.1111/j.1467-9574.2004.00272.x) shown below.
 
@@ -96,6 +97,8 @@ $$
 | Statistic | 0.119 | 0.146 | 0.176 | 0.216 |
 
 **Warning**: The interpolation only works for $0.01 < p < 0.10$ (p-values below $0.01$ and above $0.10$ will be truncated) and significance levels $\alpha$ between $0.01$ and $0.10$.
+
+---
 
 ## Mann-Kendall (MK) Test
 
@@ -130,6 +133,8 @@ $$
 For a two-sided test, we reject the null hypothesis if $|Z_{MK}| \geq Z_{1 - (\alpha/2) }$ and conclude that there is a statistically significant monotonic trend in the data.
 For more information, see [here](https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm).
 
+---
+
 ## Phillips-Perron (PP) Test
 
 The **PP test** identifies if an autoregressive time series has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
@@ -152,41 +157,41 @@ $$
 
 ### Steps
 
-1. Fit an autoregressive linear model to the time series $y_{t}$. Let $\hat{r}_{t}$ be the residuals of this model. From this model, we can determine $\hat{\rho}$ (the estimated coefficient on $y_{t-1}$) and $\text{SE}(\hat{\rho})$ (its standard error).
+1. Fit a linear autoregressive model to the time series $y_{t}$. Let $\hat{r}_{t}$ be the residuals of this model. From this model, we can determine $\hat{\rho}$ (the estimated coefficient on $y_{t-1}$) and $\text{SE}(\hat{\rho})$.
 2. Estimate the variance of the residuals $\hat{\sigma}^2$:
 
-$$
-\hat{\sigma^2} = \frac{1}{n - 3} \sum_{t=1}^{n} \hat{r}_{t}^2
-$$
+    $$
+    \hat{\sigma^2} = \frac{1}{n - 3} \sum_{t=1}^{n} \hat{r}_{t}^2
+    $$
 
-where $n$ is the number of data points in the sample. We have $n-3$ degrees of freedom since there are three parameters in the autoregressive model ($\beta_{0}$, $\beta_{1}$, and $\rho$).
+    where $n$ is the number of data points in the sample. We have $n-3$ degrees of freedom since there are three parameters in the autoregressive model ($\beta_{0}$, $\beta_{1}$, and $\rho$).
 
 3. Compute the sample autocovariances $\gamma_{j}$ for up to $q$ lags:
 
-$$
-\hat{\gamma}_{j} = \frac{1}{n} \sum_{t = j + 1}^{n} \hat{r}_{t}\hat{r}_{t-j}
-$$
+    $$
+    \hat{\gamma}_{j} = \frac{1}{n} \sum_{t = j + 1}^{n} \hat{r}_{t}\hat{r}_{t-j}
+    $$
 
-where:
+    where:
 
-$$
-q = \left\lfloor \sqrt[4]{\frac{n}{25}}\right\rfloor
-$$
+    $$
+    q = \left\lfloor \sqrt[4]{\frac{n}{25}}\right\rfloor
+    $$
 
-The sample autocovariance $\gamma_{j}$ measures the correlation between the time series $y_{t}$ and the shifted time series $y_{t-j}$.
+    The sample autocovariance $\gamma_{j}$ measures the correlation between the time series $y_{t}$ and the shifted time series $y_{t-j}$.
 
 4. Estimate the long-run variance $\hat{\lambda}^2$ using a [Newey-West](https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator) style estimator.
 This estimator corrects for the additional variability in $\epsilon_{t}$ caused by autocorrelation and heteroskedasticity.
 
-$$
-\hat{\lambda}^2 = \hat{\gamma}_{0} + 2\sum_{j=1}^{q} \left(1 - \frac{j}{q + 1} \right)  \gamma_{j}
-$$
+    $$
+    \hat{\lambda}^2 = \hat{\gamma}_{0} + 2\sum_{j=1}^{q} \left(1 - \frac{j}{q + 1} \right)  \gamma_{j}
+    $$
 
 5. Compute the test statistic $z_{\rho}$ using the following formula:
 
-$$
-z_{\rho } = n(\hat{\rho} - 1) - \frac{n^2 \text{SE}(\hat{\rho})^2}{2 \hat{\sigma}^2}(\hat{\lambda }^2 - \hat{\gamma}_{0})
-$$
+    $$
+    z_{\rho } = n(\hat{\rho} - 1) - \frac{n^2 \text{SE}(\hat{\rho})^2}{2 \hat{\sigma}^2}(\hat{\lambda }^2 - \hat{\gamma}_{0})
+    $$
 
 The test statistic $z_{\rho}$ is not normally distributed. Instead, we compute the p-value by interpolating a table from Fuller, W. A. (1996).
 This table is shown below for sample sizes $n$ and probabilities $p$:
@@ -200,7 +205,7 @@ This table is shown below for sample sizes $n$ and probabilities $p$:
 | 500       | -28.9 | -24.7 | -21.5 | -18.1 | -9.08 | -3.76 | -2.66 | -1.80 | -0.86 |
 | 1000      | -29.4 | -25.0 | -21.7 | -18.3 | -9.11 | -3.77 | -2.67 | -1.81 | -0.88 |
 
-**Warning**: The interpolation only works for $0.01 < p$ (p-values below $0.01$ will be truncated) and $0.01 < \alpha$.
+**Warning**: The interpolation only works for p-values $p > 0.01$ (p-values below $0.01$ are truncated) and confidence levels $\alpha > 0.01$.
 
 ---
 
@@ -217,20 +222,20 @@ If the Runs test identifies non-randomness in the residuals, it is a strong indi
 1. Classify the data based on whether it is above ($+$) or below $(-)$ the median. Any data points equal to the median are removed.
 2. Compute the number of contiguous blocks of $+$ or $-$ (known as _runs_) in the data.
 
-> **Example**: Suppose that after categorization, the sequence of data is as follows:
->
-> $$
-> +++--+++-+-
-> $$
->
-> This sequence has six runs with length $(3, 2, 3, 1,1, 1)$.
+    > **Example**: Suppose that after categorization, the sequence of data is as follows:
+    >
+    > $$
+    > +++--+++-+-
+    > $$
+    >
+    > This sequence has six runs with length $(3, 2, 3, 1,1, 1)$.
 
 3. Let $R$ be the number of runs in $N$ data points (with category counts $N_{+}$ and $N_{-}$). Then, under the null hypothesis, $R$ is asymptotically normal with:
 
-$$
-\mathbb{E}[R] = \frac{2N_{+}N_{-}}{N} + 1, \quad
-\text{Var}(R) = \frac{2N_{+}N_{-}(2N_{+}N_{-} - N)}{N^2(N - 1)}
-$$
+    $$
+    \mathbb{E}[R] = \frac{2N_{+}N_{-}}{N} + 1, \quad
+    \text{Var}(R) = \frac{2N_{+}N_{-}(2N_{+}N_{-} - N)}{N^2(N - 1)}
+    $$
 
 ### Example Plot
 
@@ -247,9 +252,9 @@ Unlike [Least Squares](https://en.wikipedia.org/wiki/Least_squares), the Sen's t
 
 1. For all pairs $(x_i, y_i)$ and $(x_j, y_j)$ where $x_i \neq x_j$, compute slopes:
 
-   $$
-   m_{ij} = \frac{y_j - y_i}{x_j - x_i}
-   $$
+    $$
+    m_{ij} = \frac{y_j - y_i}{x_j - x_i}
+    $$
 
 2. Take the median of all slopes: $\hat{m}$.
 3. Estimate the $y$-intercept $b$ as the median of $y_{i} - \hat{m}x_{i}$ for all $i$.
@@ -273,10 +278,10 @@ To carry out the Spearman test, we use the following procedure:
 
 1. Compute Spearman's correlation coefficient $\rho_{i}$ for $y_{t}$ and $y_{t-i}$ for all $0 \leq  i <  n$.
 2. Compute the $p$-value $p_{i}$ for each correlation coefficient $\rho _{i}$ using:
-$$
-t_{i}= \rho_{i} \sqrt{\frac{n-2}{1 - \rho _{i}^2}}
-$$
-The test statistic $t_{i}$ has the $t$-distribution with $n-2$ degrees of freedom.
+    $$
+    t_{i}= \rho_{i} \sqrt{\frac{n-2}{1 - \rho _{i}^2}}
+    $$
+    The test statistic $t_{i}$ has the $t$-distribution with $n-2$ degrees of freedom.
 3. Find the largest $i$ such that $p_{j} \leq  \alpha$ for all $j \leq i$. The value of $i$ is the least insignificant lag at confidence level $\alpha$.
 
 For more information, see the Wikipedia pages on [Autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation) and [Spearman's Rho](https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient).

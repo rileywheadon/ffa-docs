@@ -257,14 +257,14 @@ z = \frac{\tau_{4} (\kappa ^{*}) - t_{4} + B_{4} }{ \sigma _{4}}
 <h3 id="decomposition-steps">Decomposition Steps</h3>
 <h4 id="scenario-1-trend-in-mean">Scenario 1: Trend in mean</h4>
 <ol>
-<li>Use <a href="eda.md#sens-trend-estimator">Sen's Trend Estimator</a> to approximate the slope <span class="arithmatex">\(b_1\)</span> and intercept <span class="arithmatex">\(b_0\)</span>.</li>
+<li>Use <a href="../eda-trend-ams-mean/#sens-trend-estimator">Sen's Trend Estimator</a> to approximate the slope <span class="arithmatex">\(b_1\)</span> and intercept <span class="arithmatex">\(b_0\)</span>.</li>
 <li>Detrend: subtract the linear function <span class="arithmatex">\((b_{1} \cdot \text{Covariate})\)</span> from the time series, where the <em>covariate</em> is a time index calculated using the formula <span class="arithmatex">\((\text{Years} - 1900) / 100\)</span>.</li>
 <li>Ensure positivity: if necessary, shift series by adding a constant such that <span class="arithmatex">\(\min(\text{data}) = 1\)</span>.</li>
 </ol>
 <h4 id="scenario-2-trend-in-standard-deviation">Scenario 2: Trend in standard deviation</h4>
 <ol>
 <li>Generate a time series of standard deviations using the moving windows method.</li>
-<li>Use <a href="eda.md#sens-trend-estimator">Sen's Trend Estimator</a> to identify the slope <span class="arithmatex">\(c_{1}\)</span> and intercept <span class="arithmatex">\(c_{0}\)</span> of the trend in the standard deviations.</li>
+<li>Use <a href="../eda-trend-ams-variability/#sens-trend-estimator">Sen's Trend Estimator</a> to identify the slope <span class="arithmatex">\(c_{1}\)</span> and intercept <span class="arithmatex">\(c_{0}\)</span> of the trend in the standard deviations.</li>
 <li>
 <p>Normalize the data to have mean <span class="arithmatex">\(0\)</span>, then divide out the scale factor <span class="arithmatex">\(g_{t}\)</span>.</p>
 <div class="arithmatex">\[

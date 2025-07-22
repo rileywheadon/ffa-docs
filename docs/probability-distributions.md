@@ -14,44 +14,15 @@ The FFA framework considers nine candidate probability distributions:
 | Log-Pearson Type III       | `LP3`        | $\mu$ (location), $\sigma$ (scale), $\kappa$ (shape) |
 | Weibull                    | `WEI`        | $\mu$ (location), $\sigma$ (scale), $\kappa$ (shape) |
 
-Each distribution also has two nonstationary variants, which we denote by adding a **nonstationary structure** to the model abbreviation.
-For two-parameter distributions (`GUM`, `NOR`, `LNO`):
+Each distribution also has three nonstationary variants:
 
-1. `XXX` is the standard, stationary model.
-2. `XXX10` has a trend in the location parameter $\mu$.
-3. `XXX01` has a trend in the scale parameter $\sigma$.
-4. `XXX11` has a trend in the location $\mu$ and the scale $\sigma$.
-
-Shown below is a table summarizing these three models:
-
-| Feature              | `XXX`               | `XXX10`             | `XXX01`                | `XXX11`                |
-| -------------------- | ------------------- | ------------------- | ---------------------- | ---------------------- |
-| Location $\mu$       | $\mu$ (constant)    | $\mu_t = \mu_0 + \mu_1z$    | $\mu$ (constant)       | $\mu_t = \mu_0 + \mu_1z$       |
-| Scale $\sigma$       | $\sigma$ (constant) | $\sigma$ (constant) | $\sigma_t = \sigma_0 + \sigma_1z$ | $\sigma_t = \sigma_0 + \sigma_1z$ |
-| Number of Parameters | 2                   | 3                   | 3                      | 4                      |
-
-where $z$ is the covariate.
-
-For three-parameter distributions (`GEV`, `GLO`, `GNO`, `PE3`, `LP3`, `WEI`):
-
-1. `XXX` is the standard, stationary model.
-2. `XXX100` has a trend in the location parameter $\mu$.
-3. `XXX010` has a trend in the scale parameter $\sigma$.
-3. `XXX110` has a trend in the location $\mu$ and the scale $\sigma$.
-
-Shown below is a table summarizing these three models:
-
-| Feature              | `XXX`               | `XXX100`            | `XXX010`               | `XXX110`               |
-| -------------------- | ------------------- | ------------------- | ---------------------- | ---------------------- |
-| Location $\mu$       | $\mu$ (constant)    | $\mu_t = \mu_0 + \mu_1z$    | $\mu$ (constant)       | $\mu_t = \mu_0 + \mu_1z$       |
-| Scale $\sigma$       | $\sigma$ (constant) | $\sigma$ (constant) | $\sigma_t = \sigma_0 + \sigma_1z$ | $\sigma_t = \sigma_0 + \sigma_1z$ |
-| Shape $\kappa$       | $\kappa$ (constant) | $\kappa$ (constant) | $\kappa$ (constant)    | $\kappa$ (constant)    |
-| Number of Parameters | 3                   | 4                   | 4                      | 5                      |
+1. A trend in the location parameter $\mu$ (+1 parameter).
+2. A trend in the scale parameter $\sigma$ (+1 parameter).
+3. A trend in the location $\mu$ and the scale $\sigma$ (+2 parameters).
 
 The FFA framework also uses the four-parameter Kappa distribution (KAP) for the [Z-statistic](model-selection.md#3-z-statistic) selection metric. The Kappa distribution generalizes the nine distributions listed above.
 
 ---
-
 
 ## List of Distributions[^1]
 
@@ -169,7 +140,7 @@ $$
 \begin{cases}
 \mu + (\sigma /\kappa) \leq x < \infty & \kappa > 0 \\[5pt]
 -\infty < x < \infty & \kappa  = 0 \\[5pt]
--\infty < x \leq \mu + (\sigma/\kappa ) &\kappa < 0 
+-\infty < x \leq \mu + (\sigma/\kappa ) &\kappa < 0
 \end{cases}
 $$
 
@@ -223,7 +194,6 @@ $$
 $$
 
 **Note**: Other sources often use a different notation for the GEV distribution in which the sign of the shape parameter $\kappa$ is flipped.
-
 
 ### Generalized Logistic (GLO) Distribution
 
@@ -544,16 +514,16 @@ $$
 **Quantiles**
 
 $$
-x(F) = \mu + \frac{\sigma }{\kappa }\left[1 - \left(\frac{1 - F^{h}}{h}\right)^{\kappa }\right] 
-$$ 
+x(F) = \mu + \frac{\sigma }{\kappa }\left[1 - \left(\frac{1 - F^{h}}{h}\right)^{\kappa }\right]
+$$
 
 **L-Moments**
 
-The L-moments are defined if $h \geq 0$ and $k > -1$ or if $h < 0$ and  $-1 < k < -1/h$.
+The L-moments are defined if $h \geq 0$ and $k > -1$ or if $h < 0$ and $-1 < k < -1/h$.
 
 - $\lambda_{1} = \mu  + \sigma (1 - g_{1})/\kappa$
 - $\lambda_{2} = \sigma(g_{1} - g_{2})/\kappa$
-- $\tau_{3} = (-g_{1} + 3g_{2} - 2g_{3}) / (g_{1} - g_{2})$ 
+- $\tau_{3} = (-g_{1} + 3g_{2} - 2g_{3}) / (g_{1} - g_{2})$
 - $\tau_{4} = (-g_{1} + 6g_{2} - 10g_{3} + 5g_{4}) / (g_{1} - g_{2})$
 
 In the expression above, $g_{r}$ is defined as follows:
@@ -563,9 +533,9 @@ g_{r} = \begin{dcases}
 \frac{r\Gamma (1 + \kappa )\Gamma (r / h)}{h^{1 + \kappa }\Gamma (1 + \kappa + r/h)} &h > 0 \\[5pt]
 \frac{r\Gamma (1 + \kappa ) \Gamma (-\kappa  - r/h)}{(-h)^{1 + \kappa }\Gamma (1 - r/h)} &h < 0
 \end{dcases}
-$$ 
+$$
 
-There is no closed-form solution for the parameters in terms of the L-moments. 
+There is no closed-form solution for the parameters in terms of the L-moments.
 However, $\tau_{3}$ and $\tau_{4}$ can be computed in terms of $\kappa$ and $h$ using Newton-Raphson iteration.
 
 ## Sources

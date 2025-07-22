@@ -43,7 +43,7 @@ $$
 
 In the FFA framework, we compute the profile likelihood of each quantile $y$ by reparameterizing the location parameter $\mu$.
 Let $q(p, \mu, \psi)$ be a function that takes an exceedance probability $p$, location parameter $\mu$ and nuisance parameters $\psi$ and returns a quantile $y$.
-All quantile functions[^1] satisfy: 
+All quantile functions satisfy: 
 
 $$
 y = q(p, \mu, \psi) = \mu + q(p, 0, \psi)
@@ -58,7 +58,7 @@ $$
 We use this relationship to find the profile likelihood $\ell_{p}(y)$ by evaluating $\mu(p, y, \psi)$ and substituting it into the log-likelihood functions listed [here](parameter-estimation.md#maximum-likelihood-mle).
 
 **Warning**: RFPL uncertainty quantification can be numerically unstable for some datasets. 
-If the FFA framework encounters an issue, it will return an error and recommend the parametric bootstrap.
+If the FFA framework encounters an issue, it will return an error and recommend the parametric bootstrap[^1].
 
 ### Handling the Weibull Distribution
 
@@ -72,7 +72,8 @@ $$
 \end{aligned}
 $$
 
-The derivation above uses the `WEI110` model, although the `WEI100` and `WEI` reparameterizations can be obtained easily by setting $\sigma_{1} = 0$ and $\sigma_{1} = \mu_{1} = 0$ respectively.
+The derivation above uses the Weibull distribution with a trend in both the mean and the variability.
+However, the reparameterizations for other nonstationary structures can be obtained easily by setting $\sigma_{1} = 0$ and/or $\mu_{1} = 0$.
 After solving for $\sigma_{0}$ in terms of the other parameters, we can use the standard log-likelihood function.
 
 ### Initialization Algorithm
@@ -115,7 +116,7 @@ By default, the FFA framework anchors uncertainty analysis at the *last* year of
 However, [model assessment](model-assessment.md) requires confidence intervals for *every* year in the dataset.
 
 **Note**: The parametric bootstrap algorithm is the fastest algorithm for computing confidence intervals on all years in a dataset because the probabilities used to generate the bootstrapped samples can be reused.
-The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.[^1]
+The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.
 
 [^1]: For more information, please see the following references:
 

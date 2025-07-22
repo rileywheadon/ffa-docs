@@ -1,8 +1,7 @@
-# Detecting Trends in the AMS Mean and their nature 
+# Detecting and Characterizing Trends in the AMS Mean
 
-This section describes the statistical tests (listed in alphabetical order) used to detect significant trends in the mean of the annual maximum series (AMS) and characterize their nature (if any trend). These tests help determine whether the data contains a trend, whether is autocorrelated and also contains a trend on top of that, and whether trends are deterministic or stochastic and linear or non-linear (if any).
-
-**Note**: Statistical tests are listed in *alphabetical order*.
+This section describes the statistical tests (listed in alphabetical order) used to detect and characterizesignificant trends in the mean of the annual maximum series (AMS).
+These tests help identify a trend, identify autocorrelation, and determine whether a trend is deterministic/stochastic and linear/non-linear.
 
 ---
 
@@ -14,13 +13,13 @@ The BB-MK test is insensitive to [autocorrelation](https://en.wikipedia.org/wiki
 - Null hypothesis: No monotonic trend.
 - Alternative hypothesis: A monotonic upward or downward trend exists.
 
-To conduct the BB-MK test, we rely on the results of the MK test and the Spearman auto-correlation test.
+To conduct the BB-MK test, we rely on the results of the MK test and the Spearman autocorrelation test.
 
 ### Steps
 
 1. Compute the MK test statistic (see below).
 2. Use the Spearman test (see below) to identify the least insignificant lag $k$.
-3. Resample the time series in blocks of size $k+1$ without replacement
+3. Resample the time series in blocks of size $k+1$ without replacement.
 4. Compute the MK test statistic for each bootstrapped sample.
 5. Derive the empirical distribution of the MK test statistic from the bootstrapped statistics.
 6. Estimate the significance of the observed test statistic using the empirical distribution.
@@ -37,7 +36,7 @@ The **KPSS Test** determines whether an autoregressive time series has a [unit r
 This test helps assess if the time series has a deterministic linear trend.
 
 - Null hypothesis: The time series has a deterministic linear trend.
-- Alternative hypothesis: The time series has a unit root.
+- Alternative hypothesis: The time series has a unit root (stochastic trend).
 
 The autoregressive time series shown below has a unit root if $\sigma_{v}^2 > 0$:
 
@@ -53,7 +52,7 @@ where:
 
 - $\mu_{t}$ is the _drift_, or the deviation of $y_{t}$ from $0$.
   Under the null hypothesis, $\mu_{t}$ is constant (since $v_{t}$ is constant).
-  Under the alternative hypothesis, $\mu_t$ is a stochastic process with unit root.
+  Under the alternative hypothesis, $\mu_t$ is a stochastic process with a unit root.
 - $\beta t$ is a _linear trend_, which represents deterministic nonstationarity (e.g., climate change).
 - $\epsilon_{t}$ is _stationary noise_, corresponding to reversible fluctuations in $y_{t}$.
   In hydrology, $\epsilon_{t}$ represents fluctuations in streamflow due to natural variability.
@@ -84,13 +83,13 @@ where:
     \hat{\gamma}_j = \frac{1}{n} \sum_{t = j+1}^{n} \hat{r}_t \hat{r}_{t-j}
     $$
 
-4. Compute the test statistic $z_{\text{KPSS}}$:
+4. Compute the test statistic $z_{K}$:
 
     $$
     z_{K} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
     $$
 
-5. Since the test statistic $z_{\text{KPSS}}$ is non-normally distributed, we compute the p-value by interpolating the table of quantiles from [Hobjin et al. (2004)](https://doi.org/10.1111/j.1467-9574.2004.00272.x) shown below.
+5. Since the test statistic $z_{K}$ is non-normally distributed, we compute the p-value by interpolating the table of quantiles from [Hobjin et al. (2004)](https://doi.org/10.1111/j.1467-9574.2004.00272.x) shown below.
 
 | $q$       | 0.90  | 0.95  | 0.975 | 0.99  |
 | --------- | ----- | ----- | ----- | ----- |
@@ -102,10 +101,10 @@ where:
 
 ## Mann-Kendall (MK) Test
 
-The **MK test** detects statistically significant monotonic trends in a time series assuming independence.
+The **Mann-Kendall (MK) Test** detects statistically significant monotonic trends in a time series under the assumption of independence (i.e. no autocorrelation).
 
-- Null hypothesis: No monotonic trend.
-- Alternative hypothesis: A monotonic trend exists (upward or downward).
+- Null hypothesis: There is no monotonic trend.
+- Alternative hypothesis: A (upward or downward) monotonic trend exists.
 
 Define $\text{sign} (x)$ to be $1$ if $x > 0$, $0$ if $x = 0$, and $-1$ otherwise.
 
@@ -120,7 +119,7 @@ Let $g$ be the number of tied groups and $t_{p}$ be the number of observations i
 
 $$\text{Var}(S) = \frac{1}{18} \left[n(n-1)(2n + 1) - \sum_{p-1}^{g} t_{p}(t_{p} - 1)(2t_{p} + 5) \right]$$
 
-Then, compute the MK test statistic, $Z_{MK}$, as follows:
+Then, compute the normally distributed test statistic $Z_{MK}$ as follows:
 
 $$
 Z_{MK} = \begin{cases}
@@ -137,10 +136,10 @@ For more information, see [here](https://vsp.pnnl.gov/help/vsample/design_trend_
 
 ## Phillips-Perron (PP) Test
 
-The **PP test** identifies if an autoregressive time series has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
+The **PP Test** identifies if an autoregressive time series has a [unit root](https://en.wikipedia.org/wiki/Unit_root).
 
-- Null hypothesis: The time series has a unit root.
-- Alternative hypothesis: The time series has a deterministic trend.
+- Null hypothesis: The time series has a unit root (stochastic trend).
+- Alternative hypothesis: The time series has a deterministic linear trend.
 
 Precisely, let $x_{t}$ be an [AR(1)](https://en.wikipedia.org/wiki/Autoregressive_model) model.
 Let $y_{t}$ be a function of $x_{t}$ with drift $\beta_{0}$ and trend $\beta_{1} t$.
@@ -166,25 +165,17 @@ $$
 
     where $n$ is the number of data points in the sample. We have $n-3$ degrees of freedom since there are three parameters in the autoregressive model ($\beta_{0}$, $\beta_{1}$, and $\rho$).
 
-3. Compute the sample autocovariances $\gamma_{j}$ for up to $q$ lags:
-
-    $$
-    \hat{\gamma}_{j} = \frac{1}{n} \sum_{t = j + 1}^{n} \hat{r}_{t}\hat{r}_{t-j}
-    $$
-
-    where:
-
-    $$
-    q = \left\lfloor \sqrt[4]{\frac{n}{25}}\right\rfloor
-    $$
-
-    The sample autocovariance $\gamma_{j}$ measures the correlation between the time series $y_{t}$ and the shifted time series $y_{t-j}$.
-
 4. Estimate the long-run variance $\hat{\lambda}^2$ using a [Newey-West](https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator) style estimator.
 This estimator corrects for the additional variability in $\epsilon_{t}$ caused by autocorrelation and heteroskedasticity.
 
     $$
     \hat{\lambda}^2 = \hat{\gamma}_{0} + 2\sum_{j=1}^{q} \left(1 - \frac{j}{q + 1} \right)  \gamma_{j}
+    $$
+
+    Each sample autocovariances $\gamma_{j}$ above is computed for up to $q = \left\lfloor \sqrt[4]{\frac{n}{25}}\right\rfloor$ lags:
+
+    $$
+    \hat{\gamma}_{j} = \frac{1}{n} \sum_{t = j + 1}^{n} \hat{r}_{t}\hat{r}_{t-j}
     $$
 
 5. Compute the test statistic $z_{\rho}$ using the following formula:
@@ -219,16 +210,8 @@ If the Runs test identifies non-randomness in the residuals, it is a strong indi
 
 ### Steps
 
-1. Classify the data based on whether it is above ($+$) or below $(-)$ the median. Any data points equal to the median are removed.
-2. Compute the number of contiguous blocks of $+$ or $-$ (known as _runs_) in the data.
-
-    > **Example**: Suppose that after categorization, the sequence of data is as follows:
-    >
-    > $$
-    > +++--+++-+-
-    > $$
-    >
-    > This sequence has six runs with length $(3, 2, 3, 1,1, 1)$.
+1. Classify the data based on whether it is above ($+$) or below $(-)$ the median. All data points that are equal to the median are removed.
+2. Compute the number of contiguous blocks of $+$ or $-$ (known as _runs_) in the data. For example, the sequence $+++--+++-+-$ has six runs with length $(3, 2, 3, 1, 1, 1)$.
 
 3. Let $R$ be the number of runs in $N$ data points (with category counts $N_{+}$ and $N_{-}$). Then, under the null hypothesis, $R$ is asymptotically normal with:
 
@@ -236,6 +219,8 @@ If the Runs test identifies non-randomness in the residuals, it is a strong indi
     \mathbb{E}[R] = \frac{2N_{+}N_{-}}{N} + 1, \quad
     \text{Var}(R) = \frac{2N_{+}N_{-}(2N_{+}N_{-} - N)}{N^2(N - 1)}
     $$
+
+4. Compute the p-value by normalizing $R$ using the expectation and variance given above.
 
 ### Example Plot
 
@@ -245,8 +230,8 @@ If the Runs test identifies non-randomness in the residuals, it is a strong indi
 
 ## Sen's Trend Estimator
 
-The **Sen's trend estimator** approximates the slope of a regression line.
-Unlike [Least Squares](https://en.wikipedia.org/wiki/Least_squares), the Sen's trend estimator uses a non-parametric approach, which makes it robust to outliers.
+**Sen's Trend Estimator** approximates the slope of a regression line.
+Unlike [Least Squares](https://en.wikipedia.org/wiki/Least_squares), Sen's trend estimator uses a non-parametric approach which makes it robust to outliers.
 
 ### Steps
 
@@ -257,7 +242,7 @@ Unlike [Least Squares](https://en.wikipedia.org/wiki/Least_squares), the Sen's t
     $$
 
 2. Take the median of all slopes: $\hat{m}$.
-3. Estimate the $y$-intercept $b$ as the median of $y_{i} - \hat{m}x_{i}$ for all $i$.
+3. Estimate the $y$-intercept $\hat{b}$ as the median of $y_{i} - \hat{m}x_{i}$ for all $i$.
 
 ### Example Plot
 
@@ -269,20 +254,20 @@ Unlike [Least Squares](https://en.wikipedia.org/wiki/Least_squares), the Sen's t
 
 The **Spearman test** identifies autocorrelation in a time series $y_{t}$. 
 A _significant lag_ is a number $i$ such that the correlation between $y_{t}$ and $y_{t-i}$ is statistically significant.
-The _least insignificant lag_ is the largest $i$ such that all $j < i$ are significant lags.
+The _least insignificant lag_ is the smallest $i$ that is *not* a significant lag.
 
-- Null hypothesis: The least insignificant lag is $0$.
-- Alternative hypothesis: The least insignificant lag is greater than $0$.
+- Null hypothesis: The least insignificant lag is $1$.
+- Alternative hypothesis: The least insignificant lag is greater than $1$.
 
 To carry out the Spearman test, we use the following procedure:
 
 1. Compute Spearman's correlation coefficient $\rho_{i}$ for $y_{t}$ and $y_{t-i}$ for all $0 \leq  i <  n$.
-2. Compute the $p$-value $p_{i}$ for each correlation coefficient $\rho _{i}$ using:
+2. Compute the $p$-value $p_{i}$ for each correlation coefficient $\rho _{i}$ using the formula:
     $$
     t_{i}= \rho_{i} \sqrt{\frac{n-2}{1 - \rho _{i}^2}}
     $$
     The test statistic $t_{i}$ has the $t$-distribution with $n-2$ degrees of freedom.
-3. Find the largest $i$ such that $p_{j} \leq  \alpha$ for all $j \leq i$. The value of $i$ is the least insignificant lag at confidence level $\alpha$.
+3. Find the smallest $i$ such that $p_{i} > \alpha$. Then $i$ is the least insignificant lag at confidence level $\alpha$.
 
 For more information, see the Wikipedia pages on [Autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation) and [Spearman's Rho](https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient).
 

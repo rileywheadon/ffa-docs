@@ -1,14 +1,9 @@
 site_name: FFA Framework
 nav:
   - Home: index.md
-  - Command Line Interface:
-    - Getting Started: cli-getting-started.md
-    - Installation Instructions: cli-installation-instructions.md
-    - User Manual: cli-user-manual.md
   - R Package:
     - Installation instructions: r-installation-instructions.md
     - User Manual: r-user-manual.pdf
-    - Cheat Sheet: cheat-sheet.pdf
     - Vignettes: vignettes.md
   - Exploratory Data Analysis: 
     - Introduction: eda-introduction.md

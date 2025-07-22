@@ -1,5 +1,7 @@
 # Vignettes
 
+<p style="color: red;"><b>Warning</b>: These vignettes are out of date.</p>
+
 **View as HTML**:
 
 - [Introduction](vignettes/introduction.html)

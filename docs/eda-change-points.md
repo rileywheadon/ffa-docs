@@ -1,6 +1,8 @@
 # Change Point Detection
 
-The EDA module of the FFA Framework includes two statistical tests for detecting change points in the annual maximum series (AMS): the **Mann-Kendall-Sneyers (MKS) test** and the **Pettitt test**. These help identify changes in trends and abrupt changes in the AMS.
+The EDA module of the FFA Framework includes two statistical tests for detecting change points in annual maximum series (AMS) data: the **Mann-Kendall-Sneyers (MKS) test** and the **Pettitt test**.
+
+---
 
 ## Mann-Kendall-Sneyers Test
 
@@ -19,7 +21,7 @@ $$
 
 Next, we reverse the time series $y$.
 This gives us a new time series $y'$ such that $y_{i}' = y_{n+1-i}$. 
-Then we compute the *regressive series* $S^{B}_{t}$, where $\text{rev}$ indicates that the vector is reversed:
+Then we compute the *regressive series* $S^{B}_{t}$, where $\text{rev}()$ indicates that the vector is reversed:
 
 $$
 S^{B}_{t} = \text{rev}\left( \sum_{i=i}^{t} \sum_{j=1}^{i-1} \mathbb{I}(y'_{i} > y'_{j})\right)
@@ -39,12 +41,14 @@ $$
 \text{Var}(S^{F}_{t}) = \text{Var}(S^{B}_{t}) = \frac{t(t-1)(2t+5)}{72}
 $$
 
-Finally, we plot $UF_{t}$ and $UB_{t}$ with confidence bounds at the $\alpha/2$ and $1 - (\alpha /2))$ quantiles of the standard normal distribution, where $\alpha$ is the chosen significance level.
-A crossing point between $UF_{t}$ and $UB_{t}$ that lies outside the confidence bounds indicates the start of the trend.
+Finally, we plot $UF_{t}$ and $UB_{t}$ with confidence bounds at the $\alpha/2$ and $1 - (\alpha /2)$ quantiles of the standard normal distribution, where $\alpha$ is the chosen significance level.
+A crossing point between $UF_{t}$ and $UB_{t}$ that lies outside the confidence bounds is a potential change point.
 
 ### Example Plot
 
 ![](img/plot-mks.png)
+
+---
 
 ## Pettitt Test
 

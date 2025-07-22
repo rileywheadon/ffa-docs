@@ -3,9 +3,9 @@
 This module selects a statistical model for S-FFA or NS-FFA based on the annual maximum series.
 
 - **S-FFA**: A time-invariant probability distribution is selected from the candidate distributions.
-- **NS-FFA**: A distribution is chosen along with a nonstationary structure to capture its evolution over time. In piecewise NS-FFA, the series is segmented into sub-periods, each modelled with either time-invariant or time-varying distributions.
+- **NS-FFA**: A distribution is chosen along with a nonstationary structure to capture its evolution over time. In piecewise NS-FFA, the series is segmented into subperiods, each modelled with either time-invariant or time-varying distributions.
 
-The framework uses the **L-moment ratio method** to identify the best-fit distribution family by comparing sample L-moments with those of various distribution families.
+The framework uses the **L-moment ratio method** to identify the best-fit distribution family by comparing sample L-moments with the L-moments of various distribution families.
 
 For NS-FFA, the series is decomposed to isolate its stationary component following [Vidrio-Sahagún and He (2022)](https://doi.org/10.1016/j.jhydrol.2022.128186).
 This decomposed sample is then used for distribution selection, as in S-FFA.
@@ -58,16 +58,15 @@ $$
 
 Then, we compare these statistics, specifically the L-skewness and L-kurtosis to their theoretical values (given [here](probability-distributions.md)) using one of three different metrics to select a distribution.
 
-**Note**: Probability distributions with less than three parameters have constant L-skewness $\tau_{3}$ and L-kurtosis $\tau_{4}$ regardless of their parameters.
+**Note**: Probability distributions with two parameters have constant L-skewness $\tau_{3}$ and L-kurtosis $\tau_{4}$ regardless of their parameters.
 The L-skewness and L-kurtosis of probability distributions with three parameters is a function of the shape parameter $\kappa$.
-The notation $\tau_{3}(\kappa)$ and $\tau_{4}(\kappa)$ refers to the L-skewness and L-kurtosis *curves* for the three parameter distributions.
+The notation $\tau_{3}(\kappa)$ and $\tau_{4}(\kappa)$ refers to the L-skewness and L-kurtosis *curves* for three parameter distributions.
 
 ### Example Plot
 
-Shown below are the L-moment curves of the `GEV`,`GLO`,`GNO`,`PE3`/`LP3`, and `WEI` distributions.
-The L-moment ratios of the two parameter distributions `GUM` and `NOR`/`LNO`.
-This example uses the "L-distance" selection metric.
-The zoomed-in region shows that the GEV distribution is most similar to the sample L-moments.
+Shown below are the L-moment curves of the GEV, GLO, GNO, PE3/LP3, and WEI distributions as well as the L-moment ratios of the two parameter distributions GUM and NOR/LNO.
+This L-moment diagram depicts the "L-distance" selection metric, which compares the euclidian distance between the sample and theoretical L-moment ratios.
+The inset shows that the GEV distribution (yellow line) has the closest L-moments to the data.
 
 ![](img/plot-lmom.png)
 
@@ -75,20 +74,20 @@ The zoomed-in region shows that the GEV distribution is most similar to the samp
 
 ### 1. L-Distance
 
-It is the Euclidean distance between the sample $(t_3, t_4)$ and theoretical $(\tau_3, \tau_4)$ for each candidate distribution.
+The Euclidean distance between the sample $(t_3, t_4)$ and theoretical $(\tau_3, \tau_4)$ for each candidate distribution.
 For 3-parameter distributions, this is the **minimum** distance along their L-moment ratio curve.
 
 ### 2. L-Kurtosis
 
 The L-kurtosis method is only used for three-parameter probability distributions.
-First, identify the shape parameter $\kappa^{*}$ such that $t_{3} = \tau _{3}(\kappa ^{*})$.
-Then, compare the difference between the sample L-kurtosis and the theoretical L-kurtosis using the metric $|\tau_{4}(\kappa ^{*}) - t_{4} |$.
+First, the shape parameter $\kappa^{*}$ such that $t_{3} = \tau _{3}(\kappa ^{*})$ is identified.
+Then, the difference between the sample L-kurtosis and the theoretical L-kurtosis is computed using the metric $|\tau_{4}(\kappa ^{*}) - t_{4} |$.
 
 ### 3. Z-statistic
 
 The Z-statistic selection metric is calculated as follows (for three-parameter distributions):
 
-1. Fit the four-parameter Kappa (K4D) distribution to the sample using $t_{2}$, $t_{3}$, and $t_{4}$.
+1. Fit the four-parameter Kappa (K4D) distribution to the sample.
 2. Generate $N_{\text{sim}}$ bootstrap samples from the fitted K4D distribution.
 3. Calculate the sample L-kurtosis $t_{4}^{[i]}$ of each synthetic dataset.
 4. Calculate the bias and standard deviation of the bootstrap distribution:
@@ -114,9 +113,9 @@ The Z-statistic selection metric is calculated as follows (for three-parameter d
 
 When nonstationarity is detected, the annual maximum series is decomposed before model selection. We consider three nonstationary scenarios that can be identified in EDA:
 
-1. Trend in mean only
-2. Trend in standard deviation only
-3. Trend in both mean and standard deviation
+1. Trend in mean only.
+2. Trend in standard deviation only.
+3. Trend in both mean and standard deviation.
 
 ### Decomposition Steps
 

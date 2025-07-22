@@ -1,12 +1,6 @@
+# Changes from MATLAB Version
+
 This page documents changes from [original MATLAB code](https://zenodo.org/records/8012096).
-
-## General Improvements
-
-- Store configuration details in YAML files instead of code.
-- Implement a suite of unit tests using the `testthat` library.
-- Use `knitr` and `rmarkdown` to generate reports with text, equations, and images.
-- Easily run individual statistical tests and model fitting functions using the R package.
-- Export reports to `.md` (Pandoc), `.html`, and `.pdf`.
 
 ## Exploratory Data Analysis (EDA)
 

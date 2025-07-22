@@ -2,26 +2,19 @@
 
 ## CRAN Package
 
-**Known Issues**:
+### In Development
 
-- Sample bootstrap yields unusually large CIs for nonstationary models
-- RFPL breaks on some stations (i.e. Lake Louise, station ID `05BA001`)
+- Developing workflow functions:
+    - `module_eda` for exploratory data analysis.
+    - `module_ffa` for flood frequency analysis.
+    - `ffaframework` for the complete framework.
+- Testing the package in preparation for submission to CRAN.
 
-## Command Line Interface
+### Known Issues
 
-**Status**
+- Sample bootstrap yields unusually large CIs for nonstationary models.
+- RFPL breaks on some stations (i.e. Lake Louise, station ID `05BA001`).
 
-| Function             | Implemented | 100% Code Coverage |
-| -------------------- | ----------- | ------------------ |
-| `validate_config`    | x           | x                  |
-| `load_data`          | x           | x                  |
-| `change_points`      | x           | x                  |
-| `trend_detection`    | x           | x                  |
-| `frequency_analysis` | x           | x                  |
-| `ffaframework`       | x           |                    |
+## Web Interface
 
-**Planned Features**:
-
-- Secondary change point analysis
-- Option to set trend signatures prior to analysis
-- Option to export reports to formats other than `.html`
+We hope to finish a web interface for the FFA framework by September 2025.

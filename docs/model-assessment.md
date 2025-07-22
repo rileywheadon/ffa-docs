@@ -2,7 +2,10 @@
 
 ## Nonparametric Models
 
-A **Plotting Position** is a non-parametric estimator used to derive empirical exceedance probabilities. By using the plotting position, we can evaluate the quality of our parametric model. To compute the plotting position, arrange the sample observations in descending order of magnitude: $x_{n:n} \geq  \dots  \geq  x_{1:n}$. Then, the empirical exceedance probabilities are given by the following formula:
+A **Plotting Position** is a non-parametric estimator used to derive empirical exceedance probabilities.
+By using the plotting position, we can evaluate the quality of our parametric model (assuming the model is stationary). 
+To compute the plotting position, arrange the sample observations in descending order of magnitude: $x_{n:n} \geq  \dots  \geq  x_{1:n}$.
+Then, the empirical exceedance probabilities are given by the following formula:
 
 $$
 p_{i:n} = \frac{i-a}{n+1 - 2a}, \quad i \in \{1, \dots , n\}
@@ -64,8 +67,8 @@ BIC_MLL <- (n * log(MLL)) + (log(n) * n_theta)
 
 The FFA framework uses three statistics to assess the uncertainty in flood quantile estimates:
 
-- `AW` captures **precision** (narrower confidence intervals are better).
-- `POC` captures **reliability** (higher coverage of observations is better).
+- `AW` captures *precision* (narrower confidence intervals are better).
+- `POC` captures *reliability* (higher coverage of observations is better).
 - `CWI` is a composite measure balancing both precision and reliability (lower is better).
 
 We use these metrics together to evaluate the robustness of the flood frequency analysis.
@@ -73,13 +76,13 @@ We use these metrics together to evaluate the robustness of the flood frequency 
 ### AW – Average Width
 
 `AW` is the average width of the interpolated confidence intervals across return periods of interest.
-A smaller `AW` indicates more **precise** quantile estimates.
+A smaller `AW` indicates more *precise* quantile estimates.
 To compute `AW`, we use log-linear interpolation to estimate the confidence intervals of the empirical exceedance probabilities from the confidence intervals computed during [uncertainty quantification](uncertainty-quantification.md).
 
 ### POC – Percent of Coverage
 
  `POC` is the percentage of observed quantiles that fall within their corresponding confidence intervals.
-A higher `POC` indicates greater **reliability** of the confidence intervals.
+A higher `POC` indicates greater *reliability* of the confidence intervals.
 
 ### CWI – Confidence Width Indicator
 

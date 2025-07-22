@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -172,9 +161,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="detecting-trends-in-the-ams-mean-and-their-nature">Detecting Trends in the AMS Mean and their nature</h1>
-<p>This section describes the statistical tests (listed in alphabetical order) used to detect significant trends in the mean of the annual maximum series (AMS) and characterize their nature (if any trend). These tests help determine whether the data contains a trend, whether is autocorrelated and also contains a trend on top of that, and whether trends are deterministic or stochastic and linear or non-linear (if any).</p>
-<p><strong>Note</strong>: Statistical tests are listed in <em>alphabetical order</em>.</p>
+                <h1 id="detecting-and-characterizing-trends-in-the-ams-mean">Detecting and Characterizing Trends in the AMS Mean</h1>
+<p>This section describes the statistical tests (listed in alphabetical order) used to detect and characterizesignificant trends in the mean of the annual maximum series (AMS).
+These tests help identify a trend, identify autocorrelation, and determine whether a trend is deterministic/stochastic and linear/non-linear.</p>
 <hr />
 <h2 id="bb-mk-test">BB-MK Test</h2>
 <p>The <strong>Block Bootstrap Mann-Kendall (BB-MK) Test</strong> assesses the presence of a statistically significant monotonic trend in a time series.
@@ -183,12 +172,12 @@ The BB-MK test is insensitive to <a href="https://en.wikipedia.org/wiki/Autocorr
 <li>Null hypothesis: No monotonic trend.</li>
 <li>Alternative hypothesis: A monotonic upward or downward trend exists.</li>
 </ul>
-<p>To conduct the BB-MK test, we rely on the results of the MK test and the Spearman auto-correlation test.</p>
+<p>To conduct the BB-MK test, we rely on the results of the MK test and the Spearman autocorrelation test.</p>
 <h3 id="steps">Steps</h3>
 <ol>
 <li>Compute the MK test statistic (see below).</li>
 <li>Use the Spearman test (see below) to identify the least insignificant lag <span class="arithmatex">\(k\)</span>.</li>
-<li>Resample the time series in blocks of size <span class="arithmatex">\(k+1\)</span> without replacement</li>
+<li>Resample the time series in blocks of size <span class="arithmatex">\(k+1\)</span> without replacement.</li>
 <li>Compute the MK test statistic for each bootstrapped sample.</li>
 <li>Derive the empirical distribution of the MK test statistic from the bootstrapped statistics.</li>
 <li>Estimate the significance of the observed test statistic using the empirical distribution.</li>
@@ -201,7 +190,7 @@ The BB-MK test is insensitive to <a href="https://en.wikipedia.org/wiki/Autocorr
 This test helps assess if the time series has a deterministic linear trend.</p>
 <ul>
 <li>Null hypothesis: The time series has a deterministic linear trend.</li>
-<li>Alternative hypothesis: The time series has a unit root.</li>
+<li>Alternative hypothesis: The time series has a unit root (stochastic trend).</li>
 </ul>
 <p>The autoregressive time series shown below has a unit root if <span class="arithmatex">\(\sigma_{v}^2 &gt; 0\)</span>:</p>
 <div class="arithmatex">\[
@@ -215,7 +204,7 @@ v_{t} &amp;\sim \mathcal{N}(0, \sigma_{v}^2)
 <ul>
 <li><span class="arithmatex">\(\mu_{t}\)</span> is the <em>drift</em>, or the deviation of <span class="arithmatex">\(y_{t}\)</span> from <span class="arithmatex">\(0\)</span>.
   Under the null hypothesis, <span class="arithmatex">\(\mu_{t}\)</span> is constant (since <span class="arithmatex">\(v_{t}\)</span> is constant).
-  Under the alternative hypothesis, <span class="arithmatex">\(\mu_t\)</span> is a stochastic process with unit root.</li>
+  Under the alternative hypothesis, <span class="arithmatex">\(\mu_t\)</span> is a stochastic process with a unit root.</li>
 <li><span class="arithmatex">\(\beta t\)</span> is a <em>linear trend</em>, which represents deterministic nonstationarity (e.g., climate change).</li>
 <li><span class="arithmatex">\(\epsilon_{t}\)</span> is <em>stationary noise</em>, corresponding to reversible fluctuations in <span class="arithmatex">\(y_{t}\)</span>.
   In hydrology, <span class="arithmatex">\(\epsilon_{t}\)</span> represents fluctuations in streamflow due to natural variability.</li>
@@ -243,13 +232,13 @@ S_{k} = \sum_{t=1}^{k} \hat{r}_{t}
 \]</div>
 </li>
 <li>
-<p>Compute the test statistic <span class="arithmatex">\(z_{\text{KPSS}}\)</span>:</p>
+<p>Compute the test statistic <span class="arithmatex">\(z_{K}\)</span>:</p>
 <div class="arithmatex">\[
 z_{K} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
 \]</div>
 </li>
 <li>
-<p>Since the test statistic <span class="arithmatex">\(z_{\text{KPSS}}\)</span> is non-normally distributed, we compute the p-value by interpolating the table of quantiles from <a href="https://doi.org/10.1111/j.1467-9574.2004.00272.x">Hobjin et al. (2004)</a> shown below.</p>
+<p>Since the test statistic <span class="arithmatex">\(z_{K}\)</span> is non-normally distributed, we compute the p-value by interpolating the table of quantiles from <a href="https://doi.org/10.1111/j.1467-9574.2004.00272.x">Hobjin et al. (2004)</a> shown below.</p>
 </li>
 </ol>
 <table>
@@ -275,10 +264,10 @@ z_{K} = \frac{1}{n^2\hat{\lambda }^2}\sum_{k=1}^{n}  S_{k}^2
 <p><strong>Warning</strong>: The interpolation only works for <span class="arithmatex">\(0.01 &lt; p &lt; 0.10\)</span> (p-values below <span class="arithmatex">\(0.01\)</span> and above <span class="arithmatex">\(0.10\)</span> will be truncated) and significance levels <span class="arithmatex">\(\alpha\)</span> between <span class="arithmatex">\(0.01\)</span> and <span class="arithmatex">\(0.10\)</span>.</p>
 <hr />
 <h2 id="mann-kendall-mk-test">Mann-Kendall (MK) Test</h2>
-<p>The <strong>MK test</strong> detects statistically significant monotonic trends in a time series assuming independence.</p>
+<p>The <strong>Mann-Kendall (MK) Test</strong> detects statistically significant monotonic trends in a time series under the assumption of independence (i.e. no autocorrelation).</p>
 <ul>
-<li>Null hypothesis: No monotonic trend.</li>
-<li>Alternative hypothesis: A monotonic trend exists (upward or downward).</li>
+<li>Null hypothesis: There is no monotonic trend.</li>
+<li>Alternative hypothesis: A (upward or downward) monotonic trend exists.</li>
 </ul>
 <p>Define <span class="arithmatex">\(\text{sign} (x)\)</span> to be <span class="arithmatex">\(1\)</span> if <span class="arithmatex">\(x &gt; 0\)</span>, <span class="arithmatex">\(0\)</span> if <span class="arithmatex">\(x = 0\)</span>, and <span class="arithmatex">\(-1\)</span> otherwise.</p>
 <p>The test statistic <span class="arithmatex">\(S\)</span> is defined as follows:</p>
@@ -288,7 +277,7 @@ S = \sum_{k-1}^{n-1}  \sum_{j - k + 1}^{n} \text{sign} (y_{j} - y_{k})
 <p>Next, we need to compute <span class="arithmatex">\(\text{Var}(S)\)</span>, which depends on the number of tied groups in the data.
 Let <span class="arithmatex">\(g\)</span> be the number of tied groups and <span class="arithmatex">\(t_{p}\)</span> be the number of observations in the <span class="arithmatex">\(p\)</span>-th group.</p>
 <div class="arithmatex">\[\text{Var}(S) = \frac{1}{18} \left[n(n-1)(2n + 1) - \sum_{p-1}^{g} t_{p}(t_{p} - 1)(2t_{p} + 5) \right]\]</div>
-<p>Then, compute the MK test statistic, <span class="arithmatex">\(Z_{MK}\)</span>, as follows:</p>
+<p>Then, compute the normally distributed test statistic <span class="arithmatex">\(Z_{MK}\)</span> as follows:</p>
 <div class="arithmatex">\[
 Z_{MK} = \begin{cases}
 \frac{S-1}{\sqrt{\text{Var}(S)}} &amp;\text{if } S &gt; 0 \\
@@ -300,10 +289,10 @@ Z_{MK} = \begin{cases}
 For more information, see <a href="https://vsp.pnnl.gov/help/vsample/design_trend_mann_kendall.htm">here</a>.</p>
 <hr />
 <h2 id="phillips-perron-pp-test">Phillips-Perron (PP) Test</h2>
-<p>The <strong>PP test</strong> identifies if an autoregressive time series has a <a href="https://en.wikipedia.org/wiki/Unit_root">unit root</a>.</p>
+<p>The <strong>PP Test</strong> identifies if an autoregressive time series has a <a href="https://en.wikipedia.org/wiki/Unit_root">unit root</a>.</p>
 <ul>
-<li>Null hypothesis: The time series has a unit root.</li>
-<li>Alternative hypothesis: The time series has a deterministic trend.</li>
+<li>Null hypothesis: The time series has a unit root (stochastic trend).</li>
+<li>Alternative hypothesis: The time series has a deterministic linear trend.</li>
 </ul>
 <p>Precisely, let <span class="arithmatex">\(x_{t}\)</span> be an <a href="https://en.wikipedia.org/wiki/Autoregressive_model">AR(1)</a> model.
 Let <span class="arithmatex">\(y_{t}\)</span> be a function of <span class="arithmatex">\(x_{t}\)</span> with drift <span class="arithmatex">\(\beta_{0}\)</span> and trend <span class="arithmatex">\(\beta_{1} t\)</span>.</p>
@@ -328,21 +317,14 @@ x_{t} &amp;= \rho x_{t-1} + \epsilon_{t}
 <p>where <span class="arithmatex">\(n\)</span> is the number of data points in the sample. We have <span class="arithmatex">\(n-3\)</span> degrees of freedom since there are three parameters in the autoregressive model (<span class="arithmatex">\(\beta_{0}\)</span>, <span class="arithmatex">\(\beta_{1}\)</span>, and <span class="arithmatex">\(\rho\)</span>).</p>
 </li>
 <li>
-<p>Compute the sample autocovariances <span class="arithmatex">\(\gamma_{j}\)</span> for up to <span class="arithmatex">\(q\)</span> lags:</p>
-<div class="arithmatex">\[
-\hat{\gamma}_{j} = \frac{1}{n} \sum_{t = j + 1}^{n} \hat{r}_{t}\hat{r}_{t-j}
-\]</div>
-<p>where:</p>
-<div class="arithmatex">\[
-q = \left\lfloor \sqrt[4]{\frac{n}{25}}\right\rfloor
-\]</div>
-<p>The sample autocovariance <span class="arithmatex">\(\gamma_{j}\)</span> measures the correlation between the time series <span class="arithmatex">\(y_{t}\)</span> and the shifted time series <span class="arithmatex">\(y_{t-j}\)</span>.</p>
-</li>
-<li>
 <p>Estimate the long-run variance <span class="arithmatex">\(\hat{\lambda}^2\)</span> using a <a href="https://en.wikipedia.org/wiki/Newey%E2%80%93West_estimator">Newey-West</a> style estimator.
 This estimator corrects for the additional variability in <span class="arithmatex">\(\epsilon_{t}\)</span> caused by autocorrelation and heteroskedasticity.</p>
 <div class="arithmatex">\[
 \hat{\lambda}^2 = \hat{\gamma}_{0} + 2\sum_{j=1}^{q} \left(1 - \frac{j}{q + 1} \right)  \gamma_{j}
+\]</div>
+<p>Each sample autocovariances <span class="arithmatex">\(\gamma_{j}\)</span> above is computed for up to <span class="arithmatex">\(q = \left\lfloor \sqrt[4]{\frac{n}{25}}\right\rfloor\)</span> lags:</p>
+<div class="arithmatex">\[
+\hat{\gamma}_{j} = \frac{1}{n} \sum_{t = j + 1}^{n} \hat{r}_{t}\hat{r}_{t-j}
 \]</div>
 </li>
 <li>
@@ -455,16 +437,9 @@ If the Runs test identifies non-randomness in the residuals, it is a strong indi
 </ul>
 <h3 id="steps_3">Steps</h3>
 <ol>
-<li>Classify the data based on whether it is above (<span class="arithmatex">\(+\)</span>) or below <span class="arithmatex">\((-)\)</span> the median. Any data points equal to the median are removed.</li>
+<li>Classify the data based on whether it is above (<span class="arithmatex">\(+\)</span>) or below <span class="arithmatex">\((-)\)</span> the median. All data points that are equal to the median are removed.</li>
 <li>
-<p>Compute the number of contiguous blocks of <span class="arithmatex">\(+\)</span> or <span class="arithmatex">\(-\)</span> (known as <em>runs</em>) in the data.</p>
-<blockquote>
-<p><strong>Example</strong>: Suppose that after categorization, the sequence of data is as follows:</p>
-<div class="arithmatex">\[
-+++--+++-+-
-\]</div>
-<p>This sequence has six runs with length <span class="arithmatex">\((3, 2, 3, 1,1, 1)\)</span>.</p>
-</blockquote>
+<p>Compute the number of contiguous blocks of <span class="arithmatex">\(+\)</span> or <span class="arithmatex">\(-\)</span> (known as <em>runs</em>) in the data. For example, the sequence <span class="arithmatex">\(+++--+++-+-\)</span> has six runs with length <span class="arithmatex">\((3, 2, 3, 1, 1, 1)\)</span>.</p>
 </li>
 <li>
 <p>Let <span class="arithmatex">\(R\)</span> be the number of runs in <span class="arithmatex">\(N\)</span> data points (with category counts <span class="arithmatex">\(N_{+}\)</span> and <span class="arithmatex">\(N_{-}\)</span>). Then, under the null hypothesis, <span class="arithmatex">\(R\)</span> is asymptotically normal with:</p>
@@ -473,13 +448,16 @@ If the Runs test identifies non-randomness in the residuals, it is a strong indi
 \text{Var}(R) = \frac{2N_{+}N_{-}(2N_{+}N_{-} - N)}{N^2(N - 1)}
 \]</div>
 </li>
+<li>
+<p>Compute the p-value by normalizing <span class="arithmatex">\(R\)</span> using the expectation and variance given above.</p>
+</li>
 </ol>
 <h3 id="example-plot_1">Example Plot</h3>
 <p><img alt="" src="../img/plot-runs.png" /></p>
 <hr />
 <h2 id="sens-trend-estimator">Sen's Trend Estimator</h2>
-<p>The <strong>Sen's trend estimator</strong> approximates the slope of a regression line.
-Unlike <a href="https://en.wikipedia.org/wiki/Least_squares">Least Squares</a>, the Sen's trend estimator uses a non-parametric approach, which makes it robust to outliers.</p>
+<p><strong>Sen's Trend Estimator</strong> approximates the slope of a regression line.
+Unlike <a href="https://en.wikipedia.org/wiki/Least_squares">Least Squares</a>, Sen's trend estimator uses a non-parametric approach which makes it robust to outliers.</p>
 <h3 id="steps_4">Steps</h3>
 <ol>
 <li>
@@ -491,7 +469,7 @@ m_{ij} = \frac{y_j - y_i}{x_j - x_i}
 <li>
 <p>Take the median of all slopes: <span class="arithmatex">\(\hat{m}\)</span>.</p>
 </li>
-<li>Estimate the <span class="arithmatex">\(y\)</span>-intercept <span class="arithmatex">\(b\)</span> as the median of <span class="arithmatex">\(y_{i} - \hat{m}x_{i}\)</span> for all <span class="arithmatex">\(i\)</span>.</li>
+<li>Estimate the <span class="arithmatex">\(y\)</span>-intercept <span class="arithmatex">\(\hat{b}\)</span> as the median of <span class="arithmatex">\(y_{i} - \hat{m}x_{i}\)</span> for all <span class="arithmatex">\(i\)</span>.</li>
 </ol>
 <h3 id="example-plot_2">Example Plot</h3>
 <p><img alt="" src="../img/plot-sens.png" /></p>
@@ -499,20 +477,20 @@ m_{ij} = \frac{y_j - y_i}{x_j - x_i}
 <h2 id="spearman-test">Spearman Test</h2>
 <p>The <strong>Spearman test</strong> identifies autocorrelation in a time series <span class="arithmatex">\(y_{t}\)</span>. 
 A <em>significant lag</em> is a number <span class="arithmatex">\(i\)</span> such that the correlation between <span class="arithmatex">\(y_{t}\)</span> and <span class="arithmatex">\(y_{t-i}\)</span> is statistically significant.
-The <em>least insignificant lag</em> is the largest <span class="arithmatex">\(i\)</span> such that all <span class="arithmatex">\(j &lt; i\)</span> are significant lags.</p>
+The <em>least insignificant lag</em> is the smallest <span class="arithmatex">\(i\)</span> that is <em>not</em> a significant lag.</p>
 <ul>
-<li>Null hypothesis: The least insignificant lag is <span class="arithmatex">\(0\)</span>.</li>
-<li>Alternative hypothesis: The least insignificant lag is greater than <span class="arithmatex">\(0\)</span>.</li>
+<li>Null hypothesis: The least insignificant lag is <span class="arithmatex">\(1\)</span>.</li>
+<li>Alternative hypothesis: The least insignificant lag is greater than <span class="arithmatex">\(1\)</span>.</li>
 </ul>
 <p>To carry out the Spearman test, we use the following procedure:</p>
 <ol>
 <li>Compute Spearman's correlation coefficient <span class="arithmatex">\(\rho_{i}\)</span> for <span class="arithmatex">\(y_{t}\)</span> and <span class="arithmatex">\(y_{t-i}\)</span> for all <span class="arithmatex">\(0 \leq  i &lt;  n\)</span>.</li>
-<li>Compute the <span class="arithmatex">\(p\)</span>-value <span class="arithmatex">\(p_{i}\)</span> for each correlation coefficient <span class="arithmatex">\(\rho _{i}\)</span> using:
+<li>Compute the <span class="arithmatex">\(p\)</span>-value <span class="arithmatex">\(p_{i}\)</span> for each correlation coefficient <span class="arithmatex">\(\rho _{i}\)</span> using the formula:
     $$
     t_{i}= \rho_{i} \sqrt{\frac{n-2}{1 - \rho _{i}^2}}
     $$
     The test statistic <span class="arithmatex">\(t_{i}\)</span> has the <span class="arithmatex">\(t\)</span>-distribution with <span class="arithmatex">\(n-2\)</span> degrees of freedom.</li>
-<li>Find the largest <span class="arithmatex">\(i\)</span> such that <span class="arithmatex">\(p_{j} \leq  \alpha\)</span> for all <span class="arithmatex">\(j \leq i\)</span>. The value of <span class="arithmatex">\(i\)</span> is the least insignificant lag at confidence level <span class="arithmatex">\(\alpha\)</span>.</li>
+<li>Find the smallest <span class="arithmatex">\(i\)</span> such that <span class="arithmatex">\(p_{i} &gt; \alpha\)</span>. Then <span class="arithmatex">\(i\)</span> is the least insignificant lag at confidence level <span class="arithmatex">\(\alpha\)</span>.</li>
 </ol>
 <p>For more information, see the Wikipedia pages on <a href="https://en.wikipedia.org/wiki/Autocorrelation">Autocorrelation</a> and <a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient">Spearman's Rho</a>.</p>
 <h3 id="example-plot_3">Example Plot</h3>

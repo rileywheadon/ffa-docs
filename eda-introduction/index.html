@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -129,16 +118,15 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="introduction-to-exploratory-data-analysis-eda">Introduction to Exploratory Data Analysis (EDA)</h1>
-<p>The EDA module in the FFA Framework helps evaluate whether the available evidence supports the assumption of stationarity.
-EDA detects statistically significant nonstationary signatures in a given annual maximum series (AMS). 
-EDA applies a structured sequence of statistical tests on AMS data to achieve four key objectives:</p>
+<p>The EDA module of the FFA Framework is used to evaluate whether the available evidence supports the assumption of stationarity.
+To do this, the EDA module applies a structured sequence of statistical tests to the AMS data to detect statistically significant nonstationary signatures. 
+These statistical tests serve three purposes:</p>
 <ol>
 <li>Detect <strong>change points</strong> (i.e., abrupt shifts or trend changes).</li>
-<li>Detect <strong>trends in the mean and their nature</strong> (deterministic vs stochastic, linear vs non-linear, if any).</li>
+<li>Detect <strong>trends in the mean</strong> and identify them as deterministic/stochastic, linear/non-linear.</li>
 <li>Detect <strong>trends in the variability</strong> (i.e., heteroskedasticity and trends in standard deviation).</li>
 </ol>
-<p><strong><em>The primary goal of EDA is to inform the selection between stationary and nonstationary FFA.</em></strong></p>
-<p>The EDA workflow is illustrated below:</p>
+<p><strong><em>The primary goal of EDA is to inform the choice between stationary and nonstationary FFA.</em></strong></p>
 <p><img alt="Diagram showing current EDA framework." src="../img/fig-eda-current.png" /></p>
               
             </div>

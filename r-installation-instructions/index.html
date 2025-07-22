@@ -43,24 +43,21 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Installation instructions</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#note-for-windows-users">Note for Windows Users</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#instructions">Instructions</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -129,34 +126,55 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="installing-the-ffaframework-package">Installing the <code>ffaframework</code> Package</h1>
+<h2 id="prerequisites">Prerequisites</h2>
 <ol>
-<li>Open a shell (terminal) and navigate to the directory where you want to install the package.</li>
+<li><strong>Install Git</strong>: <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a>. </li>
+<li><strong>Install R</strong> (v4.5.1 recommended): <a href="https://www.r-project.org/">https://www.r-project.org/</a>.</li>
+<li><strong>Install Pandoc</strong> (for report generation): <a href="https://pandoc.org/">https://pandoc.org/</a>.</li>
+</ol>
+<p>Verify that the installations were successful by executing the following commands in a terminal:</p>
+<ol>
+<li><code>git --version</code></li>
+<li><code>R --version</code></li>
+<li><code>pandoc --version</code></li>
+</ol>
+<h3 id="note-for-windows-users">Note for Windows Users</h3>
+<p>You may need to add Git, R and Pandoc to your <code>PATH</code> to run them from the command line.
+The default paths for Git, R and Pandoc are:</p>
+<pre><code>C:\Program Files\Git\bin
+C:\Program Files\R\R-4.5.0\bin
+C:\Program Files\Pandoc
+</code></pre>
+<p>To update your <code>PATH</code>, edit your system environment variables from the settings menu.</p>
+<h2 id="instructions">Instructions</h2>
+<ol>
+<li>Open a terminal and navigate to the directory where you want to install the package.</li>
 <li>
-<p>Clone the Github repository by running the following command in a shell:</p>
+<p>Clone the Github repository by running the following command:</p>
 <pre><code>git clone https://github.com/rileywheadon/ffa-package.git
 </code></pre>
 </li>
 <li>
-<p>Open a command prompt with <code>R</code>. Install and load the <code>devtools</code> package (if not already installed): </p>
+<p>Open the R console. Then install and load the <code>devtools</code> package (if not already installed): </p>
 <pre><code>install.packages("devtools")
 library(devtools)
 </code></pre>
 </li>
 <li>
-<p>Install the package by specifying the correct path: </p>
+<p>Install the <code>ffaframework</code> package: </p>
 <pre><code>devtools::install("~/path/to/ffa-package")
 </code></pre>
+<p>Replace <code>~/path/to/ffa-package</code> with the path to the cloned directory from step 2.</p>
 </li>
-</ol>
-<p>Replace <code>~/path/to/ffa-package</code> with the actual path to the cloned directory.</p>
-<ol>
-<li>Exit the command prompt with <code>q()</code>. The package is now installed and ready to use.</li>
+<li>
+<p>Exit the R console with <code>q()</code>. The <code>ffaframework</code> package is now installed and ready to use.</p>
+</li>
 </ol>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../cli-user-manual/" class="btn btn-neutral float-left" title="User Manual"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../r-user-manual.pdf" class="btn btn-neutral float-right" title="User Manual">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -180,7 +198,7 @@ library(devtools)
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../cli-user-manual/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../r-user-manual.pdf" style="color: #fcfcfc">Next &raquo;</a></span>

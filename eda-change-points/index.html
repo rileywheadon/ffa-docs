@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -141,7 +130,8 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="change-point-detection">Change Point Detection</h1>
-<p>The EDA module of the FFA Framework includes two statistical tests for detecting change points in the annual maximum series (AMS): the <strong>Mann-Kendall-Sneyers (MKS) test</strong> and the <strong>Pettitt test</strong>. These help identify changes in trends and abrupt changes in the AMS.</p>
+<p>The EDA module of the FFA Framework includes two statistical tests for detecting change points in annual maximum series (AMS) data: the <strong>Mann-Kendall-Sneyers (MKS) test</strong> and the <strong>Pettitt test</strong>.</p>
+<hr />
 <h2 id="mann-kendall-sneyers-test">Mann-Kendall-Sneyers Test</h2>
 <p>The <strong>Mann-Kendall-Sneyers (MKS) test</strong> detects the beginning of a trend in a time series:</p>
 <ul>
@@ -155,7 +145,7 @@ S^{F}_{t} = \sum_{i=i}^{t} \sum_{j=1}^{i-1} \mathbb{I}(y_{i} &gt; y_{j})
 \]</div>
 <p>Next, we reverse the time series <span class="arithmatex">\(y\)</span>.
 This gives us a new time series <span class="arithmatex">\(y'\)</span> such that <span class="arithmatex">\(y_{i}' = y_{n+1-i}\)</span>. 
-Then we compute the <em>regressive series</em> <span class="arithmatex">\(S^{B}_{t}\)</span>, where <span class="arithmatex">\(\text{rev}\)</span> indicates that the vector is reversed:</p>
+Then we compute the <em>regressive series</em> <span class="arithmatex">\(S^{B}_{t}\)</span>, where <span class="arithmatex">\(\text{rev}()\)</span> indicates that the vector is reversed:</p>
 <div class="arithmatex">\[
 S^{B}_{t} = \text{rev}\left( \sum_{i=i}^{t} \sum_{j=1}^{i-1} \mathbb{I}(y'_{i} &gt; y'_{j})\right)
 \]</div>
@@ -169,10 +159,11 @@ UB_{t} = \frac{S^{B}_{t} - \mathbb{E}[S^{B}_{t}]}{\sqrt{\text{Var}\,(S^{B}_{t})}
 \mathbb{E}[S^{F}_{t}] = \mathbb{E}[S^{B}_{t}] = \frac{t(t-1)}{4}, \quad
 \text{Var}(S^{F}_{t}) = \text{Var}(S^{B}_{t}) = \frac{t(t-1)(2t+5)}{72}
 \]</div>
-<p>Finally, we plot <span class="arithmatex">\(UF_{t}\)</span> and <span class="arithmatex">\(UB_{t}\)</span> with confidence bounds at the <span class="arithmatex">\(\alpha/2\)</span> and <span class="arithmatex">\(1 - (\alpha /2))\)</span> quantiles of the standard normal distribution, where <span class="arithmatex">\(\alpha\)</span> is the chosen significance level.
-A crossing point between <span class="arithmatex">\(UF_{t}\)</span> and <span class="arithmatex">\(UB_{t}\)</span> that lies outside the confidence bounds indicates the start of the trend.</p>
+<p>Finally, we plot <span class="arithmatex">\(UF_{t}\)</span> and <span class="arithmatex">\(UB_{t}\)</span> with confidence bounds at the <span class="arithmatex">\(\alpha/2\)</span> and <span class="arithmatex">\(1 - (\alpha /2)\)</span> quantiles of the standard normal distribution, where <span class="arithmatex">\(\alpha\)</span> is the chosen significance level.
+A crossing point between <span class="arithmatex">\(UF_{t}\)</span> and <span class="arithmatex">\(UB_{t}\)</span> that lies outside the confidence bounds is a potential change point.</p>
 <h3 id="example-plot">Example Plot</h3>
 <p><img alt="" src="../img/plot-mks.png" /></p>
+<hr />
 <h2 id="pettitt-test">Pettitt Test</h2>
 <p>The <strong>Pettitt test</strong> detects abrupt changes in the mean of a time series.</p>
 <ul>

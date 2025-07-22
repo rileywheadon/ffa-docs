@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -164,9 +153,9 @@
 <p>This module selects a statistical model for S-FFA or NS-FFA based on the annual maximum series.</p>
 <ul>
 <li><strong>S-FFA</strong>: A time-invariant probability distribution is selected from the candidate distributions.</li>
-<li><strong>NS-FFA</strong>: A distribution is chosen along with a nonstationary structure to capture its evolution over time. In piecewise NS-FFA, the series is segmented into sub-periods, each modelled with either time-invariant or time-varying distributions.</li>
+<li><strong>NS-FFA</strong>: A distribution is chosen along with a nonstationary structure to capture its evolution over time. In piecewise NS-FFA, the series is segmented into subperiods, each modelled with either time-invariant or time-varying distributions.</li>
 </ul>
-<p>The framework uses the <strong>L-moment ratio method</strong> to identify the best-fit distribution family by comparing sample L-moments with those of various distribution families.</p>
+<p>The framework uses the <strong>L-moment ratio method</strong> to identify the best-fit distribution family by comparing sample L-moments with the L-moments of various distribution families.</p>
 <p>For NS-FFA, the series is decomposed to isolate its stationary component following <a href="https://doi.org/10.1016/j.jhydrol.2022.128186">Vidrio-Sahagún and He (2022)</a>.
 This decomposed sample is then used for distribution selection, as in S-FFA.</p>
 <h2 id="an-introduction-to-l-moments">An Introduction to L-Moments</h2>
@@ -202,27 +191,26 @@ t_{4} &amp;= l_{4} / l_{2}
 \end{aligned}
 \]</div>
 <p>Then, we compare these statistics, specifically the L-skewness and L-kurtosis to their theoretical values (given <a href="../probability-distributions/">here</a>) using one of three different metrics to select a distribution.</p>
-<p><strong>Note</strong>: Probability distributions with less than three parameters have constant L-skewness <span class="arithmatex">\(\tau_{3}\)</span> and L-kurtosis <span class="arithmatex">\(\tau_{4}\)</span> regardless of their parameters.
+<p><strong>Note</strong>: Probability distributions with two parameters have constant L-skewness <span class="arithmatex">\(\tau_{3}\)</span> and L-kurtosis <span class="arithmatex">\(\tau_{4}\)</span> regardless of their parameters.
 The L-skewness and L-kurtosis of probability distributions with three parameters is a function of the shape parameter <span class="arithmatex">\(\kappa\)</span>.
-The notation <span class="arithmatex">\(\tau_{3}(\kappa)\)</span> and <span class="arithmatex">\(\tau_{4}(\kappa)\)</span> refers to the L-skewness and L-kurtosis <em>curves</em> for the three parameter distributions.</p>
+The notation <span class="arithmatex">\(\tau_{3}(\kappa)\)</span> and <span class="arithmatex">\(\tau_{4}(\kappa)\)</span> refers to the L-skewness and L-kurtosis <em>curves</em> for three parameter distributions.</p>
 <h3 id="example-plot">Example Plot</h3>
-<p>Shown below are the L-moment curves of the <code>GEV</code>,<code>GLO</code>,<code>GNO</code>,<code>PE3</code>/<code>LP3</code>, and <code>WEI</code> distributions.
-The L-moment ratios of the two parameter distributions <code>GUM</code> and <code>NOR</code>/<code>LNO</code>.
-This example uses the "L-distance" selection metric.
-The zoomed-in region shows that the GEV distribution is most similar to the sample L-moments.</p>
+<p>Shown below are the L-moment curves of the GEV, GLO, GNO, PE3/LP3, and WEI distributions as well as the L-moment ratios of the two parameter distributions GUM and NOR/LNO.
+This L-moment diagram depicts the "L-distance" selection metric, which compares the euclidian distance between the sample and theoretical L-moment ratios.
+The inset shows that the GEV distribution (yellow line) has the closest L-moments to the data.</p>
 <p><img alt="" src="../img/plot-lmom.png" /></p>
 <h2 id="selection-metrics">Selection Metrics</h2>
 <h3 id="1-l-distance">1. L-Distance</h3>
-<p>It is the Euclidean distance between the sample <span class="arithmatex">\((t_3, t_4)\)</span> and theoretical <span class="arithmatex">\((\tau_3, \tau_4)\)</span> for each candidate distribution.
+<p>The Euclidean distance between the sample <span class="arithmatex">\((t_3, t_4)\)</span> and theoretical <span class="arithmatex">\((\tau_3, \tau_4)\)</span> for each candidate distribution.
 For 3-parameter distributions, this is the <strong>minimum</strong> distance along their L-moment ratio curve.</p>
 <h3 id="2-l-kurtosis">2. L-Kurtosis</h3>
 <p>The L-kurtosis method is only used for three-parameter probability distributions.
-First, identify the shape parameter <span class="arithmatex">\(\kappa^{*}\)</span> such that <span class="arithmatex">\(t_{3} = \tau _{3}(\kappa ^{*})\)</span>.
-Then, compare the difference between the sample L-kurtosis and the theoretical L-kurtosis using the metric <span class="arithmatex">\(|\tau_{4}(\kappa ^{*}) - t_{4} |\)</span>.</p>
+First, the shape parameter <span class="arithmatex">\(\kappa^{*}\)</span> such that <span class="arithmatex">\(t_{3} = \tau _{3}(\kappa ^{*})\)</span> is identified.
+Then, the difference between the sample L-kurtosis and the theoretical L-kurtosis is computed using the metric <span class="arithmatex">\(|\tau_{4}(\kappa ^{*}) - t_{4} |\)</span>.</p>
 <h3 id="3-z-statistic">3. Z-statistic</h3>
 <p>The Z-statistic selection metric is calculated as follows (for three-parameter distributions):</p>
 <ol>
-<li>Fit the four-parameter Kappa (K4D) distribution to the sample using <span class="arithmatex">\(t_{2}\)</span>, <span class="arithmatex">\(t_{3}\)</span>, and <span class="arithmatex">\(t_{4}\)</span>.</li>
+<li>Fit the four-parameter Kappa (K4D) distribution to the sample.</li>
 <li>Generate <span class="arithmatex">\(N_{\text{sim}}\)</span> bootstrap samples from the fitted K4D distribution.</li>
 <li>Calculate the sample L-kurtosis <span class="arithmatex">\(t_{4}^{[i]}\)</span> of each synthetic dataset.</li>
 <li>
@@ -250,9 +238,9 @@ z = \frac{\tau_{4} (\kappa ^{*}) - t_{4} + B_{4} }{ \sigma _{4}}
 <h2 id="handling-nonstationarity">Handling Nonstationarity</h2>
 <p>When nonstationarity is detected, the annual maximum series is decomposed before model selection. We consider three nonstationary scenarios that can be identified in EDA:</p>
 <ol>
-<li>Trend in mean only</li>
-<li>Trend in standard deviation only</li>
-<li>Trend in both mean and standard deviation</li>
+<li>Trend in mean only.</li>
+<li>Trend in standard deviation only.</li>
+<li>Trend in both mean and standard deviation.</li>
 </ol>
 <h3 id="decomposition-steps">Decomposition Steps</h3>
 <h4 id="scenario-1-trend-in-mean">Scenario 1: Trend in mean</h4>

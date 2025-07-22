@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -99,6 +88,28 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">MATLAB Version</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug Fixes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#framework-changes">Framework Changes</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#flood-frequency-analysis-ffa">Flood Frequency Analysis (FFA)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#distribution-changes">Distribution Changes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#model-selection-changes">Model Selection Changes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parameter-estimation-changes">Parameter Estimation Changes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#uncertainty-quantification">Uncertainty Quantification</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#model-assessment-changes">Model Assessment Changes</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
@@ -128,15 +139,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p>This page documents changes from <a href="https://zenodo.org/records/8012096">original MATLAB code</a>.</p>
-<h2 id="general-improvements">General Improvements</h2>
-<ul>
-<li>Store configuration details in YAML files instead of code.</li>
-<li>Implement a suite of unit tests using the <code>testthat</code> library.</li>
-<li>Use <code>knitr</code> and <code>rmarkdown</code> to generate reports with text, equations, and images.</li>
-<li>Easily run individual statistical tests and model fitting functions using the R package.</li>
-<li>Export reports to <code>.md</code> (Pandoc), <code>.html</code>, and <code>.pdf</code>.</li>
-</ul>
+                <h1 id="changes-from-matlab-version">Changes from MATLAB Version</h1>
+<p>This page documents changes from <a href="https://zenodo.org/records/8012096">original MATLAB code</a>.</p>
 <h2 id="exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</h2>
 <h3 id="bug-fixes">Bug Fixes</h3>
 <ul>

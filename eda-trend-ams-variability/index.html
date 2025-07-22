@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -145,37 +134,36 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="detecting-trends-in-the-ams-variability">Detecting Trends in the AMS Variability</h1>
-<p>This section describes the methods used to detect trends or changes in the <strong>variability</strong> (e.g., variance or standard deviation) of the Annual Maximum Series (AMS).</p>
+<p>This section describes the methods used to detect trends or changes in the <strong>variability</strong> (e.g., variance or standard deviation) of annual maximum series (AMS) data.</p>
 <hr />
 <h2 id="moving-window-mann-kendall-mw-mk-test">Moving Window Mann-Kendall (MW-MK) Test</h2>
-<p>The <strong>MW-MK test</strong> detects statistically significant monotonic trends in the standard deviation of an AMS time series.</p>
+<p>The <strong>MW-MK test</strong> detects statistically significant monotonic trends in the standard deviation of AMS data.</p>
 <ul>
 <li>Null hypothesis: No significant trend in the standard deviation.</li>
-<li>Alternative hypothesis: Significant trend in the standard deviation.</li>
+<li>Alternative hypothesis: Significant monotonic trend in the standard deviation.</li>
 </ul>
 <h3 id="steps">Steps</h3>
-<p>To compute the AMS standard deviations, we use a moving window algorithm. Let <span class="arithmatex">\(w\)</span> be the length of the moving window and <span class="arithmatex">\(s\)</span> be the step size:</p>
+<p>To compute the standard deviations of the AMS data, we use a moving window algorithm. Let <span class="arithmatex">\(w\)</span> be the length of the moving window and <span class="arithmatex">\(s\)</span> be the step size. Then,</p>
 <ol>
 <li>Initialize the moving window at indices <span class="arithmatex">\([1, w]\)</span>.</li>
 <li>Compute the sample standard deviation within the window.</li>
 <li>Move the window forward by <span class="arithmatex">\(s\)</span> steps.</li>
-<li>Repeat steps 2 and 3 until the window exceeds the data length.</li>
+<li>Repeat steps 2 and 3 until the window reaches the end of the data.</li>
 </ol>
 <p>This produces a time series of moving-window standard deviations. 
-Then, apply the Mann-Kendall Test to this series to test for monotonic trends.</p>
-<p>For more information about the Mann-Kendall test, see <a href="../eda-trend-ams-mean/#mann-kendall-mk-test">here</a>.</p>
+Then, the <a href="../eda-trend-ams-mean/#mann-kendall-mk-test">Mann-Kendall Test</a> is used to test for a monotonic trend in the standard deviation.</p>
 <hr />
 <h2 id="sens-trend-estimator">Sen's Trend Estimator</h2>
-<p>Used to estimate the slope of a trend in the standard deviations' time series (see <a href="../eda-trend-ams-mean/#sens-trend-estimator">here</a>).</p>
+<p>Used to estimate the slope of a trend in the standard deviations (see <a href="../eda-trend-ams-mean/#sens-trend-estimator">here</a>).</p>
 <hr />
 <h2 id="runs-test">Runs Test</h2>
-<p>Used to evaluate the randomness of residuals from a fitted trend in the standard deviations' time series (see <a href="../eda-trend-ams-mean/#runs-test">here</a>).</p>
+<p>Used to the check residuals of trend fitted to the standard deviations for randomness (see <a href="../eda-trend-ams-mean/#runs-test">here</a>).</p>
 <hr />
 <h2 id="white-test">White Test</h2>
-<p>The <strong>White Test</strong> detects time-varying variance (heteroskedasticity) in a time series.</p>
+<p>The <strong>White Test</strong> detects changes in variability (heteroskedasticity) in a time series.</p>
 <ul>
-<li>Null hypothesis: Constant variance (homoskedasticity).</li>
-<li>Alternative hypothesis: Time-dependent variance (heteroskedasticity).</li>
+<li>Null hypothesis: Constant variability (homoskedasticity).</li>
+<li>Alternative hypothesis: Time-dependent variability (heteroskedasticity).</li>
 </ul>
 <h3 id="steps_1">Steps</h3>
 <ol>

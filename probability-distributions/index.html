@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -212,99 +201,12 @@
 </tr>
 </tbody>
 </table>
-<p>Each distribution also has two nonstationary variants, which we denote by adding a <strong>nonstationary structure</strong> to the model abbreviation.
-For two-parameter distributions (<code>GUM</code>, <code>NOR</code>, <code>LNO</code>):</p>
+<p>Each distribution also has three nonstationary variants:</p>
 <ol>
-<li><code>XXX</code> is the standard, stationary model.</li>
-<li><code>XXX10</code> has a trend in the location parameter <span class="arithmatex">\(\mu\)</span>.</li>
-<li><code>XXX01</code> has a trend in the scale parameter <span class="arithmatex">\(\sigma\)</span>.</li>
-<li><code>XXX11</code> has a trend in the location <span class="arithmatex">\(\mu\)</span> and the scale <span class="arithmatex">\(\sigma\)</span>.</li>
+<li>A trend in the location parameter <span class="arithmatex">\(\mu\)</span> (+1 parameter).</li>
+<li>A trend in the scale parameter <span class="arithmatex">\(\sigma\)</span> (+1 parameter).</li>
+<li>A trend in the location <span class="arithmatex">\(\mu\)</span> and the scale <span class="arithmatex">\(\sigma\)</span> (+2 parameters).</li>
 </ol>
-<p>Shown below is a table summarizing these three models:</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th><code>XXX</code></th>
-<th><code>XXX10</code></th>
-<th><code>XXX01</code></th>
-<th><code>XXX11</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Location <span class="arithmatex">\(\mu\)</span></td>
-<td><span class="arithmatex">\(\mu\)</span> (constant)</td>
-<td><span class="arithmatex">\(\mu_t = \mu_0 + \mu_1z\)</span></td>
-<td><span class="arithmatex">\(\mu\)</span> (constant)</td>
-<td><span class="arithmatex">\(\mu_t = \mu_0 + \mu_1z\)</span></td>
-</tr>
-<tr>
-<td>Scale <span class="arithmatex">\(\sigma\)</span></td>
-<td><span class="arithmatex">\(\sigma\)</span> (constant)</td>
-<td><span class="arithmatex">\(\sigma\)</span> (constant)</td>
-<td><span class="arithmatex">\(\sigma_t = \sigma_0 + \sigma_1z\)</span></td>
-<td><span class="arithmatex">\(\sigma_t = \sigma_0 + \sigma_1z\)</span></td>
-</tr>
-<tr>
-<td>Number of Parameters</td>
-<td>2</td>
-<td>3</td>
-<td>3</td>
-<td>4</td>
-</tr>
-</tbody>
-</table>
-<p>where <span class="arithmatex">\(z\)</span> is the covariate.</p>
-<p>For three-parameter distributions (<code>GEV</code>, <code>GLO</code>, <code>GNO</code>, <code>PE3</code>, <code>LP3</code>, <code>WEI</code>):</p>
-<ol>
-<li><code>XXX</code> is the standard, stationary model.</li>
-<li><code>XXX100</code> has a trend in the location parameter <span class="arithmatex">\(\mu\)</span>.</li>
-<li><code>XXX010</code> has a trend in the scale parameter <span class="arithmatex">\(\sigma\)</span>.</li>
-<li><code>XXX110</code> has a trend in the location <span class="arithmatex">\(\mu\)</span> and the scale <span class="arithmatex">\(\sigma\)</span>.</li>
-</ol>
-<p>Shown below is a table summarizing these three models:</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th><code>XXX</code></th>
-<th><code>XXX100</code></th>
-<th><code>XXX010</code></th>
-<th><code>XXX110</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Location <span class="arithmatex">\(\mu\)</span></td>
-<td><span class="arithmatex">\(\mu\)</span> (constant)</td>
-<td><span class="arithmatex">\(\mu_t = \mu_0 + \mu_1z\)</span></td>
-<td><span class="arithmatex">\(\mu\)</span> (constant)</td>
-<td><span class="arithmatex">\(\mu_t = \mu_0 + \mu_1z\)</span></td>
-</tr>
-<tr>
-<td>Scale <span class="arithmatex">\(\sigma\)</span></td>
-<td><span class="arithmatex">\(\sigma\)</span> (constant)</td>
-<td><span class="arithmatex">\(\sigma\)</span> (constant)</td>
-<td><span class="arithmatex">\(\sigma_t = \sigma_0 + \sigma_1z\)</span></td>
-<td><span class="arithmatex">\(\sigma_t = \sigma_0 + \sigma_1z\)</span></td>
-</tr>
-<tr>
-<td>Shape <span class="arithmatex">\(\kappa\)</span></td>
-<td><span class="arithmatex">\(\kappa\)</span> (constant)</td>
-<td><span class="arithmatex">\(\kappa\)</span> (constant)</td>
-<td><span class="arithmatex">\(\kappa\)</span> (constant)</td>
-<td><span class="arithmatex">\(\kappa\)</span> (constant)</td>
-</tr>
-<tr>
-<td>Number of Parameters</td>
-<td>3</td>
-<td>4</td>
-<td>4</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
 <p>The FFA framework also uses the four-parameter Kappa distribution (KAP) for the <a href="../model-selection/#3-z-statistic">Z-statistic</a> selection metric. The Kappa distribution generalizes the nine distributions listed above.</p>
 <hr />
 <h2 id="list-of-distributions">List of Distributions<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></h2>
@@ -387,7 +289,7 @@ z_{i} = \frac{x_{i} - \mu}{\sigma }
 \begin{cases}
 \mu + (\sigma /\kappa) \leq x &lt; \infty &amp; \kappa &gt; 0 \\[5pt]
 -\infty &lt; x &lt; \infty &amp; \kappa  = 0 \\[5pt]
--\infty &lt; x \leq \mu + (\sigma/\kappa ) &amp;\kappa &lt; 0 
+-\infty &lt; x \leq \mu + (\sigma/\kappa ) &amp;\kappa &lt; 0
 \end{cases}
 \]</div>
 <p><strong>Quantiles</strong></p>
@@ -664,14 +566,14 @@ Finally, reparameterize the GEV parameters as shown <a href="#weibull-wei-distri
 \]</div>
 <p><strong>Quantiles</strong></p>
 <div class="arithmatex">\[
-x(F) = \mu + \frac{\sigma }{\kappa }\left[1 - \left(\frac{1 - F^{h}}{h}\right)^{\kappa }\right] 
+x(F) = \mu + \frac{\sigma }{\kappa }\left[1 - \left(\frac{1 - F^{h}}{h}\right)^{\kappa }\right]
 \]</div>
 <p><strong>L-Moments</strong></p>
-<p>The L-moments are defined if <span class="arithmatex">\(h \geq 0\)</span> and <span class="arithmatex">\(k &gt; -1\)</span> or if <span class="arithmatex">\(h &lt; 0\)</span> and  <span class="arithmatex">\(-1 &lt; k &lt; -1/h\)</span>.</p>
+<p>The L-moments are defined if <span class="arithmatex">\(h \geq 0\)</span> and <span class="arithmatex">\(k &gt; -1\)</span> or if <span class="arithmatex">\(h &lt; 0\)</span> and <span class="arithmatex">\(-1 &lt; k &lt; -1/h\)</span>.</p>
 <ul>
 <li><span class="arithmatex">\(\lambda_{1} = \mu  + \sigma (1 - g_{1})/\kappa\)</span></li>
 <li><span class="arithmatex">\(\lambda_{2} = \sigma(g_{1} - g_{2})/\kappa\)</span></li>
-<li><span class="arithmatex">\(\tau_{3} = (-g_{1} + 3g_{2} - 2g_{3}) / (g_{1} - g_{2})\)</span> </li>
+<li><span class="arithmatex">\(\tau_{3} = (-g_{1} + 3g_{2} - 2g_{3}) / (g_{1} - g_{2})\)</span></li>
 <li><span class="arithmatex">\(\tau_{4} = (-g_{1} + 6g_{2} - 10g_{3} + 5g_{4}) / (g_{1} - g_{2})\)</span></li>
 </ul>
 <p>In the expression above, <span class="arithmatex">\(g_{r}\)</span> is defined as follows:</p>
@@ -681,7 +583,7 @@ g_{r} = \begin{dcases}
 \frac{r\Gamma (1 + \kappa ) \Gamma (-\kappa  - r/h)}{(-h)^{1 + \kappa }\Gamma (1 - r/h)} &amp;h &lt; 0
 \end{dcases}
 \]</div>
-<p>There is no closed-form solution for the parameters in terms of the L-moments. 
+<p>There is no closed-form solution for the parameters in terms of the L-moments.
 However, <span class="arithmatex">\(\tau_{3}\)</span> and <span class="arithmatex">\(\tau_{4}\)</span> can be computed in terms of <span class="arithmatex">\(\kappa\)</span> and <span class="arithmatex">\(h\)</span> using Newton-Raphson iteration.</p>
 <h2 id="sources">Sources</h2>
 <div class="footnote">

@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -96,8 +85,14 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Roadmap</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#cran-package">CRAN Package</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#in-development">In Development</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#command-line-interface">Command Line Interface</a>
+    <li class="toctree-l3"><a class="reference internal" href="#known-issues">Known Issues</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#web-interface">Web Interface</a>
     </li>
     </ul>
                   </li>
@@ -134,60 +129,23 @@
               
                 <h1 id="roadmap">Roadmap</h1>
 <h2 id="cran-package">CRAN Package</h2>
-<p><strong>Known Issues</strong>:</p>
+<h3 id="in-development">In Development</h3>
 <ul>
-<li>Sample bootstrap yields unusually large CIs for nonstationary models</li>
-<li>RFPL breaks on some stations (i.e. Lake Louise, station ID <code>05BA001</code>)</li>
+<li>Developing workflow functions:<ul>
+<li><code>module_eda</code> for exploratory data analysis.</li>
+<li><code>module_ffa</code> for flood frequency analysis.</li>
+<li><code>ffaframework</code> for the complete framework.</li>
 </ul>
-<h2 id="command-line-interface">Command Line Interface</h2>
-<p><strong>Status</strong></p>
-<table>
-<thead>
-<tr>
-<th>Function</th>
-<th>Implemented</th>
-<th>100% Code Coverage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>validate_config</code></td>
-<td>x</td>
-<td>x</td>
-</tr>
-<tr>
-<td><code>load_data</code></td>
-<td>x</td>
-<td>x</td>
-</tr>
-<tr>
-<td><code>change_points</code></td>
-<td>x</td>
-<td>x</td>
-</tr>
-<tr>
-<td><code>trend_detection</code></td>
-<td>x</td>
-<td>x</td>
-</tr>
-<tr>
-<td><code>frequency_analysis</code></td>
-<td>x</td>
-<td>x</td>
-</tr>
-<tr>
-<td><code>ffaframework</code></td>
-<td>x</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Planned Features</strong>:</p>
+</li>
+<li>Testing the package in preparation for submission to CRAN.</li>
+</ul>
+<h3 id="known-issues">Known Issues</h3>
 <ul>
-<li>Secondary change point analysis</li>
-<li>Option to set trend signatures prior to analysis</li>
-<li>Option to export reports to formats other than <code>.html</code></li>
+<li>Sample bootstrap yields unusually large CIs for nonstationary models.</li>
+<li>RFPL breaks on some stations (i.e. Lake Louise, station ID <code>05BA001</code>).</li>
 </ul>
+<h2 id="web-interface">Web Interface</h2>
+<p>We hope to finish a web interface for the FFA framework by September 2025.</p>
               
             </div>
           </div><footer>

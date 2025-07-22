@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -82,13 +71,13 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#example-plot">Example Plot</a>
     </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#handling-nonstationarity">Handling Nonstationarity</a>
+        <ul>
     <li class="toctree-l3"><a class="reference internal" href="#example-plot_1">Example Plot</a>
     </li>
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#head">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#handling-nonstationarity">Handling Nonstationarity</a>
     </li>
     </ul>
                   </li>
@@ -142,35 +131,12 @@
               
                 <h1 id="flood-frequency-analysis-ffa">Flood Frequency Analysis (FFA)</h1>
 <h2 id="overview">Overview</h2>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-<strong>Flood Frequency Analysis (FFA)</strong> uses a <em>probability distribution</em> fitted to extreme streamflow observations (e.g., annual maxima) to estimate the <em>recurrence likelihood</em> of floods. To perform FFA, we require a <a href="../model-selection/">probability model</a> and corresponding <a href="../parameter-estimation/">parameter estimates</a> based on the data.</p>
-<p>FFA relates flood peak magnitudes <span class="arithmatex">\(Q\)</span> to their expected frequency of occurrence, expressed as a <strong>return period</strong>. For example, a flood with a 10-year return period—commonly referred to as a <strong>10-year flood</strong>—has a 1-in-10 chance of being equalled or exceeded in any given year. This corresponds to an <strong>annual exceedance probability</strong> <span class="arithmatex">\(p_e = 0.1\)</span>.<br />
-Since the FFA Framework uses <strong>annual maxima</strong> data, this equates to the 90th percentile (i.e., the <span class="arithmatex">\(0.90\)</span> quantile) of the fitted probability distribution.
-=======
-FFA uses a <em>fitted probability distribution</em> to make predictions about the <em>frequency</em> of extreme streamflow events (i.e., floods).
-To do this, we require a <a href="../model-selection/">probability model</a> <a href="../parameter-estimation/">fitted</a> to the sample.</p>
-<p>Typically, we describe the severity of floods in terms of their <em>return period</em>.
-Suppose we have a flood, referred to as <span class="arithmatex">\(Q\)</span>.
-If we expect to see a flood <em>at least as severe as</em> <span class="arithmatex">\(Q\)</span>, every ten years, then we say that <span class="arithmatex">\(Q\)</span> is a <em>ten-year flood</em>.
-Since the FFA framework uses <em>annual</em> maximum series data, a ten-year flood corresponds to an <em>exceedance probability</em> of <span class="arithmatex">\(0.1\)</span>.
-Note that an exceedance probability of <span class="arithmatex">\(0.1\)</span> corresponds to the <span class="arithmatex">\(1 - 0.1 = 0.90\)</span> quantile (non-exceedance probability) of our distribution.
-Here is a table of the return periods, exceedance probabilities, and quantiles used in the FFA framework:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>development</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Here is a summary of return periods, exceedance probabilities, and associated distribution quantiles used in the FFA framework:</p>
+<p><strong>Flood Frequency Analysis (FFA)</strong> uses a <em>probability distribution</em> fitted to extreme streamflow observations (e.g., annual maxima) to estimate the <em>recurrence likelihood</em> of floods. To perform FFA, we require a <a href="../model-selection/">probability model</a> and corresponding <a href="../parameter-estimation/">parameter estimates</a> based on the data.</p>
+<p>FFA relates flood peak magnitudes <span class="arithmatex">\(Q\)</span> to their expected frequency of occurrence, expressed as a <em>return period</em>.
+For example, a flood with a 10-year return period—commonly referred to as a <em>10-year flood</em>—has a 1-in-10 chance of being equalled or exceeded in any given year.
+This corresponds to an <em>annual exceedance probability</em> of <span class="arithmatex">\(p_e = 0.1\)</span>.
+Since the FFA Framework uses annual maxima data, this equates to the 90th percentile (i.e., the <span class="arithmatex">\(0.90\)</span> quantile) of the fitted probability distribution.</p>
+<p>Here is a summary of the return periods, exceedance probabilities, and associated quantiles used by default in the FFA framework:</p>
 <table>
 <thead>
 <tr>
@@ -212,103 +178,31 @@ Here is a table of the return periods, exceedance probabilities, and quantiles u
 </tr>
 </tbody>
 </table>
-<p>Let <span class="arithmatex">\(F(q)\)</span> be the cumulative distribution function (CDF) of the fitted model. This function maps flood magnitudes to exceedance probabilities: <span class="arithmatex">\(p_e = 1 - F(q)\)</span>.<br />
-To estimate flood magnitudes for a given exceedance probability, we use the <strong>inverse CDF</strong>, or <strong>quantile function</strong>: <span class="arithmatex">\(\hat{q} = F^{-1}(p_e)\)</span>.</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<p>Let <span class="arithmatex">\(F(q)\)</span> be the cumulative distribution function (CDF) of the fitted model. This function maps flood magnitudes to exceedance probabilities: <span class="arithmatex">\(p_e = 1 - F(q)\)</span>.
+To estimate flood magnitudes for a given exceedance probability, we use the inverse of the CDF, better known as the <em>quantile function</em>: <span class="arithmatex">\(\hat{q} = F^{-1}(p_e)\)</span>.</p>
 <h3 id="example-plot">Example Plot</h3>
 <p>FFA results are typically visualized with return period on the <span class="arithmatex">\(x\)</span>-axis and flood magnitude on the <span class="arithmatex">\(y\)</span>-axis. These plots can be interpreted in two directions:</p>
 <ol>
 <li>
-<p><strong>Estimate flood magnitude</strong> for a given return period<br />
-<em>Example</em>: A 50-year flood is estimated to be about <span class="arithmatex">\(85\ \text{m}^3/\text{s}\)</span>.</p>
+<p>Estimate <em>flood magnitude</em> for a given return period. 
+   For example, A 50-year flood is estimated to be about <span class="arithmatex">\(85\ \text{m}^3/\text{s}\)</span>.</p>
 </li>
 <li>
-<p><strong>Estimate return period</strong> for a given flood magnitude<br />
-<em>Example</em>: A streamflow of <span class="arithmatex">\(50\ \text{m}^3/\text{s}\)</span> is expected to occur roughly every 4 years.
-=======
-Suppose our fitted probability distribution has a cumulative distribution function <span class="arithmatex">\(F(x)\)</span>.
-The function <span class="arithmatex">\(F(x)\)</span> maps annual maximum flood magnitudes to quantiles/non-exceedance probabilities.
-However, we want to determine flood magnitudes from the quantiles/non-exceedance probabilities, so we use the inverse of the cumulative distribution <span class="arithmatex">\(F^{-1}(x)\)</span> instead.
-The function <span class="arithmatex">\(F^{-1}(x)\)</span> is also known as the <strong>Quantile Function</strong>.</p>
-</li>
-</ol>
-<h3 id="example-plot_1">Example Plot</h3>
-<p>We typically present the results of a flood frequency analysis as a graph with time on the <span class="arithmatex">\(x\)</span>-axis and annual maximum series on the <span class="arithmatex">\(y\)</span>-axis.
-There are two ways to read a graph like this:</p>
-<ol>
-<li>Estimate the severity of a flood for a given time period.
-    From the graph below, we could determine that every 50 years, we can expect a flood of approximately <span class="arithmatex">\(85\text{m}^3/\text{s}\)</span>.</li>
-<li>Estimate the frequency of a flood for a given severity.
-    From the graph below, we could determine that a flood of <span class="arithmatex">\(50\text{m}^3/\text{s}\)</span> or higher will occur every 4 years.<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>development</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
+<p>Estimate <em>return period</em> for a given flood magnitude.
+   For example, A streamflow of <span class="arithmatex">\(50\ \text{m}^3/\text{s}\)</span> is expected to occur roughly every 4 years.</p>
 </li>
 </ol>
 <p><img alt="An example of flood frequency estimates." src="../img/plot-s-uncertainty.png" /></p>
 <p><strong>Note</strong>: For an explanation of the confidence bounds in this plot, see <a href="../uncertainty-quantification/">Uncertainty Quantification</a>.</p>
-<h2 id="head">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</h2>
 <h2 id="handling-nonstationarity">Handling Nonstationarity</h2>
-<p>A distribution is considered <strong>nonstationary</strong> if its statistical properties (e.g., mean or variance) change over time. In such cases, the quantile function becomes time-dependent: <span class="arithmatex">\(F^{-1}(p_e, t)\)</span>.<br />
-As a result, return levels and exceedance probabilities vary with time, and a static return period curve is no longer valid.</p>
-<h1 id="to-address-this-the-ffa-framework-computes-effective-return-periods-which-yield-flood-estimates-for-a-specific-year-based-on-the-time-varying-distribution">To address this, the FFA framework computes <strong>effective return periods</strong>, which yield flood estimates for a specific year based on the time-varying distribution.</h1>
-<h2 id="handling-nonstationarity_1">Handling Nonstationarity</h2>
-<p>We say that a distribution is <strong>Nonstationary</strong> if its mean or variance (or both) are changing over time.
-Under nonstationarity, the quantile function of our fitted probability distribution is also a function of time <span class="arithmatex">\(F^{-1}(x, t)\)</span>.
-This means that our estimates and return periods also vary with time, so we cannot report a single set of estimates and confidence intervals as we did in the plot above. 
-For nonstationary models, the FFA framework computes <strong>Effective Return Periods</strong>, which are estimates based on the quantile function <em>for a specific year</em>.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>development</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<h3 id="example-plot_2">Example Plot</h3>
-<p>The plot below illustrates <strong>effective return levels</strong> for the year 2017.</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
-<blockquote>
-<p><strong>Note</strong>: A 100-year effective return level does <em>not</em> imply that such a flood is expected to occur once in the next 100 years. It means that in <strong>the year 2017</strong>, the probability of exceeding that flood magnitude is 1 in 100.</p>
-</blockquote>
+<p>A probability model is considered <em>nonstationary</em> if its statistical properties (e.g., location or scale) change over time. In such cases, the quantile function becomes time-dependent: <span class="arithmatex">\(F^{-1}(p_e, t)\)</span>.<br />
+As a result, return levels and exceedance probabilities vary with time, and a static return period curve is no longer valid.
+To address this, the FFA framework computes <em>effective return periods</em>, which yield flood estimates for a specific year based on the time-varying distribution.</p>
+<h3 id="example-plot_1">Example Plot</h3>
+<p>The plot below illustrates <em>effective return levels</em> for the year 2017.
+Remember, a 100-year effective return level does <em>not</em> imply that such a flood is expected to occur once in the next 100 years.
+It means that in <em>the year 2017</em>, the probability of exceeding that flood magnitude is 1 in 100.</p>
 <p><img alt="Example of effective return periods in 2017." src="../img/plot-ns-uncertainty.png" /></p>
-<p>=======
-<strong>Note</strong>: A flood with an effective return period of 100 years <em>will not</em> occur every 100 years due to the nonstationarity of the model.
-Instead, an effective return period of 100 years means that <em>in the anchor year</em> (2017), we predict there is a <span class="arithmatex">\(1/100\)</span> probability of a flood with the given severity. </p>
-<p><img alt="" src="../img/plot-ns-uncertainty.png" /></p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>development</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
               
             </div>
           </div><footer>

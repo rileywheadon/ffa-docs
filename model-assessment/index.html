@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -154,7 +143,10 @@
               
                 <h1 id="model-assessment">Model Assessment</h1>
 <h2 id="nonparametric-models">Nonparametric Models</h2>
-<p>A <strong>Plotting Position</strong> is a non-parametric estimator used to derive empirical exceedance probabilities. By using the plotting position, we can evaluate the quality of our parametric model. To compute the plotting position, arrange the sample observations in descending order of magnitude: <span class="arithmatex">\(x_{n:n} \geq  \dots  \geq  x_{1:n}\)</span>. Then, the empirical exceedance probabilities are given by the following formula:</p>
+<p>A <strong>Plotting Position</strong> is a non-parametric estimator used to derive empirical exceedance probabilities.
+By using the plotting position, we can evaluate the quality of our parametric model (assuming the model is stationary). 
+To compute the plotting position, arrange the sample observations in descending order of magnitude: <span class="arithmatex">\(x_{n:n} \geq  \dots  \geq  x_{1:n}\)</span>.
+Then, the empirical exceedance probabilities are given by the following formula:</p>
 <div class="arithmatex">\[
 p_{i:n} = \frac{i-a}{n+1 - 2a}, \quad i \in \{1, \dots , n\}
 \]</div>
@@ -223,18 +215,18 @@ BIC_MLL &lt;- (n * log(MLL)) + (log(n) * n_theta)
 <h2 id="uncertainty-statistics">Uncertainty Statistics</h2>
 <p>The FFA framework uses three statistics to assess the uncertainty in flood quantile estimates:</p>
 <ul>
-<li><code>AW</code> captures <strong>precision</strong> (narrower confidence intervals are better).</li>
-<li><code>POC</code> captures <strong>reliability</strong> (higher coverage of observations is better).</li>
+<li><code>AW</code> captures <em>precision</em> (narrower confidence intervals are better).</li>
+<li><code>POC</code> captures <em>reliability</em> (higher coverage of observations is better).</li>
 <li><code>CWI</code> is a composite measure balancing both precision and reliability (lower is better).</li>
 </ul>
 <p>We use these metrics together to evaluate the robustness of the flood frequency analysis.</p>
 <h3 id="aw-average-width">AW – Average Width</h3>
 <p><code>AW</code> is the average width of the interpolated confidence intervals across return periods of interest.
-A smaller <code>AW</code> indicates more <strong>precise</strong> quantile estimates.
+A smaller <code>AW</code> indicates more <em>precise</em> quantile estimates.
 To compute <code>AW</code>, we use log-linear interpolation to estimate the confidence intervals of the empirical exceedance probabilities from the confidence intervals computed during <a href="../uncertainty-quantification/">uncertainty quantification</a>.</p>
 <h3 id="poc-percent-of-coverage">POC – Percent of Coverage</h3>
 <p><code>POC</code> is the percentage of observed quantiles that fall within their corresponding confidence intervals.
-A higher <code>POC</code> indicates greater <strong>reliability</strong> of the confidence intervals.</p>
+A higher <code>POC</code> indicates greater <em>reliability</em> of the confidence intervals.</p>
 <h3 id="cwi-confidence-width-indicator">CWI – Confidence Width Indicator</h3>
 <p><code>CWI</code> is a composite metric that penalizes wide and/or poorly calibrated confidence intervals.</p>
 <ul>

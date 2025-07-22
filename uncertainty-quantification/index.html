@@ -43,22 +43,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Command Line Interface</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-getting-started/">Getting Started</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-installation-instructions/">Installation Instructions</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cli-user-manual/">User Manual</a>
-                  </li>
-              </ul>
               <p class="caption"><span class="caption-text">R Package</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../r-installation-instructions/">Installation instructions</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../r-user-manual.pdf">User Manual</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../cheat-sheet.pdf">Cheat Sheet</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../vignettes/">Vignettes</a>
                   </li>
@@ -179,7 +168,7 @@ f(\theta) = \ell_{p}(\theta) - \left[\ell_{p}(\hat{\theta}) - \frac{\chi_{1;1-\a
 \]</div>
 <p>In the FFA framework, we compute the profile likelihood of each quantile <span class="arithmatex">\(y\)</span> by reparameterizing the location parameter <span class="arithmatex">\(\mu\)</span>.
 Let <span class="arithmatex">\(q(p, \mu, \psi)\)</span> be a function that takes an exceedance probability <span class="arithmatex">\(p\)</span>, location parameter <span class="arithmatex">\(\mu\)</span> and nuisance parameters <span class="arithmatex">\(\psi\)</span> and returns a quantile <span class="arithmatex">\(y\)</span>.
-All quantile functions<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup> satisfy: </p>
+All quantile functions satisfy: </p>
 <div class="arithmatex">\[
 y = q(p, \mu, \psi) = \mu + q(p, 0, \psi)
 \]</div>
@@ -189,7 +178,7 @@ y = q(p, \mu, \psi) = \mu + q(p, 0, \psi)
 \]</div>
 <p>We use this relationship to find the profile likelihood <span class="arithmatex">\(\ell_{p}(y)\)</span> by evaluating <span class="arithmatex">\(\mu(p, y, \psi)\)</span> and substituting it into the log-likelihood functions listed <a href="../parameter-estimation/#maximum-likelihood-mle">here</a>.</p>
 <p><strong>Warning</strong>: RFPL uncertainty quantification can be numerically unstable for some datasets. 
-If the FFA framework encounters an issue, it will return an error and recommend the parametric bootstrap.</p>
+If the FFA framework encounters an issue, it will return an error and recommend the parametric bootstrap<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
 <h3 id="handling-the-weibull-distribution">Handling the Weibull Distribution</h3>
 <p>Due to support issues, we use a different reparameterization for the Weibull distribution:</p>
 <div class="arithmatex">\[
@@ -199,7 +188,8 @@ If the FFA framework encounters an issue, it will return an error and recommend 
 \Rightarrow\,&amp;\sigma_{0} = \frac{y - (\mu_{0} + \mu_{1}t)}{(-\log (1 - p))^{1 / \kappa }} - \sigma_{1}t
 \end{aligned}
 \]</div>
-<p>The derivation above uses the <code>WEI110</code> model, although the <code>WEI100</code> and <code>WEI</code> reparameterizations can be obtained easily by setting <span class="arithmatex">\(\sigma_{1} = 0\)</span> and <span class="arithmatex">\(\sigma_{1} = \mu_{1} = 0\)</span> respectively.
+<p>The derivation above uses the Weibull distribution with a trend in both the mean and the variability.
+However, the reparameterizations for other nonstationary structures can be obtained easily by setting <span class="arithmatex">\(\sigma_{1} = 0\)</span> and/or <span class="arithmatex">\(\mu_{1} = 0\)</span>.
 After solving for <span class="arithmatex">\(\sigma_{0}\)</span> in terms of the other parameters, we can use the standard log-likelihood function.</p>
 <h3 id="initialization-algorithm">Initialization Algorithm</h3>
 <p>Before we can find the roots of <span class="arithmatex">\(f\)</span>, we need to identify initial values for the regula-falsi algorithm:</p>
@@ -229,14 +219,14 @@ See <a href="../ffa-introduction/#handling-nonstationarity">here</a> for a more 
 By default, the FFA framework anchors uncertainty analysis at the <em>last</em> year of the dataset. 
 However, <a href="../model-assessment/">model assessment</a> requires confidence intervals for <em>every</em> year in the dataset.</p>
 <p><strong>Note</strong>: The parametric bootstrap algorithm is the fastest algorithm for computing confidence intervals on all years in a dataset because the probabilities used to generate the bootstrapped samples can be reused.
-The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+The RFPL and RFGPL algorithms are far slower, since they must be run separately at each timestamp.</p>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
 <p>For more information, please see the following references:</p>
 <p>Vidrio-Sahagún, C.T., He, J. Enhanced profile likelihood method for the nonstationary hydrological frequency analysis, Advances in Water Resources 161, 10451 (2022). <a href="https://doi.org/10.1016/j.advwatres.2022.104151">https://doi.org/10.1016/j.advwatres.2022.104151</a></p>
-<p>Vidrio-Sahagún, C.T., He, J. &amp; Pietroniro, A. Multi-distribution regula-falsi profile likelihood method for nonstationary hydrological frequency analysis. Stoch Environ Res Risk Assess 38, 843–867 (2024). <a href="https://doi.org/10.1007/s00477-023-02603-0">https://doi.org/10.1007/s00477-023-02603-0</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Vidrio-Sahagún, C.T., He, J. &amp; Pietroniro, A. Multi-distribution regula-falsi profile likelihood method for nonstationary hydrological frequency analysis. Stoch Environ Res Risk Assess 38, 843–867 (2024). <a href="https://doi.org/10.1007/s00477-023-02603-0">https://doi.org/10.1007/s00477-023-02603-0</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
